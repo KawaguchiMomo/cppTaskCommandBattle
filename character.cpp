@@ -1,5 +1,6 @@
 #include "character.h"
 #include <iostream>
+#include <vector>
 // コンストラクタ
 Character::Character()
 {
@@ -14,11 +15,22 @@ void Character::setName(string a)
     charaName = a;
 }
 // 名前取得
-string Character::getName()
+string Character::getName() const
 {
     return charaName;
 }
 
+// 最大HPセット
+void Character::setMaxHp(int a)
+{
+    maxHp = a;
+}
+
+// 最大HP取得
+int Character::getMaxHp() const
+{
+    return maxHp;
+}
 // HPセット
 void Character::setHp(int a)
 {
@@ -26,7 +38,7 @@ void Character::setHp(int a)
 }
 
 // HP取得
-int Character::getHp()
+int Character::getHp() const
 {
     return hp;
 }
@@ -36,7 +48,7 @@ void Character::setAttack(int a)
     attack = a;
 }
 // 攻撃力取得
-int Character::getAttack()
+int Character::getAttack() const
 {
     return attack;
 }
@@ -46,7 +58,7 @@ void Character::setDefense(int a)
     defense = a;
 }
 // 防御力取得
-int Character::getDefense()
+int Character::getDefense() const
 {
     return defense;
 }
@@ -56,28 +68,48 @@ void Character::setLuck(int a)
     luck = a;
 }
 // 運取得
-int Character::getLuck()
+int Character::getLuck() const
 {
     return luck;
 }
 
-// csvからデータを読み込む
-void Character::loadDataCSV(){
-    setName("ああああ");
-    setHp(10);
-    setAttack(10);
-    setDefense(10);
-    setLuck(10);
+// csv読み込み
+void Character::loadCSV(string filename)
+{
+    // TODO:csvから読み込み
+    setData(filename,1000,10,10,10);
+}
+
+// 読み込んだデータをセット
+void Character::setData(string charaName,int hp, int attack, int defense, int luck){
+    setName(charaName);
+    setMaxHp(hp);
+    setHp(hp);
+    setAttack(attack);
+    setDefense(defense);
+    setLuck(luck);
+}
+// スキルをセット
+void Character::setSkill(int skillNumber)
+{
+    haveSkill.push_back(skillNumber);
 }
 // スキルを選択
 int Character::inputSkill(){}
-// スキルを使用
-void Character::useSkill(int skillNumber)
+// 持っているスキル番号を取得
+int Character::useSkill(int skillNumber)
 {
-    haveSkill[skillNumber];
+    return haveSkill[skillNumber];
 }
 // ダメージを受ける
 void Character::receivedDamage(int damage)
 {
     hp-=damage;
+}
+// 現在HP/最大HPの割合を算出
+double Character::getHPPer() const
+{
+    double HPPer;
+    HPPer = static_cast<double>(getHp() / static_cast<double>(getMaxHp())) *100;
+    return HPPer;
 }
