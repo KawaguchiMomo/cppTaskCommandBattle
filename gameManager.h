@@ -6,7 +6,8 @@
 using namespace std;
 class Character;
 
-class GameManager{
+class GameManager
+{
     private:
         string victoryMessage;
     public:
@@ -15,11 +16,11 @@ class GameManager{
         // デストラクタ
         virtual ~GameManager();
         // データを表示
-        void printData(Character& character) const;
+        void printData(const Character& character) const;
         // スキルデータを表示
-        void printSkillData(string skillName,int attackRate, int biAttack) const;
+        void printSkillData(const string& skillName,int attackRate, int biAttack) const;
         // 取得しているスキル表示
-        void printHaveSkill(int i, string skillName) const;
+        void printHaveSkill(int i, const string& skillName) const;
         // HPバー表示
         void printHPBar(double par) const;
 

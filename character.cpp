@@ -4,18 +4,18 @@
 // コンストラクタ
 Character::Character()
 {
-    hp = 10;
+    isDead = false;
 }
 // デストラクタ
 Character::~Character(){}
 
 // 名前セット
-void Character::setName(string a)
+void Character::setName(const string& a)
 {
     charaName = a;
 }
 // 名前取得
-string Character::getName() const
+const string& Character::getName() const
 {
     return charaName;
 }
@@ -74,14 +74,14 @@ int Character::getLuck() const
 }
 
 // csv読み込み
-void Character::loadCSV(string filename)
+void Character::loadCSV(const string& filename)
 {
     // TODO:csvから読み込み
     setData(filename,1000,10,10,10);
 }
 
 // 読み込んだデータをセット
-void Character::setData(string charaName,int hp, int attack, int defense, int luck){
+void Character::setData(const string& charaName,int hp, int attack, int defense, int luck){
     setName(charaName);
     setMaxHp(hp);
     setHp(hp);
@@ -105,6 +105,9 @@ int Character::useSkill(int skillNumber)
 void Character::receivedDamage(int damage)
 {
     hp-=damage;
+    if(hp <= 0){
+        onDead();
+    }
 }
 // 現在HP/最大HPの割合を算出
 double Character::getHPPer() const
@@ -112,4 +115,15 @@ double Character::getHPPer() const
     double HPPer;
     HPPer = static_cast<double>(getHp() / static_cast<double>(getMaxHp())) *100;
     return HPPer;
+}
+
+// 死亡
+void Character::onDead()
+{
+    isDead = true;
+}
+// 死亡確認
+bool Character::getIsDead() const
+{
+    return isDead;
 }

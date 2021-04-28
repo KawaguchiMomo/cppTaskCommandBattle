@@ -3,11 +3,6 @@
 
 #include "character.h"
 
-#include <string>
-#include <vector>
-
-using namespace std;
-
 class Player : public Character
 {
     public:

@@ -1,7 +1,8 @@
 #include "enemy.h"
 #include <limits>
 #include <iostream>
-
+#include <time.h>
+#include <cstdlib>
 // コンストラクタ
 Enemy::Enemy()
 {
@@ -13,22 +14,22 @@ Enemy::~Enemy(){}
 // スキルを選択
 int Enemy::inputSkill()
 {
-    int skillNumber;
+    int skillNumber = 1;
     // 整数1~9以外はエラー、すでに書き込んである箇所はエラー
     while(1) {
-        // 入力させる
-        cout << "スキルを入力してください。(1~4)";
-        cin >> skillNumber;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        if(!skillNumber){
-            cout << "入力が間違っています。" << endl;
-            continue;
-        }
-        if(!(1 <= skillNumber && skillNumber <= 4)){
-            cout << "入力が間違っています。" << endl;
-            continue;
-        }
+        // 乱数作成
+        struct timespec ts;
+        // 現在時刻を取得する
+        timespec_get(&ts, TIME_UTC);
+        // 乱数のシードを設定する
+        srandom(ts.tv_nsec ^ ts.tv_sec);
+        // 乱数を生成する 
+        skillNumber = 1 + random() % 4;
+
+        // 発動条件を満たしていない場合再抽選
+        // if(!skillNumber){
+        //     continue;
+        // }
         break;
     }
     return skillNumber;

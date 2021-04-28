@@ -1,7 +1,7 @@
 #include "gameManager.h"
 #include "character.h"
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <iomanip>
 
 using namespace std;
@@ -10,7 +10,7 @@ GameManager::GameManager(){}
 // デストラクタ
 GameManager::~GameManager(){}
 // データを表示
-void GameManager::printData(Character& character) const
+void GameManager::printData(const Character& character) const
 {
     cout << "名前" << character.getName() << endl;
     cout << "HP" << character.getHp() << endl;
@@ -19,7 +19,7 @@ void GameManager::printData(Character& character) const
     cout << "運" << character.getLuck() << endl;
 
 }
-void GameManager::printSkillData(string skillName,int attackRate, int biAttack) const
+void GameManager::printSkillData(const string& skillName,int attackRate, int biAttack) const
 {
     cout << "名前" << skillName << endl;
     cout << "攻撃倍率" << attackRate << endl;
@@ -27,7 +27,7 @@ void GameManager::printSkillData(string skillName,int attackRate, int biAttack) 
 }
 
 // 取得しているスキル表示
-void GameManager::printHaveSkill(int i, string skillName) const
+void GameManager::printHaveSkill(int i, const string& skillName) const
 {
     cout << setw(2) << i << " :" << skillName << "  ";
 }
