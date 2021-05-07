@@ -12,6 +12,8 @@ class Enemy : public Character
         virtual ~Enemy();
         // スキルを選択
         int inputSkill();
+        // 死亡
+        void onDead();
 };
 
 #endif

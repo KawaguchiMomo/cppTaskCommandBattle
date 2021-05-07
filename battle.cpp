@@ -1,7 +1,6 @@
 #include "battle.h"
 #include "gameManager.h"
-#include "player.h"
-#include "enemy.h"
+#include "skill.h"
 #include "skillList.h"
 
 #include <iostream>
@@ -15,14 +14,17 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
     //スキル入力
     int useSkillNumber = attackChara.useSkill(attackChara.inputSkill());
     //スキル発動
-    cout << attackChara.getName() << "の" << skillList.getListSkillName(useSkillNumber) << "！" << endl;
-    int attack = attackChara.getAttack() * skillList.getListAttackRate(useSkillNumber);
+    const  Skill& skill = skillList.getListSkill(useSkillNumber);
+
+    cout << attackChara.getName() << "の" << skill.getSkillName() << "！" << endl;
+    int attack = attackChara.getAttack() * skill.getAttackRate();
     int defense = defenseChara.getDefense();
-    for(int i = 0 ; i < skillList.getListBiAttack(useSkillNumber);i++)
+    
+    for(int i = 0 ; i < skill.getBiAttack();i++)
     {
         int damage = (attack - defense) < 0 ? 0 : (attack - defense);
-        defenseChara.receivedDamage(damage);
         cout << defenseChara.getName() << "に" << damage << "のダメージ！" << endl;
+        defenseChara.receivedDamage(damage);
         // HPバー表示
         // gameManager.printHPBar(enemy.getHPPer());
 

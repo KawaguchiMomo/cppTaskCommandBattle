@@ -9,6 +9,17 @@ using namespace std;
 GameManager::GameManager(){}
 // デストラクタ
 GameManager::~GameManager(){}
+// 乱数のシード設定
+void GameManager::SetRand()
+{
+    // 乱数の作成
+    struct timespec ts;
+    // 現在時刻を取得する
+    timespec_get(&ts, TIME_UTC);
+    // 乱数のシードを設定する
+    srandom(ts.tv_nsec ^ ts.tv_sec);
+
+}
 // データを表示
 void GameManager::printData(const Character& character) const
 {
@@ -48,4 +59,17 @@ void GameManager::printHPBar(double par) const
     bar += "]";
 
     cout << setw(40) << bar << endl;
+}
+
+// ゲームクリア
+void GameManager::printGameClear() const 
+{
+    cout << "ゲームクリア！" << endl;
+    exit(0);
+}
+// ゲームオーバー
+void GameManager::printGameOver() const 
+{
+    cout << "ゲームオーバー…" << endl;
+    exit(0);
 }

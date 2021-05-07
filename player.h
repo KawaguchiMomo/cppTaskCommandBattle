@@ -12,6 +12,8 @@ class Player : public Character
         virtual ~Player();
         // スキルを選択
         int inputSkill();
+        // 死亡
+        void onDead();
 };
 
 #endif

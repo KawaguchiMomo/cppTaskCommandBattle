@@ -1,10 +1,13 @@
 #include "character.h"
+#include "gameManager.h"
 #include <iostream>
 #include <vector>
+
 // コンストラクタ
 Character::Character()
 {
     isDead = false;
+    haveSkill.push_back(0);
 }
 // デストラクタ
 Character::~Character(){}
@@ -73,12 +76,6 @@ int Character::getLuck() const
     return luck;
 }
 
-// csv読み込み
-void Character::loadCSV(const string& filename)
-{
-    // TODO:csvから読み込み
-    setData(filename,1000,10,10,10);
-}
 
 // 読み込んだデータをセット
 void Character::setData(const string& charaName,int hp, int attack, int defense, int luck){
@@ -95,7 +92,9 @@ void Character::setSkill(int skillNumber)
     haveSkill.push_back(skillNumber);
 }
 // スキルを選択
-int Character::inputSkill(){}
+int Character::inputSkill(){
+    return 1;
+}
 // 持っているスキル番号を取得
 int Character::useSkill(int skillNumber)
 {
@@ -117,13 +116,8 @@ double Character::getHPPer() const
     return HPPer;
 }
 
-// 死亡
-void Character::onDead()
-{
-    isDead = true;
-}
-// 死亡確認
-bool Character::getIsDead() const
-{
-    return isDead;
-}
+// // 死亡
+// void Character::onDead()
+// {
+//     isDead = true;
+// }

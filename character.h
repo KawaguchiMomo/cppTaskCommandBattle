@@ -41,8 +41,6 @@ class Character
         void setLuck(int a);
         // 運取得
         int getLuck() const;
-        // csv読み込み
-        void loadCSV(const string& filename);
         // 読み込んだデータをセット
         void setData(const string& charaName,int hp, int attack, int defense, int luck);
         // スキルをセット
@@ -56,9 +54,7 @@ class Character
         // 現在HP/最大HPの割合を算出
         double getHPPer() const;
         // 死亡
-        void onDead();
-        // 死亡確認
-        bool getIsDead() const;
+        virtual void onDead() = 0;
     protected:
         string charaName;
         int hp;

@@ -44,6 +44,11 @@ void SkillList::pushSkillList(const string& skillName,int attackRate, int biAtta
     skillList.push_back(skill);
 }
 
+// リストからスキルを取得
+Skill SkillList::getListSkill(int i) const
+{
+    return skillList[i];
+}
 
 
 // リストからスキル名取得

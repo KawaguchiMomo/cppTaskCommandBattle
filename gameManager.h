@@ -15,6 +15,8 @@ class GameManager
         GameManager();
         // デストラクタ
         virtual ~GameManager();
+        // 乱数のシード設定
+        void SetRand();
         // データを表示
         void printData(const Character& character) const;
         // スキルデータを表示
@@ -23,7 +25,10 @@ class GameManager
         void printHaveSkill(int i, const string& skillName) const;
         // HPバー表示
         void printHPBar(double par) const;
-
+        // ゲームクリア
+        void printGameClear() const;
+        // ゲームオーバー
+        void printGameOver() const;
 };
 
 #endif

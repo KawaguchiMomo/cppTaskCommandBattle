@@ -1,9 +1,8 @@
 #ifndef _BATTLE_H
 #define _BATTLE_H
 
-#include "player.h"
-#include "enemy.h"
-#include "skillList.h"
+class Character;
+class SkillList;
 
 class Battle
 {

@@ -1,6 +1,9 @@
+#include "csvLoader.h"
 #include "character.h"
 #include "player.h"
+#include "playerList.h"
 #include "enemy.h"
+#include "enemyList.h"
 #include "gameManager.h"
 #include "skillList.h"
 #include "skill.h"
@@ -15,20 +18,28 @@ const int MAXHAVESKILL = 4;
 
 int main(){
     
+    CsvLoader csvLoader;
     Player player;
+    PlayerList playerList;
     Enemy enemy;
+    EnemyList enemyList;
     GameManager gameManager;
     SkillList skillList;
     Skill skill;
     Battle battle;
 
+    // 乱数のシード設定
+    gameManager.SetRand();
+
     // TODO:csvから読み込みできるように
-    player.loadCSV("ああああ.csv");
-    enemy.loadCSV("エネミー.csv");
+    // csvLoader.loadCSV("playerData");
+    playerList.loadCSV("../playerData.csv");
+    enemyList.loadCSV("../enemyData.csv");
     skillList.loadCSV("skill.csv");
 
     // 読み込んだ情報を表示(テスト用)
-    gameManager.printData(player);
+    gameManager.printData(playerList.getPlayer(0));
+    gameManager.printData(enemyList.getEnemy(0));
     
     // 読み込んだスキル表示（テスト用）
     // for (int i = 0;i<5;i++)
@@ -38,19 +49,14 @@ int main(){
 
     // プレイヤーにスキルをセット
     // ex) 自分でスキルを選択する式の場合はここの処理を手動入力できるようにする
-    player.setSkill(0); // 1から入力してもらうためにダミー
-    player.setSkill(1);
-    player.setSkill(2);
-    player.setSkill(3);
-    player.setSkill(4);
+    player = playerList.getPlayer(0);
+    for(auto& v : playerList.getPlayerList())
+    {
+        cout << v.getName() << endl;
+    }
 
     // エネミーにスキルをセット
-    // csvから読み込みできるようにする
-    enemy.setSkill(0); // 1から入力してもらうためにダミー
-    enemy.setSkill(1);
-    enemy.setSkill(2);
-    enemy.setSkill(3);
-    enemy.setSkill(4);
+    enemy = enemyList.getEnemy(0);
 
     while(1)
     {
@@ -67,7 +73,7 @@ int main(){
 
         // セットしたスキルを表示
         for(int i = 1; i <= MAXHAVESKILL; i++){
-            gameManager.printHaveSkill(i, skillList.getListSkillName(i));
+            gameManager.printHaveSkill(i, (skillList.getListSkillName(player.useSkill(i))));
         }
         cout << endl;
 
@@ -76,19 +82,6 @@ int main(){
         battle.startBattle(player,enemy,skillList);
         battle.startBattle(enemy,player,skillList);
 
-
-
-
-        // ここで勝敗判定すると引き分けもあり得る仕様になる
-        // 倒した時点で終わりにしたい場合ロジック修正
-        if(enemy.getIsDead()){
-            cout << "ゲームクリア！" << endl;
-            exit(0);
-        }
-        if(player.getIsDead()){
-            cout << "ゲームオーバー…" << endl;
-            exit(0);
-        }
     }
 
 }

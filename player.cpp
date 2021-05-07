@@ -1,4 +1,5 @@
 #include "player.h"
+#include "gameManager.h"
 #include <limits>
 #include <iostream>
 
@@ -36,3 +37,10 @@ int Player::inputSkill()
     return skillNumber;
 }
 
+// 死亡
+void Player::onDead() 
+{
+    isDead = true;
+    GameManager gameManager;
+    gameManager.printGameOver();
+}
