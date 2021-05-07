@@ -22,13 +22,13 @@ const string& Skill::getSkillName() const
 {
     return skillName;
 }
-// 攻撃力セット
-void Skill::setAttackRate(int a)
+// 攻撃倍率セット
+void Skill::setAttackRate(double a)
 {
     attackRate = a;
 }
-// 攻撃力取得
-int Skill::getAttackRate() const
+// 攻撃倍率取得
+double Skill::getAttackRate() const
 {
     return attackRate;
 }

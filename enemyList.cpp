@@ -5,7 +5,10 @@
 #include "csvLoader.h"
 #include <iostream>
 // コンストラクタ
-EnemyList::EnemyList(){}
+EnemyList::EnemyList(){
+    Enemy enemy;
+    enemyList.push_back(enemy);
+}
 // デストラクタ
 EnemyList::~EnemyList(){}
 
@@ -18,11 +21,12 @@ void EnemyList::loadCSV(const string& filename)
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
     // ラベルと一致する番号を取得
-    auto label = loadData[0];
+    auto& label = loadData[0];
     int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
+    int labelIndexImage = csvLoader.getLabelIndex(label, "IMAGE");
     int labelIndexHP = csvLoader.getLabelIndex(label, "HP");
-    int labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
-    int labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
+    double labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
+    double labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
     int labelIndexLuck = csvLoader.getLabelIndex(label, "LUC");
     int labelIndexSkill1 = csvLoader.getLabelIndex(label, "SKILL1");
     int labelIndexSkill2 = csvLoader.getLabelIndex(label, "SKILL2");
@@ -38,6 +42,7 @@ void EnemyList::loadCSV(const string& filename)
         }
         Enemy enemy;
         enemy.setName(v[labelIndexName]);
+        enemy.setImage(v[labelIndexImage]);
         enemy.setMaxHp(stoi(v[labelIndexHP]));
         enemy.setHp(stoi(v[labelIndexHP]));
         enemy.setAttack(stoi(v[labelIndexAttack]));
@@ -50,14 +55,18 @@ void EnemyList::loadCSV(const string& filename)
         setEnemy(enemy);
     }
 }
-
+// リストを取得
+const vector<Enemy>& EnemyList::getEnemyList() const
+{
+    return enemyList;
+} 
 // リストにキャラをセット
 void EnemyList::setEnemy(Enemy& enemy)
 {
     enemyList.push_back(enemy);
 }
 // リストからキャラ取得
-Enemy& EnemyList::getEnemy(int i)
+const Enemy& EnemyList::getEnemy(int i) const
 {
     return enemyList[i];
 }

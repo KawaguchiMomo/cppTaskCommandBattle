@@ -21,7 +21,7 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
 
     vector<vector<string> > data;
     string str_buf;
-    string str_conma_buf;
+    string str_comma_buf;
     string csvFilePath = "./";
     string inputFilePath = csvFilePath + name;
 
@@ -39,9 +39,9 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
         data.push_back(vector<string>());
 
         // データ読み込み
-        while (getline(i_stream, str_conma_buf, ',')) {
-            data[data.size()-1].push_back(str_conma_buf);
-            // cout << str_conma_buf << endl;
+        while (getline(i_stream, str_comma_buf, ',')) {
+            data[data.size()-1].push_back(str_comma_buf);
+            // cout << str_comma_buf << endl;
         }
     }
     cout << "読み込み終了" << endl;
@@ -54,7 +54,7 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
 }
 
 // csvラベルの取得
-int CsvLoader::getLabelIndex(vector<string> label, const string& labelName)
+int CsvLoader::getLabelIndex(const vector<string>& label, const string& labelName)
 {
     auto itr = find(label.begin(), label.end(), labelName);
     int labelIndex = 0;

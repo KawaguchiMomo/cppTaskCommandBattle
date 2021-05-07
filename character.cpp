@@ -23,6 +23,17 @@ const string& Character::getName() const
     return charaName;
 }
 
+// 見た目セット
+void Character::setImage(const string& a)
+{
+    charaImage = a;
+}
+// 見た目取得
+const string& Character::getImage() const
+{
+    return charaImage;
+}
+
 // 最大HPセット
 void Character::setMaxHp(int a)
 {
@@ -46,22 +57,22 @@ int Character::getHp() const
     return hp;
 }
 // 攻撃力セット
-void Character::setAttack(int a)
+void Character::setAttack(double a)
 {
     attack = a;
 }
 // 攻撃力取得
-int Character::getAttack() const
+double Character::getAttack() const
 {
     return attack;
 }
 // 防御力セット
-void Character::setDefense(int a)
+void Character::setDefense(double a)
 {
     defense = a;
 }
 // 防御力取得
-int Character::getDefense() const
+double Character::getDefense() const
 {
     return defense;
 }
@@ -96,7 +107,7 @@ int Character::inputSkill(){
     return 1;
 }
 // 持っているスキル番号を取得
-int Character::useSkill(int skillNumber)
+int Character::useSkill(int skillNumber) const
 {
     return haveSkill[skillNumber];
 }
@@ -116,8 +127,4 @@ double Character::getHPPer() const
     return HPPer;
 }
 
-// // 死亡
-// void Character::onDead()
-// {
-//     isDead = true;
-// }
+

@@ -1,28 +1,28 @@
-#ifndef _PLAYER_LIST_H_
-#define _PLAYER_LIST_H_
+#ifndef _CHARACTER_LIST_H_
+#define _CHARACTER_LIST_H_
 #include <string>
 
 #include <vector>
 using namespace std;
-class Player;
+class Character;
 
-class PlayerList
+class CharacterList
 {
     private:
-        vector<Player> playerList;
+        vector<Character> characterList;
     public:
         // コンストラクタ
-        PlayerList();
+        CharacterList();
         // デストラクタ
-        virtual ~PlayerList();
+        virtual ~CharacterList();
         // csv読み込み
         void loadCSV(const string& filename);
         // リストを取得
-        const vector<Player>& getPlayerList() const; 
+        const vector<Character>& getCharacterList() const; 
         // リストにキャラをセット
-        void setPlayer(Player& player);
+        void setCharacter(Character& character);
         // リストからキャラ取得
-        const Player& getPlayer(int i) const;
+        Character getCharacter(int i) const;
 };
 
 #endif

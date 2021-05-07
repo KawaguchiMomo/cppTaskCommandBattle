@@ -17,10 +17,12 @@ class EnemyList
         virtual ~EnemyList();
         // csv読み込み
         void loadCSV(const string& filename);
+        // リストを取得
+        const vector<Enemy>& getEnemyList() const; 
         // リストにキャラをセット
         void setEnemy(Enemy& enemy);
         // リストからキャラ取得
-        Enemy& getEnemy(int i);
+        const Enemy& getEnemy(int i) const;
 };
 
 #endif

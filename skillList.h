@@ -31,6 +31,8 @@ class SkillList
         // csv読み込み
         void loadCSV(const string& filename);
         // リストにセット
+        void setSkill(Skill skill);
+        // リストにセット(不要)
         void pushSkillList(const string& skillName,int attackRate, int biAttack);
         // リストからスキルを取得
         Skill getListSkill(int i) const;

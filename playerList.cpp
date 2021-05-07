@@ -5,7 +5,10 @@
 #include "csvLoader.h"
 #include <iostream>
 // コンストラクタ
-PlayerList::PlayerList(){}
+PlayerList::PlayerList(){
+    Player player;
+    playerList.push_back(player);
+}
 // デストラクタ
 PlayerList::~PlayerList(){}
 
@@ -18,11 +21,12 @@ void PlayerList::loadCSV(const string& filename)
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
     // ラベルと一致する番号を取得
-    auto label = loadData[0];
+    auto& label = loadData[0];
     int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
+    int labelIndexImage = csvLoader.getLabelIndex(label, "IMAGE");
     int labelIndexHP = csvLoader.getLabelIndex(label, "HP");
-    int labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
-    int labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
+    double labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
+    double labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
     int labelIndexLuck = csvLoader.getLabelIndex(label, "LUC");
     int labelIndexSkill1 = csvLoader.getLabelIndex(label, "SKILL1");
     int labelIndexSkill2 = csvLoader.getLabelIndex(label, "SKILL2");
@@ -38,10 +42,11 @@ void PlayerList::loadCSV(const string& filename)
         }
         Player player;
         player.setName(v[labelIndexName]);
+        player.setImage(v[labelIndexImage]);
         player.setMaxHp(stoi(v[labelIndexHP]));
         player.setHp(stoi(v[labelIndexHP]));
-        player.setAttack(stoi(v[labelIndexAttack]));
-        player.setDefense(stoi(v[labelIndexDefense]));
+        player.setAttack(stod(v[labelIndexAttack]));
+        player.setDefense(stod(v[labelIndexDefense]));
         player.setLuck(stoi(v[labelIndexLuck]));
         player.setSkill(stoi(v[labelIndexSkill1]));
         player.setSkill(stoi(v[labelIndexSkill2]));
@@ -62,7 +67,7 @@ void PlayerList::setPlayer(Player& player)
     playerList.push_back(player);
 }
 // リストからキャラ取得
-Player& PlayerList::getPlayer(int i)
+const Player& PlayerList::getPlayer(int i) const
 {
     return playerList[i];
 }

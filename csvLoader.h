@@ -16,7 +16,7 @@ class CsvLoader
         // csv読み込み
         vector<vector<string> > loadCSV(const string& name);
         // csvラベルの取得
-        int getLabelIndex(vector<string> label, const string& labelName);
+        int getLabelIndex(const vector<string>& label, const string& labelName);
 };
 
 #endif

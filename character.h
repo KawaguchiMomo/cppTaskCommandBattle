@@ -21,6 +21,10 @@ class Character
         void setName(const string& a);
         // 名前取得
         const string& getName() const;
+        // 見た目セット
+        void setImage(const string& a);
+        // 見た目取得
+        const string& getImage() const;
         // HPセット
         void setMaxHp(int a);
         // HP取得
@@ -30,13 +34,13 @@ class Character
         // HP取得
         int getHp() const;
         // 攻撃力セット
-        void setAttack(int a);
+        void setAttack(double a);
         // 攻撃力取得
-        int getAttack() const;
+        double getAttack() const;
         // 防御力セット
-        void setDefense(int a);
+        void setDefense(double a);
         // 防御力取得
-        int getDefense() const;
+        double getDefense() const;
         // 運セット
         void setLuck(int a);
         // 運取得
@@ -47,8 +51,8 @@ class Character
         void setSkill(int skillNumber);
         // スキルを選択
         virtual int inputSkill() = 0;
-        // スキルを使用
-        int useSkill(int skillNumber);
+        // 持っているスキル番号を取得
+        int useSkill(int skillNumber) const;
         // ダメージを受ける
         virtual void receivedDamage(int damage);
         // 現在HP/最大HPの割合を算出
@@ -57,10 +61,11 @@ class Character
         virtual void onDead() = 0;
     protected:
         string charaName;
+        string charaImage;
         int hp;
         int maxHp;
-        int attack;
-        int defense;
+        double attack;
+        double defense;
         int luck;
         vector<int> haveSkill;
         bool isDead;
