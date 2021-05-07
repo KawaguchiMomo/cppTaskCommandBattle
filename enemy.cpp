@@ -32,6 +32,6 @@ int Enemy::inputSkill()
 void Enemy::onDead() 
 {
     isDead = true;
-    GameManager gameManager;
+    GameManager &gameManager = GameManager::get_instance();
     gameManager.printGameClear();
 }

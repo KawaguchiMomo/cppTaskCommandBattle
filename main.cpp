@@ -23,7 +23,7 @@ int main(){
     PlayerList playerList;
     Enemy enemy;
     EnemyList enemyList;
-    GameManager gameManager;
+    GameManager &gameManager = GameManager::get_instance();
     SkillList skillList;
     Skill skill;
     Battle battle;
@@ -52,9 +52,12 @@ int main(){
     // エネミーにスキルをセット
     enemy = gameManager.inputUseEnemy(enemyList);
 
+    gameManager.SetCharacterData(&player, &enemy);
+
     while(1)
     {
-        gameManager.printBattleWindow(player, enemy);
+
+        gameManager.printBattleWindow();
         // セットしたスキルを表示
         gameManager.printHaveSkill(player, skillList);
         cout << endl;

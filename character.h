@@ -55,6 +55,8 @@ class Character
         int useSkill(int skillNumber) const;
         // ダメージを受ける
         virtual void receivedDamage(int damage);
+        // 死亡判定
+        void judgeDead();
         // 現在HP/最大HPの割合を算出
         double getHPPer() const;
         // 死亡

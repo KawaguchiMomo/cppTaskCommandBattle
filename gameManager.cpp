@@ -11,10 +11,22 @@
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
+#include <random>
+#include <chrono>
+#include <thread>
+
+using std::this_thread::sleep_for;
 
 using namespace std;
 // スキル所持最大数
 const int MAXHAVESKILL = 4;
+
+// 呼び出し
+GameManager& GameManager::get_instance()
+{
+    static GameManager instance;
+    return instance;
+}
 
 // コンストラクタ
 GameManager::GameManager(){}
@@ -23,14 +35,16 @@ GameManager::~GameManager(){}
 // 乱数のシード設定
 void GameManager::SetRand()
 {
-    // 乱数の作成
-    struct timespec ts;
-    // 現在時刻を取得する
-    timespec_get(&ts, TIME_UTC);
-    // 乱数のシードを設定する
-    srandom(ts.tv_nsec ^ ts.tv_sec);
-
 }
+// 乱数の作成
+int GameManager::GetRand(int min, int max)
+{
+    random_device seed_gen;
+    default_random_engine engine(seed_gen());
+    uniform_int_distribution<> dist(min, max);
+    return dist(engine);
+}
+
 // プレイヤーを選択
 const Player& GameManager::inputUsePlayer(const PlayerList& playerList)
 {
@@ -64,6 +78,15 @@ const Enemy& GameManager::inputUseEnemy(const EnemyList& enemyList)
     printLine();
     return enemyList.getEnemy(enemyNumber);
 }
+// コマンドを選択
+int GameManager::inputUseSkill()
+{
+    printLine();
+
+    int skillNumber = inputNumber("コマンドを選んでください", 1, MAXHAVESKILL+1);
+    printLine();
+    return skillNumber;
+}
 
 // 入力とチェック
 int GameManager::inputNumber(const string& message,int min, int max){
@@ -86,6 +109,14 @@ int GameManager::inputNumber(const string& message,int min, int max){
         return inputNumber;
     }
 }
+
+// 文章表示
+void GameManager::printMessage(const string& message) const
+{
+    printBattleWindow();
+    cout << message << endl;
+    sleep_for(std::chrono::milliseconds(1000));
+}
 // データを表示
 void GameManager::printData(const Character& character) const
 {
@@ -102,18 +133,26 @@ void GameManager::printSkillData(const string& skillName,int attackRate, int biA
     cout << "攻撃倍率" << attackRate << endl;
     cout << "攻撃回数" << biAttack << endl;
 }
-// 戦闘画面表示
-void GameManager::printBattleWindow(const Player& player, const Enemy& enemy) const
+
+// 画面表示のためにデータを登録
+void GameManager::SetCharacterData(Player* player, Enemy* enemy)
 {
+    usePlayer = player;
+    useEnemy = enemy;
+}
+// 戦闘画面表示
+void GameManager::printBattleWindow() const
+{
+    system("clear");
     printLine();
     cout << endl;
-    cout << enemy.getName() << "のHP " << enemy.getImage() << endl;
-    printHPBar(enemy.getHPPer());
+    cout << useEnemy->getName() << "のHP " << useEnemy->getImage() << endl;
+    printHPBar(useEnemy->getHPPer());
 
     cout << endl;
     cout << endl;
-    cout << player.getName() << "のHP "<< player.getImage() << endl;
-    printHPBar(player.getHPPer());
+    cout << usePlayer->getName() << "のHP "<< usePlayer->getImage() << endl;
+    printHPBar(usePlayer->getHPPer());
 
     printLine();
 }
@@ -158,12 +197,14 @@ void GameManager::printLine() const
 // ゲームクリア
 void GameManager::printGameClear() const 
 {
-    cout << "ゲームクリア！" << endl;
+    string message = "ゲームクリア！";
+    printMessage(message);
     exit(0);
 }
 // ゲームオーバー
 void GameManager::printGameOver() const 
 {
-    cout << "ゲームオーバー…" << endl;
+    string message = "ゲームオーバー…";
+    printMessage(message);
     exit(0);
 }

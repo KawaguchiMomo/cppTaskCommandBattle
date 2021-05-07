@@ -115,6 +115,13 @@ int Character::useSkill(int skillNumber) const
 void Character::receivedDamage(int damage)
 {
     hp-=damage;
+    // if(hp <= 0){
+    //     onDead();
+    // }
+}
+// 死亡判定
+void Character::judgeDead()
+{
     if(hp <= 0){
         onDead();
     }
