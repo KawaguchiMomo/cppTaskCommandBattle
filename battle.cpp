@@ -14,20 +14,33 @@ Battle::~Battle(){}
 
 void Battle::startBattle(Character& attackChara, Character& defenseChara, const SkillList& skillList){
     GameManager &gameManager = GameManager::get_instance();
-    //スキル入力
-    int useSkillNumber = attackChara.useSkill(attackChara.inputSkill());
-    //スキル発動
-    const Skill& skill = skillList.getListSkill(useSkillNumber);
+    Skill skill;
+    while(1)
+    {
+        //スキル入力
+        int getSkillNumber = attackChara.inputSkill();
+        //スキル発動
+        skill = attackChara.getSkill(getSkillNumber);
+                    cout << skill.getCanUseNumber() << endl;
+
+        // スキル残り使用回数確認
+        if(skill.getCanUseNumber() == 0)
+        {
+            string message = skill.getSkillName() + "は残り使用回数がない！";
+            gameManager.printMessage(message);
+        }else{
+            // 残り使用回数減少
+            attackChara.UsedCanUseNumber(getSkillNumber);
+            break;
+        }
+    }
 
     string message = attackChara.getName() + "の" + skill.getSkillName() + "！";
     gameManager.printMessage(message);
-
-    // cout << "攻撃力: " << attack << endl << "防御力: " << defense << endl;
-    
+   
     for(int i = 0 ; i < skill.getBiAttack();i++)
     {
         double random = (double)gameManager.GetRand(5, 15) / 10;
-        // cout << random << endl;
         double attack = attackChara.getAttack() * skill.getAttackRate() * random;
 
         // クリティカル判定

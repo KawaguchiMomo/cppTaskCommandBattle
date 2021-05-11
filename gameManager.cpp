@@ -62,6 +62,22 @@ const Player& GameManager::inputUsePlayer(const PlayerList& playerList)
     return playerList.getPlayer(playerNumber);
 }
 
+// 取得スキルを選択
+Skill GameManager::inputUseSkill(const SkillList& skillList)
+{
+    int skillListSize = (int)skillList.getSkillList().size();
+    for(int i = 1 ; i < skillListSize ; i++)
+    {
+        cout << i << ": " << skillList.getSkillList()[i].getSkillName() << " ";
+        if(i % 4 == 0) { cout << endl; }
+    }
+    cout << endl; 
+    int skillNumber = inputNumber("スキルを選んでください", 1, skillListSize);
+    printLine();
+    cout << skillList.getListSkill(skillNumber).getSkillName() << endl;
+    return skillList.getListSkill(skillNumber);
+}
+
 // エネミーを選択
 const Enemy& GameManager::inputUseEnemy(const EnemyList& enemyList)
 {
@@ -79,7 +95,7 @@ const Enemy& GameManager::inputUseEnemy(const EnemyList& enemyList)
     return enemyList.getEnemy(enemyNumber);
 }
 // コマンドを選択
-int GameManager::inputUseSkill()
+int GameManager::inputSkill()
 {
     printLine();
 
@@ -162,9 +178,17 @@ void GameManager::printBattleWindow() const
 void GameManager::printHaveSkill(const Player& player, const SkillList& skillList) const
 {
     for(int i = 1; i <= MAXHAVESKILL; i++){
-        Skill skill = skillList.getListSkill(player.useSkill(i));
+        Skill skill = player.getSkill(i);
         string skillName = skill.getSkillName();
-        cout << setw(2) << i << " :" << skillName << "  ";
+        int skillCanUseNumber = skill.getCanUseNumber();
+
+        string canUseNumber;
+        if(skillCanUseNumber == -1){
+            canUseNumber = "";
+        }else{
+            canUseNumber = "(" + to_string(skillCanUseNumber) + ")";
+        }
+        cout << setw(2) << i << " :" << skillName << canUseNumber << "  ";
     }
 
 }

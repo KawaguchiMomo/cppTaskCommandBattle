@@ -46,22 +46,30 @@ int main(){
     // }
 
     // プレイヤーにスキルをセット
-    // ex) 自分でスキルを選択する式の場合はここの処理を手動入力できるようにする
     player = gameManager.inputUsePlayer(playerList);
+    player.setSkill(skillList.getListSkill(0));
+    player.setSkill(gameManager.inputUseSkill(skillList));
+    player.setSkill(gameManager.inputUseSkill(skillList));
+    player.setSkill(gameManager.inputUseSkill(skillList));
+    player.setSkill(gameManager.inputUseSkill(skillList));
 
     // エネミーにスキルをセット
     enemy = gameManager.inputUseEnemy(enemyList);
+    enemy.setSkill(skillList.getListSkill(0));
+    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(1)));
+    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(2)));
+    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(3)));
+    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(4)));
 
+    // 戦うキャラクターのデータを表示系にセット
     gameManager.SetCharacterData(&player, &enemy);
 
     while(1)
     {
-
         gameManager.printBattleWindow();
         // セットしたスキルを表示
         gameManager.printHaveSkill(player, skillList);
         cout << endl;
-
         gameManager.printLine();
         battle.startBattle(player,enemy,skillList);
         battle.startBattle(enemy,player,skillList);

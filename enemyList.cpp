@@ -25,8 +25,8 @@ void EnemyList::loadCSV(const string& filename)
     int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
     int labelIndexImage = csvLoader.getLabelIndex(label, "IMAGE");
     int labelIndexHP = csvLoader.getLabelIndex(label, "HP");
-    double labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
-    double labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
+    int labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
+    int labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
     int labelIndexLuck = csvLoader.getLabelIndex(label, "LUC");
     int labelIndexSkill1 = csvLoader.getLabelIndex(label, "SKILL1");
     int labelIndexSkill2 = csvLoader.getLabelIndex(label, "SKILL2");
@@ -48,10 +48,10 @@ void EnemyList::loadCSV(const string& filename)
         enemy.setAttack(stoi(v[labelIndexAttack]));
         enemy.setDefense(stoi(v[labelIndexDefense]));
         enemy.setLuck(stoi(v[labelIndexLuck]));
-        enemy.setSkill(stoi(v[labelIndexSkill1]));
-        enemy.setSkill(stoi(v[labelIndexSkill2]));
-        enemy.setSkill(stoi(v[labelIndexSkill3]));
-        enemy.setSkill(stoi(v[labelIndexSkill4]));
+        enemy.setSkillNumber(stoi(v[labelIndexSkill1]));
+        enemy.setSkillNumber(stoi(v[labelIndexSkill2]));
+        enemy.setSkillNumber(stoi(v[labelIndexSkill3]));
+        enemy.setSkillNumber(stoi(v[labelIndexSkill4]));
         setEnemy(enemy);
     }
 }

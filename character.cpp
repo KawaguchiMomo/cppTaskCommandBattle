@@ -7,7 +7,7 @@
 Character::Character()
 {
     isDead = false;
-    haveSkill.push_back(0);
+    haveSkillNumber.push_back(0);
 }
 // デストラクタ
 Character::~Character(){}
@@ -97,27 +97,41 @@ void Character::setData(const string& charaName,int hp, int attack, int defense,
     setDefense(defense);
     setLuck(luck);
 }
-// スキルをセット
-void Character::setSkill(int skillNumber)
+// スキル番号をセット
+void Character::setSkillNumber(int skillNumber)
 {
-    haveSkill.push_back(skillNumber);
+    haveSkillNumber.push_back(skillNumber);
 }
+// 持っているスキル番号を取得
+int Character::getSkillNumber(int skillNumber) const
+{
+    return haveSkillNumber[skillNumber];
+}
+// スキルをセット
+void Character::setSkill(const Skill& skill)
+{
+    haveSkill.push_back(skill);
+}
+// 持っているスキルを取得
+const Skill& Character::getSkill(int skillNumber) const
+{
+    return haveSkill[skillNumber];
+}
+
 // スキルを選択
 int Character::inputSkill(){
     return 1;
 }
-// 持っているスキル番号を取得
-int Character::useSkill(int skillNumber) const
+// スキル回数を減少
+void Character::UsedCanUseNumber(int skillNumber)
 {
-    return haveSkill[skillNumber];
+    haveSkill[skillNumber].UsedCanUseNumber();
 }
+
 // ダメージを受ける
 void Character::receivedDamage(int damage)
 {
     hp-=damage;
-    // if(hp <= 0){
-    //     onDead();
-    // }
 }
 // 死亡判定
 void Character::judgeDead()
@@ -133,5 +147,3 @@ double Character::getHPPer() const
     HPPer = static_cast<double>(getHp() / static_cast<double>(getMaxHp())) *100;
     return HPPer;
 }
-
-

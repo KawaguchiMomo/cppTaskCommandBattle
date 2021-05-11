@@ -4,10 +4,7 @@
 #include <iostream>
 
 // コンストラクタ
-Player::Player()
-{
-
-}
+Player::Player(){}
 // デストラクタ
 Player::~Player(){}
 
@@ -15,7 +12,7 @@ Player::~Player(){}
 int Player::inputSkill()
 {
     GameManager &gameManager = GameManager::get_instance();
-    int skillNumber=gameManager.inputUseSkill();
+    int skillNumber = gameManager.inputSkill();
     return skillNumber;
 }
 

@@ -1,13 +1,8 @@
 #include "skill.h"
 #include <vector>
+
 // コンストラクタ
-Skill::Skill()
-{
-    //string skillName,int attackRate, int biAttack
-    // this->skillName = skillName;
-    // this->attackRate = attackRate;
-    // this->biAttack = biAttack;
-}
+Skill::Skill(){}
 // デストラクタ
 Skill::~Skill(){}
 
@@ -41,4 +36,19 @@ void Skill::setBiAttack(int a)
 int Skill::getBiAttack() const
 {
     return biAttack;
+}
+// 残り使用回数セット
+void Skill::setCanUseNumber(int a)
+{
+    canUseNumber = a;
+}
+// 残り使用回数取得
+int Skill::getCanUseNumber() const
+{
+    return canUseNumber;
+}
+// 残り使用回数減少
+void Skill::UsedCanUseNumber()
+{
+    canUseNumber-=1;
 }

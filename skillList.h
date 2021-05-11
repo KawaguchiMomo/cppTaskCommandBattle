@@ -16,6 +16,8 @@ class SkillList
         SkillList();
         // デストラクタ
         virtual ~SkillList();
+        // リストを取得
+        vector<Skill> getSkillList() const;
         // スキル名セット
         void setSkillName(const string& a);
         // スキル名取得

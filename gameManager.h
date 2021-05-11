@@ -31,6 +31,8 @@ class GameManager
         void SetRand();
         // 乱数の作成
         int GetRand(int min, int max);
+        // 取得スキルを選択
+        Skill inputUseSkill(const SkillList& skillList);
         // プレイヤーを選択
         const Player& inputUsePlayer(const PlayerList& playerList);
         //
@@ -38,7 +40,7 @@ class GameManager
         // エネミーを選択
         const Enemy& inputUseEnemy(const EnemyList& enemyList);
         // コマンドを選択
-        int inputUseSkill();
+        int inputSkill();
         // データを表示
         void printData(const Character& character) const;
         // スキルデータを表示

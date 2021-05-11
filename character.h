@@ -47,12 +47,18 @@ class Character
         int getLuck() const;
         // 読み込んだデータをセット
         void setData(const string& charaName,int hp, int attack, int defense, int luck);
+        // スキル番号をセット
+        void setSkillNumber(int skillNumber);
+        // 持っているスキル番号を取得
+        int getSkillNumber(int skillNumber) const;
         // スキルをセット
-        void setSkill(int skillNumber);
+        void setSkill(const Skill& skill);
+        // 持っているスキルを取得
+        const Skill& getSkill(int skillNumber) const;
+        // スキル回数を減少
+        void UsedCanUseNumber(int skillNumber);
         // スキルを選択
         virtual int inputSkill() = 0;
-        // 持っているスキル番号を取得
-        int useSkill(int skillNumber) const;
         // ダメージを受ける
         virtual void receivedDamage(int damage);
         // 死亡判定
@@ -69,7 +75,8 @@ class Character
         double attack;
         double defense;
         int luck;
-        vector<int> haveSkill;
+        vector<int> haveSkillNumber;
+        vector<Skill> haveSkill;
         bool isDead;
 
 

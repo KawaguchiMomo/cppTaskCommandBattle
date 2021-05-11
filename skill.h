@@ -12,6 +12,7 @@ class Skill
         string skillName;
         double attackRate;
         int biAttack;
+        int canUseNumber;
     public:
         // コンストラクタ
         Skill();
@@ -29,6 +30,12 @@ class Skill
         void setBiAttack(int a);
         // 攻撃回数取得
         int getBiAttack() const;
+        // 残り使用回数セット
+        void setCanUseNumber(int a);
+        // 残り使用回数取得
+        int getCanUseNumber() const;
+        // 残り使用回数減少
+        void UsedCanUseNumber();
 };
 
 #endif
