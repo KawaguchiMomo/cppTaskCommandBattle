@@ -59,7 +59,7 @@ int CsvLoader::getLabelIndex(const vector<string>& label, const string& labelNam
     auto itr = find(label.begin(), label.end(), labelName);
     int labelIndex = 0;
     if(itr == label.end()){
-        cout << "ラベルが形式と異なっています" << endl;
+        cout << "ラベルが形式と異なっています。見つからない値: " << labelName << endl;
         exit(1);
     }else{
         // ラベルの番号を取得

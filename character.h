@@ -47,6 +47,8 @@ class Character
         int getLuck() const;
         // 読み込んだデータをセット
         void setData(const string& charaName,int hp, int attack, int defense, int luck);
+        // スキル補正
+        void revisionStatus(const Skill& skill);
         // スキル番号をセット
         void setSkillNumber(int skillNumber);
         // 持っているスキル番号を取得

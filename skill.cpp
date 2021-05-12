@@ -17,6 +17,16 @@ const string& Skill::getSkillName() const
 {
     return skillName;
 }
+// HP倍率セット
+void Skill::setHPRate(double a)
+{
+    HPRate = a;
+}
+// HP倍率取得
+double Skill::getHPRate() const
+{
+    return HPRate;
+}
 // 攻撃倍率セット
 void Skill::setAttackRate(double a)
 {
@@ -27,6 +37,37 @@ double Skill::getAttackRate() const
 {
     return attackRate;
 }
+// 防御力セット
+void Skill::setDefenseRate(double a)
+{
+    defenseRate = a;
+}
+// 防御力取得
+double Skill::getDefenseRate() const
+{
+    return defenseRate;
+}
+// 運セット
+void Skill::setLuckRate(double a)
+{
+    luckRate = a;
+}
+// 運取得
+double Skill::getLuckRate() const
+{
+    return luckRate;
+}
+// タイプセット
+void Skill::setType(int a)
+{
+    type = a;
+}
+// タイプ取得
+int Skill::getType() const
+{
+    return type;
+}
+
 // 攻撃回数セット
 void Skill::setBiAttack(int a)
 {

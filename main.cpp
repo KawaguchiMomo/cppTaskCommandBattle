@@ -61,6 +61,27 @@ int main(){
     enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(3)));
     enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(4)));
 
+
+    // スキルによるステータス補正（TODO:キャラクタークラスに移動）
+    for(int i=1; i<=4 ; i++)
+    {
+        if(player.getSkill(i).getType() == 0){
+            player.revisionStatus(player.getSkill(i));
+        }
+    }
+    
+    // 戦闘準備確認(TODO:エンターキーだけで次に進めるようにし、ゲームマネージャークラスに移動)
+    gameManager.printData(player);
+    cout << "スキル: " << endl;
+    gameManager.printHaveSkill(player, skillList);
+    cout << endl;
+    cout << endl;
+    cout << "戦う相手:" << enemy.getName() << endl;
+
+    int a;
+    cout << "この設定で戦闘を開始します。";
+    cin >> a;
+
     // 戦うキャラクターのデータを表示系にセット
     gameManager.SetCharacterData(&player, &enemy);
 
@@ -73,7 +94,7 @@ int main(){
         gameManager.printLine();
         battle.startBattle(player,enemy,skillList);
         battle.startBattle(enemy,player,skillList);
-
+        
     }
 
 }

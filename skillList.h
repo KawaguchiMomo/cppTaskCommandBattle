@@ -17,7 +17,7 @@ class SkillList
         // デストラクタ
         virtual ~SkillList();
         // リストを取得
-        vector<Skill> getSkillList() const;
+        const vector<Skill>& getSkillList() const;
         // スキル名セット
         void setSkillName(const string& a);
         // スキル名取得
@@ -35,11 +35,11 @@ class SkillList
         // リストにセット
         void setSkill(Skill skill);
         // リストにセット(不要)
-        void pushSkillList(const string& skillName,int attackRate, int biAttack);
+        void pushSkillList(const string& skillName, double HPRate, double attackRate, double defenseRate ,double luckRate, int biAttack);
         // リストからスキルを取得
-        Skill getListSkill(int i) const;
+        const Skill& getListSkill(int i) const;
         // リストからスキル名取得
-        string getListSkillName(int i) const;
+        const string& getListSkillName(int i) const;
         // リストから攻撃力取得
         int getListAttackRate(int i) const;
         // リストから攻撃回数取得

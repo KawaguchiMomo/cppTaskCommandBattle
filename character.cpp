@@ -87,6 +87,16 @@ int Character::getLuck() const
     return luck;
 }
 
+// スキル補正
+void Character::revisionStatus(const Skill& skill)
+{
+    setMaxHp(maxHp*skill.getHPRate());
+    setHp(hp*skill.getHPRate());
+    setAttack(attack*skill.getAttackRate());
+    setDefense(defense*skill.getDefenseRate());
+    setLuck(luck*skill.getLuckRate());
+}
+
 
 // 読み込んだデータをセット
 void Character::setData(const string& charaName,int hp, int attack, int defense, int luck){

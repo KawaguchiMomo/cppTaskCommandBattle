@@ -2,33 +2,39 @@
 #include "skill.h"
 #include "csvLoader.h"
 #include <vector>
+#include <iostream>
 
 Skill skill;
 // コンストラクタ
 SkillList::SkillList()
 {
-    pushSkillList("ダミ～",0,0);
+    Skill skill;
+    skillList.push_back(skill);
 }
 // デストラクタ
 SkillList::~SkillList(){}
 
 // リストを取得
-vector<Skill> SkillList::getSkillList() const
+const vector<Skill>& SkillList::getSkillList() const
 {
     return skillList;
 }
 
-// リストにセット
-void SkillList::pushSkillList(const string& skillName,int attackRate, int biAttack)
-{
-    // vector<Skill>::iterator itr;
-    // itr = skillList.end();
-    Skill skill;
-    skill.setSkillName(skillName);
-    skill.setAttackRate(attackRate);
-    skill.setBiAttack(biAttack);
-    skillList.push_back(skill);
-}
+// // リストにセット
+// void SkillList::pushSkillList(const string& skillName, double HPRate, double attackRate, double defenseRate ,double luckRate, int biAttack)
+// {
+//     // vector<Skill>::iterator itr;
+//     // itr = skillList.end();
+//     Skill skill;
+//     skill.setSkillName(skillName);
+//     skill.setHPRate(HPRate);
+//     skill.setAttackRate(attackRate);
+//     skill.setDefenseRate(defenseRate);
+//     skill.setLuckRate(luckRate);
+//     skill.setType(type);
+//     skill.setBiAttack(biAttack);
+//     skillList.push_back(skill);
+// }
 // csv読み込み
 void SkillList::loadCSV(const string& filename)
 {
@@ -40,9 +46,13 @@ void SkillList::loadCSV(const string& filename)
     // ラベルと一致する番号を取得
     auto label = loadData[0];
     int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
-    double labelIndexRate = csvLoader.getLabelIndex(label, "RATE");
+    int labelIndexHPRate = csvLoader.getLabelIndex(label, "HP");
+    int labelIndexAttackRate = csvLoader.getLabelIndex(label, "ATK");
+    int labelIndexDefenseRate = csvLoader.getLabelIndex(label, "DEF");
+    int labelIndexluckRate = csvLoader.getLabelIndex(label, "LUC");
     int labelIndexBiAttack = csvLoader.getLabelIndex(label, "BIATK");
     int labelIndexCanUseNumber = csvLoader.getLabelIndex(label, "CANUSENUMBER");
+    int labelIndexType = csvLoader.getLabelIndex(label, "TYPE");
 
     // データ作成
     for (auto& v : loadData) 
@@ -53,9 +63,19 @@ void SkillList::loadCSV(const string& filename)
         }
         Skill skill;
         skill.setSkillName(v[labelIndexName]);
-        skill.setAttackRate(stod(v[labelIndexRate]));
+        skill.setHPRate(stod(v[labelIndexHPRate]));
+        skill.setAttackRate(stod(v[labelIndexAttackRate]));
+        skill.setDefenseRate(stod(v[labelIndexDefenseRate]));
+        skill.setLuckRate(stod(v[labelIndexluckRate]));
+        skill.setLuckRate(stod(v[labelIndexluckRate]));
         skill.setBiAttack(stoi(v[labelIndexBiAttack]));
         skill.setCanUseNumber(stoi(v[labelIndexCanUseNumber]));
+        if(v[labelIndexType] == "PASSIVE"){
+            // cout << v[labelIndexType] << endl;
+            skill.setType(0);
+        }else{
+            skill.setType(1);
+        }
         setSkill(skill);
     }
 }
@@ -66,12 +86,12 @@ void SkillList::setSkill(Skill skill)
 }
 
 // リストからスキルを取得
-Skill SkillList::getListSkill(int i) const
+const Skill& SkillList::getListSkill(int i) const
 {
     return skillList[i];
 }
 // リストからスキル名取得
-string SkillList::getListSkillName(int i) const
+const string& SkillList::getListSkillName(int i) const
 {
     return skillList[i].getSkillName();
 }
