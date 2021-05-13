@@ -45,6 +45,14 @@ class Character
         void setLuck(int a);
         // 運取得
         int getLuck() const;
+        // セリフセット
+        void setTalk(const string& a);
+        // セリフ取得
+        const string& getTalk() const;
+        // スコアセット
+        void setScore(int a);
+        // スコア取得
+        int getScore() const;
         // 読み込んだデータをセット
         void setData(const string& charaName,int hp, int attack, int defense, int luck);
         // スキル補正
@@ -53,6 +61,8 @@ class Character
         void setSkillNumber(int skillNumber);
         // 持っているスキル番号を取得
         int getSkillNumber(int skillNumber) const;
+        // 持っているスキルセットを取得
+        const vector<Skill>& getSkillList() const;
         // スキルをセット
         void setSkill(const Skill& skill);
         // 持っているスキルを取得
@@ -79,6 +89,8 @@ class Character
         int luck;
         vector<int> haveSkillNumber;
         vector<Skill> haveSkill;
+        int score;
+        string talk;
         bool isDead;
 
 

@@ -17,8 +17,6 @@ CsvLoader::~CsvLoader(){}
 // csv読み込み
 vector<vector<string> > CsvLoader::loadCSV(const string& name)
 {
-    cout << "読み込み開始" << endl;
-
     vector<vector<string> > data;
     string str_buf;
     string str_comma_buf;
@@ -26,15 +24,18 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
     string inputFilePath = csvFilePath + name;
 
     // 読み込むcsvファイルを開く
-    ifstream ifs(name);
-    if(!ifs){
+    ifstream file;
+    file.open(name);
+    file.imbue(std::locale());
+    skip_utf8_bom(file);
+    if(!file){
         // 読み込み失敗処理
         cout << "ファイルが存在しません" << endl;
         exit(1);
     }
 
     // getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)
-    while (getline(ifs, str_buf)) {    
+    while (getline(file, str_buf)) {    
         istringstream i_stream(str_buf);
         data.push_back(vector<string>());
 
@@ -44,12 +45,12 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
             // cout << str_comma_buf << endl;
         }
     }
-    cout << "読み込み終了" << endl;
-    for (auto& v : data) 
-    {
-        for (auto& e : v) std::cout << " " << e ;
-        std::cout << "\n";
-    }
+    // // 読み込んだデータの表示（テスト用）
+    // for (auto& v : data) 
+    // {
+    //     for (auto& e : v) std::cout << " " << e ;
+    //     std::cout << "\n";
+    // }
     return data;
 }
 
@@ -68,3 +69,10 @@ int CsvLoader::getLabelIndex(const vector<string>& label, const string& labelNam
     return labelIndex;
 }
 
+// UTF-8 with BOMをUTF-8に変換
+void CsvLoader::skip_utf8_bom(ifstream& fs) {
+    int dst[3];
+    for (auto& i : dst) i = fs.get();
+    constexpr int utf8[] = { 0xEF, 0xBB, 0xBF };
+    if (!equal(begin(dst), end(dst), utf8)) fs.seekg(0);
+}

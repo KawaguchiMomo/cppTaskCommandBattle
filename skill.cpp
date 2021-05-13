@@ -1,5 +1,4 @@
 #include "skill.h"
-#include <vector>
 
 // コンストラクタ
 Skill::Skill(){}
@@ -67,7 +66,16 @@ Type Skill::getType() const
 {
     return type;
 }
-
+// スキル名セット
+void Skill::setDesc(const string& a)
+{
+    Desc = a;
+}
+// スキル名取得
+const string& Skill::getDesc() const
+{
+    return Desc;
+}
 // 攻撃回数セット
 void Skill::setBiAttack(int a)
 {

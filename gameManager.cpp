@@ -48,6 +48,7 @@ int GameManager::GetRand(int min, int max)
 // プレイヤーを選択
 const Player& GameManager::inputUsePlayer(const PlayerList& playerList)
 {
+    system("clear");
     printLine();
     int playerListSize = (int)playerList.getPlayerList().size();
     for(int i = 1 ; i < playerListSize ; i++)
@@ -58,29 +59,39 @@ const Player& GameManager::inputUsePlayer(const PlayerList& playerList)
     cout << endl; 
 
     int playerNumber = inputNumber("プレイヤーを選んでください", 1, playerListSize);
-    printLine();
+    system("clear");
     return playerList.getPlayer(playerNumber);
 }
 
 // 取得スキルを選択
 Skill GameManager::inputUseSkill(const SkillList& skillList)
 {
+    printLine();
     int skillListSize = (int)skillList.getSkillList().size();
     for(int i = 1 ; i < skillListSize ; i++)
     {
-        cout << i << ": " << skillList.getSkillList()[i].getSkillName() << " ";
-        if(i % 4 == 0) { cout << endl; }
+        Skill skill = skillList.getSkillList()[i];
+        string message;
+        message = to_string(i) + ": " + skill.getSkillName();
+        if(skill.getType() == Type::ACTIVE){
+            message = message + "/アクティブ" + ":使用回数 " + to_string(skill.getCanUseNumber()) + "/";
+        }else if(skill.getType() == Type::PASSIVE){
+            message = message + "/パッシブ" + "/";
+        }
+        message = message + skill.getDesc();
+        cout << message << endl;
     }
     cout << endl; 
     int skillNumber = inputNumber("スキルを選んでください", 1, skillListSize);
-    printLine();
-    cout << skillList.getListSkill(skillNumber).getSkillName() << endl;
+    system("clear");
+
     return skillList.getListSkill(skillNumber);
 }
 
 // エネミーを選択
 const Enemy& GameManager::inputUseEnemy(const EnemyList& enemyList)
 {
+    system("clear");
     printLine();
     int enemyListSize = (int)enemyList.getEnemyList().size();
     for(int i = 1 ; i < enemyListSize ; i++)
@@ -97,10 +108,10 @@ const Enemy& GameManager::inputUseEnemy(const EnemyList& enemyList)
 // コマンドを選択
 int GameManager::inputSkill()
 {
-    printLine();
-
+    cin.clear();
+    printBattleWindow();
+    printHaveSkill(*usePlayer);
     int skillNumber = inputNumber("コマンドを選んでください", 1, MAXHAVESKILL+1);
-    printLine();
     return skillNumber;
 }
 
@@ -136,18 +147,18 @@ void GameManager::printMessage(const string& message) const
 // データを表示
 void GameManager::printData(const Character& character) const
 {
-    cout << "名前" << character.getName() << endl;
-    cout << "HP" << character.getHp() << endl;
-    cout << "攻撃力" << character.getAttack() << endl;
-    cout << "防御力" << character.getDefense() << endl;
-    cout << "運" << character.getLuck() << endl;
+    cout << "名前: " << character.getName() << endl;
+    cout << "HP: " << character.getHp() << endl;
+    cout << "攻撃力: " << character.getAttack() << endl;
+    cout << "防御力: " << character.getDefense() << endl;
+    cout << "運: " << character.getLuck() << endl;
 
 }
 void GameManager::printSkillData(const string& skillName,int attackRate, int biAttack) const
 {
-    cout << "名前" << skillName << endl;
-    cout << "攻撃倍率" << attackRate << endl;
-    cout << "攻撃回数" << biAttack << endl;
+    cout << "名前: " << skillName << endl;
+    cout << "攻撃倍率: " << attackRate << endl;
+    cout << "攻撃回数: " << biAttack << endl;
 }
 
 // 画面表示のためにデータを登録
@@ -175,13 +186,15 @@ void GameManager::printBattleWindow() const
 
 
 // 取得しているスキル表示
-void GameManager::printHaveSkill(const Player& player, const SkillList& skillList) const
+void GameManager::printHaveSkill(const Player& player) const
 {
-    for(int i = 1; i <= MAXHAVESKILL; i++){
+    int skillListSize = player.getSkillList().size();
+    for(int i = 1; i < skillListSize; i++){
         Skill skill = player.getSkill(i);
         string skillName = skill.getSkillName();
         int skillCanUseNumber = skill.getCanUseNumber();
 
+        // 残り使用回数を表示
         string canUseNumber;
         if(skillCanUseNumber == -1){
             canUseNumber = "";
@@ -190,7 +203,7 @@ void GameManager::printHaveSkill(const Player& player, const SkillList& skillLis
         }
         cout << setw(2) << i << " :" << skillName << canUseNumber << "  ";
     }
-
+    cout << endl;
 }
 
 // HPバー表示
@@ -218,11 +231,79 @@ void GameManager::printLine() const
 
 }
 
+// プレイヤーの設定
+Player GameManager::settingPlayer(const PlayerList& playerList, const SkillList& skillList)
+{
+    Player player;
+
+    // プレイヤーにスキルをセット
+    player = inputUsePlayer(playerList);
+    player.setSkill(skillList.getListSkill(0));
+    player.setSkill(skillList.getListSkill(1));
+
+    printHaveSkill(player);
+    player.setSkill(inputUseSkill(skillList));
+    printLine();
+
+    printHaveSkill(player);
+    player.setSkill(inputUseSkill(skillList));
+    printLine();
+
+    printHaveSkill(player);
+    player.setSkill(inputUseSkill(skillList));
+    printLine();
+    
+    // スキルによるステータス補正
+    for(int i=1; i<=4 ; i++)
+    {
+        if(player.getSkill(i).getType() == Type::PASSIVE){
+            player.revisionStatus(player.getSkill(i));
+        }
+    }
+    
+    return player;
+}
+
+// エネミーの設定
+Enemy GameManager::settingEnemy(const EnemyList& enemyList, const SkillList& skillList)
+{
+    Enemy enemy;
+
+    // エネミーにスキルをセット
+    enemy = inputUseEnemy(enemyList);
+    enemy.setSkill(skillList.getListSkill(0));
+    enemy.setSkill(skillList.getListSkill(1));
+    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(2)));
+    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(3)));
+    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(4)));
+
+    return enemy;
+}
+
+// 最初の設定
+void GameManager::initiativeSetting(const Player& player, const Enemy& enemy)
+{
+    system("clear");
+    printLine();
+    // 戦闘準備確認
+    printData(player);
+    cout << "スキル: " << endl;
+    printHaveSkill(player);
+    cout << endl;
+    cout << endl;
+    cout << "戦う相手:" << enemy.getName() << endl;
+
+    cout << "この設定で戦闘を開始します。";
+    getchar();
+}
+
 // ゲームクリア
 void GameManager::printGameClear() const 
 {
     string message = "ゲームクリア！";
     printMessage(message);
+    printScore();
+    printTalk();
     exit(0);
 }
 // ゲームオーバー
@@ -230,5 +311,25 @@ void GameManager::printGameOver() const
 {
     string message = "ゲームオーバー…";
     printMessage(message);
+    printScore();
+    printTalk();
     exit(0);
+}
+// スコア表示
+void GameManager::printScore() const
+{
+    int playerScore = usePlayer->getHPPer()/100 * usePlayer->getScore();
+    int enemyScore = (100 - useEnemy->getHPPer())/100 * useEnemy->getScore();
+    int score = playerScore + enemyScore;
+    
+    cout << "プレイヤースコア: " << playerScore << endl;
+    cout << "　エネミースコア: " << enemyScore << endl;
+    cout << "　　　合計スコア: " << score << endl;
+}
+
+// 会話表示
+void GameManager::printTalk() const
+{
+    cout << usePlayer->getImage() << "「" << usePlayer->getTalk() << "」" << endl;
+    cout << useEnemy->getImage() << "「" << useEnemy->getTalk() << "」" << endl;
 }

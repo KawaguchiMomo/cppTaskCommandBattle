@@ -3,8 +3,6 @@
 #include "skill.h"
 #include "skillList.h"
 
-#include <iostream>
-#include <random>
 using namespace std;
 
 // コンストラクタ
@@ -21,7 +19,6 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
         int getSkillNumber = attackChara.inputSkill();
         //スキル発動
         skill = attackChara.getSkill(getSkillNumber);
-                    cout << skill.getCanUseNumber() << endl;
 
         // スキル残り使用回数確認
         if(skill.getCanUseNumber() == 0)
@@ -29,8 +26,10 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
             string message = skill.getSkillName() + "は残り使用回数がない！";
             gameManager.printMessage(message);
         }else{
-            // 残り使用回数減少
-            attackChara.UsedCanUseNumber(getSkillNumber);
+            if(skill.getCanUseNumber() >= 1){
+                // 残り使用回数減少
+                attackChara.UsedCanUseNumber(getSkillNumber);
+            }
             break;
         }
     }
@@ -56,7 +55,7 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
         double damage = (attack - defense) < 0 ? 0 : (attack - defense);
 
         defenseChara.receivedDamage(damage);
-        string message = defenseChara.getName() + "に" + to_string(damage) + "のダメージ！";
+        string message = defenseChara.getName() + "に" + to_string((int)damage) + "のダメージ！";
         gameManager.printMessage(message);
 
         // 死亡判定

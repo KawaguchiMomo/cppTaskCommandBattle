@@ -17,6 +17,7 @@ class CsvLoader
         vector<vector<string> > loadCSV(const string& name);
         // csvラベルの取得
         int getLabelIndex(const vector<string>& label, const string& labelName);
+        void skip_utf8_bom(ifstream& fs);
 };
 
 #endif

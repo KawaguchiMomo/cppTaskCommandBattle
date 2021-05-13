@@ -20,9 +20,9 @@ int Enemy::inputSkill()
         skillNumber = 1 + random() % 4;
 
         // 発動条件を満たしていない場合再抽選
-        // if(!skillNumber){
-        //     continue;
-        // }
+        if(haveSkill[skillNumber].getCanUseNumber() == 0){
+            continue;
+        }
         break;
     }
     return skillNumber;

@@ -2,7 +2,6 @@
 #include "skill.h"
 #include "csvLoader.h"
 #include <vector>
-#include <iostream>
 
 Skill skill;
 // コンストラクタ
@@ -20,21 +19,6 @@ const vector<Skill>& SkillList::getSkillList() const
     return skillList;
 }
 
-// // リストにセット
-// void SkillList::pushSkillList(const string& skillName, double HPRate, double attackRate, double defenseRate ,double luckRate, int biAttack)
-// {
-//     // vector<Skill>::iterator itr;
-//     // itr = skillList.end();
-//     Skill skill;
-//     skill.setSkillName(skillName);
-//     skill.setHPRate(HPRate);
-//     skill.setAttackRate(attackRate);
-//     skill.setDefenseRate(defenseRate);
-//     skill.setLuckRate(luckRate);
-//     skill.setType(type);
-//     skill.setBiAttack(biAttack);
-//     skillList.push_back(skill);
-// }
 // csv読み込み
 void SkillList::loadCSV(const string& filename)
 {
@@ -53,6 +37,8 @@ void SkillList::loadCSV(const string& filename)
     int labelIndexBiAttack = csvLoader.getLabelIndex(label, "BIATK");
     int labelIndexCanUseNumber = csvLoader.getLabelIndex(label, "CANUSENUMBER");
     int labelIndexType = csvLoader.getLabelIndex(label, "TYPE");
+    int labelIndexDesc = csvLoader.getLabelIndex(label, "DESC");
+    
 
     // データ作成
     for (auto& v : loadData) 
@@ -74,6 +60,7 @@ void SkillList::loadCSV(const string& filename)
         }else{
             skill.setType(Type::ACTIVE);
         }
+        skill.setDesc(v[labelIndexDesc]);
         setSkill(skill);
     }
 }
@@ -87,19 +74,4 @@ void SkillList::setSkill(Skill skill)
 const Skill& SkillList::getListSkill(int i) const
 {
     return skillList[i];
-}
-// リストからスキル名取得
-const string& SkillList::getListSkillName(int i) const
-{
-    return skillList[i].getSkillName();
-}
-// リストから攻撃力取得
-int SkillList::getListAttackRate(int i) const
-{
-    return skillList[i].getAttackRate();
-}
-// リストから攻撃回数取得
-int SkillList::getListBiAttack(int i) const
-{
-    return skillList[i].getBiAttack();
 }

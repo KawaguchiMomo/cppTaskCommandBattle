@@ -2,7 +2,6 @@
 #define _SKILL_H
 
 #include <string>
-#include <vector>
 
 using namespace std;
 enum class Type
@@ -22,6 +21,7 @@ class Skill
         Type type;
         int biAttack;
         int canUseNumber;
+        string Desc;
     public:
         // コンストラクタ
         Skill();
@@ -48,9 +48,13 @@ class Skill
         // 運取得
         double getLuckRate() const;
         // タイプセット
-        void setType(int a);
+        void setType(Type a);
         // タイプ取得
-        int getType() const;
+        Type getType() const;
+        // スキル説明セット
+        void setDesc(const string& a);
+        // スキル説明取得
+        const string& getDesc() const;
         // 攻撃回数セット
         void setBiAttack(int a);
         // 攻撃回数取得

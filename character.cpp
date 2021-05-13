@@ -1,6 +1,5 @@
 #include "character.h"
 #include "gameManager.h"
-#include <iostream>
 #include <vector>
 
 // コンストラクタ
@@ -86,6 +85,26 @@ int Character::getLuck() const
 {
     return luck;
 }
+// セリフセット
+void Character::setTalk(const string& a)
+{
+    talk = a;
+}
+// セリフ取得
+const string& Character::getTalk() const
+{
+    return talk;
+}
+// スコアセット
+void Character::setScore(int a)
+{
+    score = a;
+}
+// スコア取得
+int Character::getScore() const
+{
+    return score;
+}
 
 // スキル補正
 void Character::revisionStatus(const Skill& skill)
@@ -116,6 +135,11 @@ void Character::setSkillNumber(int skillNumber)
 int Character::getSkillNumber(int skillNumber) const
 {
     return haveSkillNumber[skillNumber];
+}
+// 持っているスキルセットを取得
+const vector<Skill>& Character::getSkillList() const
+{
+    return haveSkill;
 }
 // スキルをセット
 void Character::setSkill(const Skill& skill)

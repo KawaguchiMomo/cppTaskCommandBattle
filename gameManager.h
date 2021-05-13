@@ -52,15 +52,25 @@ class GameManager
         // 戦闘画面表示
         void printBattleWindow() const;
         // 取得しているスキル表示
-        void printHaveSkill(const Player& player, const SkillList& skillList) const;
+        void printHaveSkill(const Player& player) const;
         // HPバー表示
         void printHPBar(double par) const;
         // ライン表示
         void printLine() const;
+        // プレイヤーの設定
+        Player settingPlayer(const PlayerList& playerList, const SkillList& skillList);
+        // エネミーの設定
+        Enemy settingEnemy(const EnemyList& enemyList, const SkillList& skillList);
+        // 最初の設定
+        void initiativeSetting(const Player& player, const Enemy& enemy);
         // ゲームクリア
         void printGameClear() const;
         // ゲームオーバー
         void printGameOver() const;
+        // スコア表示
+        void printScore() const;
+        // セリフ表示
+        void printTalk() const;
 };
 
 #endif

@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include "csvLoader.h"
-#include <iostream>
 // コンストラクタ
 EnemyList::EnemyList(){
     Enemy enemy;
@@ -32,6 +31,8 @@ void EnemyList::loadCSV(const string& filename)
     int labelIndexSkill2 = csvLoader.getLabelIndex(label, "SKILL2");
     int labelIndexSkill3 = csvLoader.getLabelIndex(label, "SKILL3");
     int labelIndexSkill4 = csvLoader.getLabelIndex(label, "SKILL4");
+    int labelIndexScore = csvLoader.getLabelIndex(label, "SCORE");
+    int labelIndexTalk = csvLoader.getLabelIndex(label, "TALK");
 
     // データ作成
     for (auto& v : loadData) 
@@ -52,6 +53,8 @@ void EnemyList::loadCSV(const string& filename)
         enemy.setSkillNumber(stoi(v[labelIndexSkill2]));
         enemy.setSkillNumber(stoi(v[labelIndexSkill3]));
         enemy.setSkillNumber(stoi(v[labelIndexSkill4]));
+        enemy.setScore(stoi(v[labelIndexScore]));
+        enemy.setTalk(v[labelIndexTalk]);
         setEnemy(enemy);
     }
 }

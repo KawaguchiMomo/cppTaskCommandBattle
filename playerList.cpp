@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include "csvLoader.h"
-#include <iostream>
 // コンストラクタ
 PlayerList::PlayerList(){
     Player player;
@@ -28,6 +27,8 @@ void PlayerList::loadCSV(const string& filename)
     int labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
     int labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
     int labelIndexLuck = csvLoader.getLabelIndex(label, "LUC");
+    int labelIndexScore = csvLoader.getLabelIndex(label, "SCORE");
+    int labelIndexTalk = csvLoader.getLabelIndex(label, "TALK");
 
     // データ作成
     for (auto& v : loadData) 
@@ -44,6 +45,8 @@ void PlayerList::loadCSV(const string& filename)
         player.setAttack(stod(v[labelIndexAttack]));
         player.setDefense(stod(v[labelIndexDefense]));
         player.setLuck(stoi(v[labelIndexLuck]));
+        player.setScore(stoi(v[labelIndexScore]));
+        player.setTalk(v[labelIndexTalk]);
         setPlayer(player);
     }
 }
