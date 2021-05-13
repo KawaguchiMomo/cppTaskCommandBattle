@@ -58,12 +58,12 @@ double Skill::getLuckRate() const
     return luckRate;
 }
 // タイプセット
-void Skill::setType(int a)
+void Skill::setType(Type a)
 {
     type = a;
 }
 // タイプ取得
-int Skill::getType() const
+Type Skill::getType() const
 {
     return type;
 }

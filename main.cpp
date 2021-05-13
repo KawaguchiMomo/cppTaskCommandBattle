@@ -15,6 +15,7 @@
 
 
 using namespace std;
+// enum Type;
 
 int main(){
     
@@ -65,7 +66,7 @@ int main(){
     // スキルによるステータス補正（TODO:キャラクタークラスに移動）
     for(int i=1; i<=4 ; i++)
     {
-        if(player.getSkill(i).getType() == 0){
+        if(player.getSkill(i).getType() == TYPE::PASSIVE){ //error: ‘TYPE’ has not been declared
             player.revisionStatus(player.getSkill(i));
         }
     }

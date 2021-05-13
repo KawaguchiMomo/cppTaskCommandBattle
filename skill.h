@@ -5,6 +5,11 @@
 #include <vector>
 
 using namespace std;
+enum class Type
+{
+    PASSIVE,
+    ACTIVE,
+};
 
 class Skill
 {
@@ -14,7 +19,7 @@ class Skill
         double attackRate;
         double defenseRate;
         double luckRate;
-        int type;
+        Type type;
         int biAttack;
         int canUseNumber;
     public:

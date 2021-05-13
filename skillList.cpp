@@ -67,14 +67,12 @@ void SkillList::loadCSV(const string& filename)
         skill.setAttackRate(stod(v[labelIndexAttackRate]));
         skill.setDefenseRate(stod(v[labelIndexDefenseRate]));
         skill.setLuckRate(stod(v[labelIndexluckRate]));
-        skill.setLuckRate(stod(v[labelIndexluckRate]));
         skill.setBiAttack(stoi(v[labelIndexBiAttack]));
         skill.setCanUseNumber(stoi(v[labelIndexCanUseNumber]));
         if(v[labelIndexType] == "PASSIVE"){
-            // cout << v[labelIndexType] << endl;
-            skill.setType(0);
+            skill.setType(Type::PASSIVE); ////error: ‘TYPE’ has not been declared
         }else{
-            skill.setType(1);
+            skill.setType(Type::ACTIVE);
         }
         setSkill(skill);
     }
