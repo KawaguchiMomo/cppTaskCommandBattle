@@ -14,7 +14,7 @@ EnemyList::~EnemyList(){}
 // csv読み込み
 void EnemyList::loadCSV(const string& filename)
 {
-    CsvLoader csvLoader;
+    CsvLoader &csvLoader = CsvLoader::get_instance();
     Enemy enemy;
 
     // csv読み込み

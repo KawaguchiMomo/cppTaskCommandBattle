@@ -26,10 +26,8 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
             string message = skill.getSkillName() + "は残り使用回数がない！";
             gameManager.printMessage(message);
         }else{
-            if(skill.getCanUseNumber() >= 1){
-                // 残り使用回数減少
-                attackChara.UsedCanUseNumber(getSkillNumber);
-            }
+            // 残り使用回数減少
+            attackChara.UsedCanUseNumber(getSkillNumber);
             break;
         }
     }
@@ -39,7 +37,7 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
    
     for(int i = 0 ; i < skill.getBiAttack();i++)
     {
-        double random = (double)gameManager.GetRand(5, 15) / 10;
+        double random = (double)gameManager.GetRand(50, 150) / 100;
         double attack = attackChara.getAttack() * skill.getAttackRate() * random;
 
         // クリティカル判定

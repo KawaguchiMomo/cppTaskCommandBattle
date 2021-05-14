@@ -2,6 +2,7 @@
 #include "skill.h"
 #include "csvLoader.h"
 #include <vector>
+#include <iostream>
 
 Skill skill;
 // コンストラクタ
@@ -22,7 +23,7 @@ const vector<Skill>& SkillList::getSkillList() const
 // csv読み込み
 void SkillList::loadCSV(const string& filename)
 {
-    CsvLoader csvLoader;
+    CsvLoader &csvLoader = CsvLoader::get_instance();
     Skill skill;
 
     // csv読み込み
@@ -56,16 +57,19 @@ void SkillList::loadCSV(const string& filename)
         skill.setBiAttack(stoi(v[labelIndexBiAttack]));
         skill.setCanUseNumber(stoi(v[labelIndexCanUseNumber]));
         if(v[labelIndexType] == "PASSIVE"){
-            skill.setType(Type::PASSIVE); ////error: ‘TYPE’ has not been declared
-        }else{
+            skill.setType(Type::PASSIVE);
+        }else if (v[labelIndexType] == "ACTIVE"){
             skill.setType(Type::ACTIVE);
+        }else{
+            cout << "タイプが間違っています。間違っているデータ: " << v[labelIndexType] << endl;
+            exit(1);
         }
         skill.setDesc(v[labelIndexDesc]);
         setSkill(skill);
     }
 }
 // リストにセット
-void SkillList::setSkill(Skill skill)
+void SkillList::setSkill(const Skill& skill)
 {
     skillList.push_back(skill);
 }

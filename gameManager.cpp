@@ -190,8 +190,8 @@ void GameManager::printHaveSkill(const Player& player) const
 {
     int skillListSize = player.getSkillList().size();
     for(int i = 1; i < skillListSize; i++){
-        Skill skill = player.getSkill(i);
-        string skillName = skill.getSkillName();
+        const Skill& skill = player.getSkill(i);
+        const string& skillName = skill.getSkillName();
         int skillCanUseNumber = skill.getCanUseNumber();
 
         // 残り使用回数を表示
@@ -318,12 +318,12 @@ void GameManager::printGameOver() const
 // スコア表示
 void GameManager::printScore() const
 {
-    int playerScore = usePlayer->getHPPer()/100 * usePlayer->getScore();
+    int playerScore = 1 + usePlayer->getHPPer()/100 * usePlayer->getScore();
     int enemyScore = (100 - useEnemy->getHPPer())/100 * useEnemy->getScore();
-    int score = playerScore + enemyScore;
+    int score = playerScore * enemyScore;
     
-    cout << "プレイヤースコア: " << playerScore << endl;
     cout << "　エネミースコア: " << enemyScore << endl;
+    cout << "プレイヤースコア: ×" << playerScore << endl;
     cout << "　　　合計スコア: " << score << endl;
 }
 

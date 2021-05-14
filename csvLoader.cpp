@@ -9,9 +9,17 @@
 #include <algorithm>
 using namespace std;
 
+// 呼び出し
+CsvLoader& CsvLoader::get_instance()
+{
+    static CsvLoader instance;
+    return instance;
+}
 
 // コンストラクタ
-CsvLoader::CsvLoader(){}
+CsvLoader::CsvLoader(){
+    csvFilePath = "./";
+}
 // デストラクタ
 CsvLoader::~CsvLoader(){}
 // csv読み込み
@@ -20,19 +28,18 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
     vector<vector<string> > data;
     string str_buf;
     string str_comma_buf;
-    string csvFilePath = "./";
     string inputFilePath = csvFilePath + name;
 
     // 読み込むcsvファイルを開く
     ifstream file;
-    file.open(name);
-    file.imbue(std::locale());
-    skip_utf8_bom(file);
+    file.open(inputFilePath);
     if(!file){
         // 読み込み失敗処理
         cout << "ファイルが存在しません" << endl;
         exit(1);
     }
+    file.imbue(std::locale());
+    skip_utf8_bom(file);
 
     // getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)
     while (getline(file, str_buf)) {    

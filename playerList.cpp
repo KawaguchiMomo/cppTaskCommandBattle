@@ -14,7 +14,7 @@ PlayerList::~PlayerList(){}
 // csv読み込み
 void PlayerList::loadCSV(const string& filename)
 {
-    CsvLoader csvLoader;
+    CsvLoader &csvLoader = CsvLoader::get_instance();
     Player player;
 
     // csv読み込み

@@ -159,7 +159,10 @@ int Character::inputSkill(){
 // スキル回数を減少
 void Character::UsedCanUseNumber(int skillNumber)
 {
-    haveSkill[skillNumber].UsedCanUseNumber();
+    if(getSkill(skillNumber).getCanUseNumber() >= 1){
+        // 残り使用回数減少
+        haveSkill[skillNumber].UsedCanUseNumber();
+    }
 }
 
 // ダメージを受ける

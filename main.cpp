@@ -18,7 +18,7 @@ using namespace std;
 
 int main(){
     
-    CsvLoader csvLoader;
+    CsvLoader &csvLoader = CsvLoader::get_instance();
     Player player;
     PlayerList playerList;
     Enemy enemy;
