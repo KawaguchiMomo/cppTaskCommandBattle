@@ -18,14 +18,12 @@ using namespace std;
 
 int main(){
     
-    CsvLoader &csvLoader = CsvLoader::get_instance();
     Player player;
     PlayerList playerList;
     Enemy enemy;
     EnemyList enemyList;
     GameManager &gameManager = GameManager::get_instance();
     SkillList skillList;
-    Skill skill;
     Battle battle;
 
     // 乱数のシード設定

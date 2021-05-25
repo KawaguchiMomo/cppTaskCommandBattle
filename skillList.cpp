@@ -3,12 +3,14 @@
 #include "csvLoader.h"
 #include <vector>
 #include <iostream>
+#include <string>
 
-Skill skill;
+enum class Type;
+
 // コンストラクタ
 SkillList::SkillList()
 {
-    Skill skill;
+    Skill skill("ダミー",0,0,0,0,Type::PASSIVE,0,0,"");
     skillList.push_back(skill);
 }
 // デストラクタ
@@ -24,7 +26,6 @@ const vector<Skill>& SkillList::getSkillList() const
 void SkillList::loadCSV(const string& filename)
 {
     CsvLoader &csvLoader = CsvLoader::get_instance();
-    Skill skill;
 
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
@@ -35,9 +36,9 @@ void SkillList::loadCSV(const string& filename)
     int labelIndexAttackRate = csvLoader.getLabelIndex(label, "ATK");
     int labelIndexDefenseRate = csvLoader.getLabelIndex(label, "DEF");
     int labelIndexluckRate = csvLoader.getLabelIndex(label, "LUC");
+    int labelIndexType = csvLoader.getLabelIndex(label, "TYPE");
     int labelIndexBiAttack = csvLoader.getLabelIndex(label, "BIATK");
     int labelIndexCanUseNumber = csvLoader.getLabelIndex(label, "CANUSENUMBER");
-    int labelIndexType = csvLoader.getLabelIndex(label, "TYPE");
     int labelIndexDesc = csvLoader.getLabelIndex(label, "DESC");
     
 
@@ -48,23 +49,26 @@ void SkillList::loadCSV(const string& filename)
         if(v == label){
             continue;
         }
-        Skill skill;
-        skill.setSkillName(v[labelIndexName]);
-        skill.setHPRate(stod(v[labelIndexHPRate]));
-        skill.setAttackRate(stod(v[labelIndexAttackRate]));
-        skill.setDefenseRate(stod(v[labelIndexDefenseRate]));
-        skill.setLuckRate(stod(v[labelIndexluckRate]));
-        skill.setBiAttack(stoi(v[labelIndexBiAttack]));
-        skill.setCanUseNumber(stoi(v[labelIndexCanUseNumber]));
-        if(v[labelIndexType] == "PASSIVE"){
-            skill.setType(Type::PASSIVE);
-        }else if (v[labelIndexType] == "ACTIVE"){
-            skill.setType(Type::ACTIVE);
+        std::string name = v[labelIndexName];
+        double HPRate = std::stod(v[labelIndexHPRate]);
+        double AttackRate = std::stod(v[labelIndexAttackRate]);
+        double DefenseRate = std::stod(v[labelIndexDefenseRate]);
+        double luckRate = std::stod(v[labelIndexluckRate]);
+        Type type;
+        if(v[labelIndexType] == "PASSIVE") {
+            type = Type::PASSIVE;
+        }else if(v[labelIndexType] == "ACTIVE"){
+            type = Type::ACTIVE;
         }else{
             cout << "タイプが間違っています。間違っているデータ: " << v[labelIndexType] << endl;
             exit(1);
         }
-        skill.setDesc(v[labelIndexDesc]);
+        int BiAttack = std::stoi(v[labelIndexBiAttack]);
+        int CanUseNumber = std::stoi(v[labelIndexCanUseNumber]);
+        std::string desc = v[labelIndexDesc];
+
+        Skill skill(name,HPRate,AttackRate,DefenseRate,luckRate,type,BiAttack,CanUseNumber,desc);
+
         setSkill(skill);
     }
 }
