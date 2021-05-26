@@ -1,55 +1,26 @@
 #include "skill.h"
 #include <string>
+enum class Type;
+
 
 // コンストラクタ
-// Skill::Skill(){}
+Skill::Skill(SkillSetting& skillSetting, int canUseNumber){}
 
-// コンストラクタ
-Skill::Skill(std::string name,double HPRate,double attackRate,double defenseRate,
-                double luckRate,Type type,int biAttack,int canUseNumber,std::string desc)
-                :name(name),HPRate(HPRate),attackRate(attackRate),defenseRate(defenseRate),
-                luckRate(luckRate),type(type),biAttack(biAttack),canUseNumber(canUseNumber),desc(desc) {}
+// コピーコンストラクタ
+Skill::Skill(const Skill& obj):SkillSetting&(obj.skillSetting)canUseNumber(obj.canUseNumber) {}
+//代入演算子
+Skill& Skill::operator=(const Skill& rhs){
+    this->SkillSetting& = rhs.skillSetting;
+    this->canUseNumber = rhs.canUseNumber;
+    return *this;
+}
 
-// スキル名取得
-const string& Skill::getSkillName() const
+// スキルへの参照取得
+const SkillSetting& Skill::getSkillSetting() const 
 {
-    return name;
+    return skillSetting;
 }
-// HP倍率取得
-double Skill::getHPRate() const
-{
-    return HPRate;
-}
-// 攻撃倍率取得
-double Skill::getAttackRate() const
-{
-    return attackRate;
-}
-// 防御力取得
-double Skill::getDefenseRate() const
-{
-    return defenseRate;
-}
-// 運取得
-double Skill::getLuckRate() const
-{
-    return luckRate;
-}
-// タイプ取得
-Type Skill::getType() const
-{
-    return type;
-}
-// スキル説明取得
-const string& Skill::getDesc() const
-{
-    return desc;
-}
-// 攻撃回数取得
-int Skill::getBiAttack() const
-{
-    return biAttack;
-}
+
 // 残り使用回数セット
 void Skill::setCanUseNumber(int a)
 {

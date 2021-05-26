@@ -1,5 +1,7 @@
+// SkillListはSkillSettingを格納している。
+
 #include "skillList.h"
-#include "skill.h"
+#include "skillSetting.h"
 #include "csvLoader.h"
 #include <vector>
 #include <iostream>
@@ -10,14 +12,13 @@ enum class Type;
 // コンストラクタ
 SkillList::SkillList()
 {
-    Skill skill("ダミー",0,0,0,0,Type::PASSIVE,0,0,"");
-    skillList.push_back(skill);
+    SkillSetting skillSetting("ダミー",0,0,0,0,Type::PASSIVE,0,0,"");
+    // エラーがでる。cppTaskCommandBattle/skillList.cpp:14:37:   required from here
+    // skillList.push_back(skillSetting);
 }
-// デストラクタ
-SkillList::~SkillList(){}
 
 // リストを取得
-const vector<Skill>& SkillList::getSkillList() const
+const vector<SkillSetting>& SkillList::getSkillList() const
 {
     return skillList;
 }
@@ -67,19 +68,20 @@ void SkillList::loadCSV(const string& filename)
         int CanUseNumber = std::stoi(v[labelIndexCanUseNumber]);
         std::string desc = v[labelIndexDesc];
 
-        Skill skill(name,HPRate,AttackRate,DefenseRate,luckRate,type,BiAttack,CanUseNumber,desc);
+        SkillSetting skillSetting(name,HPRate,AttackRate,DefenseRate,luckRate,type,BiAttack,CanUseNumber,desc);
 
-        setSkill(skill);
+        setSkill(skillSetting);
     }
 }
 // リストにセット
-void SkillList::setSkill(const Skill& skill)
+void SkillList::setSkill(const SkillSetting& skillSetting)
 {
-    skillList.push_back(skill);
+    // エラーが出る。cppTaskCommandBattle/skillList.cpp:77:37:   required from here
+    skillList.push_back(skillSetting);
 }
 
 // リストからスキルを取得
-const Skill& SkillList::getListSkill(int i) const
+const SkillSetting& SkillList::getListSkill(int i) const
 {
     return skillList[i];
 }

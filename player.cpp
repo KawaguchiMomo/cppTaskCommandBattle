@@ -5,8 +5,6 @@
 
 // コンストラクタ
 Player::Player(){}
-// デストラクタ
-Player::~Player(){}
 
 // スキルを選択
 int Player::inputSkill()

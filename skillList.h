@@ -6,24 +6,24 @@
 #include <vector>
 
 using namespace std;
-class Skill;
+class SkillSetting;
 class SkillList
 {
     private:
-        vector<Skill> skillList;
+        vector<SkillSetting> skillList;
     public:
         // コンストラクタ
         SkillList();
         // デストラクタ
         virtual ~SkillList();
         // リストを取得
-        const vector<Skill>& getSkillList() const;
+        const vector<SkillSetting>& getSkillList() const;
         // csv読み込み
         void loadCSV(const string& filename);
         // リストにセット
-        void setSkill(const Skill& skill);
+        void setSkill(const SkillSetting& skillSetting);
         // リストからスキルを取得
-        const Skill& getListSkill(int i) const;
+        const SkillSetting& getListSkill(int i) const;
 };
 
 #endif

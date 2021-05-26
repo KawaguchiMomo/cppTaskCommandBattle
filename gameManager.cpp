@@ -68,24 +68,29 @@ Skill GameManager::inputUseSkill(const SkillList& skillList)
 {
     printLine();
     int skillListSize = (int)skillList.getSkillList().size();
+    // スキル一覧を表示
     for(int i = 1 ; i < skillListSize ; i++)
     {
-        Skill skill = skillList.getSkillList()[i];
+        // 下記がうまく使えなかった（参照を取得したかったのだが…）
+        // SkillSetting& skillSetting = skillList.getSkillList()[i];
         string message;
-        message = to_string(i) + ": " + skill.getSkillName();
-        if(skill.getType() == Type::ACTIVE){
-            message = message + "/アクティブ" + ":使用回数 " + to_string(skill.getCanUseNumber()) + "/";
-        }else if(skill.getType() == Type::PASSIVE){
+        message = to_string(i) + ": " + skillList.getSkillList()[i].getSkillName();
+        if(skillList.getSkillList()[i].getType() == Type::ACTIVE){
+            message = message + "/アクティブ" + ":使用回数 " + to_string(skillList.getSkillList()[i].getCanUseNumber()) + "/";
+        }else if(skillList.getSkillList()[i].getType() == Type::PASSIVE){
             message = message + "/パッシブ" + "/";
         }
-        message = message + skill.getDesc();
+        message = message + skillList.getSkillList()[i].getDesc();
         cout << message << endl;
     }
     cout << endl; 
     int skillNumber = inputNumber("スキルを選んでください", 1, skillListSize);
     system("clear");
 
-    return skillList.getListSkill(skillNumber);
+    // キャラクター固有のスキルを作成
+    Skill skill(skillList.getListSkill(skillNumber), skillList.getListSkill(skillNumber).getCanUseNumber());
+     
+    return skill;
 }
 
 // エネミーを選択
@@ -185,13 +190,15 @@ void GameManager::printBattleWindow() const
 }
 
 
-// 取得しているスキル表示
+// キャラクターの取得しているスキル表示
 void GameManager::printHaveSkill(const Player& player) const
 {
     int skillListSize = player.getSkillList().size();
     for(int i = 1; i < skillListSize; i++){
         const Skill& skill = player.getSkill(i);
-        const string& skillName = skill.getSkillName();
+        const SkillSetting& skillSetting = skill.getSkillSetting();
+
+        const string& skillName = skillSetting.getSkillName();
         int skillCanUseNumber = skill.getCanUseNumber();
 
         // 残り使用回数を表示
@@ -238,8 +245,14 @@ Player GameManager::settingPlayer(const PlayerList& playerList, const SkillList&
 
     // プレイヤーにスキルをセット
     player = inputUsePlayer(playerList);
-    player.setSkill(skillList.getListSkill(0));
-    player.setSkill(skillList.getListSkill(1));
+    // ダミースキルやたたかうスキルはどのキャラクターがもっても同じだが、
+    // いちいちSkillクラスを作成しなければならないので
+    // どこかで共通で呼び出せるようにしておく…？
+    Skill dummySkill(skillList.getListSkill(0), skillList.getListSkill(0).getCanUseNumber());
+    player.setSkill(dummySkill);
+
+    Skill tatakauSkill(skillList.getListSkill(1), skillList.getListSkill(1).getCanUseNumber());
+    player.setSkill(tatakauSkill);
 
     printHaveSkill(player);
     player.setSkill(inputUseSkill(skillList));
@@ -256,7 +269,7 @@ Player GameManager::settingPlayer(const PlayerList& playerList, const SkillList&
     // スキルによるステータス補正
     for(int i=1; i<=4 ; i++)
     {
-        if(player.getSkill(i).getType() == Type::PASSIVE){
+        if(player.getSkill(i).getSkillSetting().getType() == Type::PASSIVE){
             player.revisionStatus(player.getSkill(i));
         }
     }
@@ -271,11 +284,18 @@ Enemy GameManager::settingEnemy(const EnemyList& enemyList, const SkillList& ski
 
     // エネミーにスキルをセット
     enemy = inputUseEnemy(enemyList);
-    enemy.setSkill(skillList.getListSkill(0));
-    enemy.setSkill(skillList.getListSkill(1));
-    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(2)));
-    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(3)));
-    enemy.setSkill(skillList.getListSkill(enemy.getSkillNumber(4)));
+    // settingPlayerと同じ問題
+    Skill dummySkill(skillList.getListSkill(0), skillList.getListSkill(0).getCanUseNumber());
+    Skill tatakauSkill(skillList.getListSkill(1), skillList.getListSkill(1).getCanUseNumber());
+    Skill skill1(skillList.getListSkill(enemy.getSkillNumber(2)), skillList.getListSkill(2).getCanUseNumber());
+    Skill skill2(skillList.getListSkill(enemy.getSkillNumber(3)), skillList.getListSkill(3).getCanUseNumber());
+    Skill skill3(skillList.getListSkill(enemy.getSkillNumber(4)), skillList.getListSkill(4).getCanUseNumber());
+
+    enemy.setSkill(dummySkill);
+    enemy.setSkill(tatakauSkill);
+    enemy.setSkill(skill1);
+    enemy.setSkill(skill2);
+    enemy.setSkill(skill3);
 
     return enemy;
 }

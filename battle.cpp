@@ -12,17 +12,18 @@ Battle::~Battle(){}
 
 void Battle::startBattle(Character& attackChara, Character& defenseChara, const SkillList& skillList){
     GameManager &gameManager = GameManager::get_instance();
+    int getSkillNumber;
     while(1)
     {
         //スキル入力
-        int getSkillNumber = attackChara.inputSkill();
+        getSkillNumber = attackChara.inputSkill();
         //スキル発動
-        // skill = attackChara.getSkill(getSkillNumber);
+        Skill skill = attackChara.getSkill(getSkillNumber);
 
         // スキル残り使用回数確認
-        if(attackChara.getSkill(getSkillNumber).getCanUseNumber() == 0)
+        if(skill.getCanUseNumber() == 0)
         {
-            string message = attackChara.getSkill(getSkillNumber).getSkillName() + "は残り使用回数がない！";
+            string message = skill.getSkillName() + "は残り使用回数がない！";
             gameManager.printMessage(message);
         }else{
             // 残り使用回数減少
@@ -30,14 +31,15 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
             break;
         }
     }
+    Skill skill = attackChara.getSkill(getSkillNumber);
 
-    string message = attackChara.getName() + "の" + attackChara.getSkill(getSkillNumber).getSkillName() + "！";
+    string message = attackChara.getName() + "の" + skill.getSkillName() + "！";
     gameManager.printMessage(message);
    
-    for(int i = 0 ; i < attackChara.getSkill(getSkillNumber).getBiAttack();i++)
+    for(int i = 0 ; i < skill.getBiAttack();i++)
     {
         double random = (double)gameManager.GetRand(50, 150) / 100;
-        double attack = attackChara.getAttack() * attackChara.getSkill(getSkillNumber).getAttackRate() * random;
+        double attack = attackChara.getAttack() * skill.getAttackRate() * random;
 
         // クリティカル判定
         int critLine = gameManager.GetRand(0, 100);

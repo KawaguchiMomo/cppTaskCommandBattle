@@ -18,9 +18,7 @@ using namespace std;
 
 int main(){
     
-    Player player;
     PlayerList playerList;
-    Enemy enemy;
     EnemyList enemyList;
     GameManager &gameManager = GameManager::get_instance();
     SkillList skillList;
@@ -34,8 +32,8 @@ int main(){
     enemyList.loadCSV("../enemyData.csv");
     skillList.loadCSV("../skillData.csv");
     
-    player = gameManager.settingPlayer(playerList, skillList);
-    enemy = gameManager.settingEnemy(enemyList, skillList);
+    Player player = gameManager.settingPlayer(playerList, skillList);
+    Enemy enemy = gameManager.settingEnemy(enemyList, skillList);
     gameManager.initiativeSetting(player, enemy);
     
     // 戦うキャラクターのデータを表示系にセット

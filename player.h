@@ -8,8 +8,6 @@ class Player : public Character
     public:
         // コンストラクタ
         Player();
-        // デストラクタ
-        virtual ~Player();
         // スキルを選択
         int inputSkill();
         // 死亡

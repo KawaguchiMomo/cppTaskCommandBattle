@@ -1,3 +1,5 @@
+// CharacterはSkillを格納している。
+
 #ifndef _CHARACTER_H_
 #define _CHARACTER_H_
 

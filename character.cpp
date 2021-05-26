@@ -109,11 +109,12 @@ int Character::getScore() const
 // スキル補正
 void Character::revisionStatus(const Skill& skill)
 {
-    setMaxHp(maxHp*skill.getHPRate());
-    setHp(hp*skill.getHPRate());
-    setAttack(attack*skill.getAttackRate());
-    setDefense(defense*skill.getDefenseRate());
-    setLuck(luck*skill.getLuckRate());
+    const SkillSetting& skillSetting = skill.getSkillSetting();
+    setMaxHp(maxHp*skillSetting.getHPRate());
+    setHp(hp*skillSetting.getHPRate());
+    setAttack(attack*skillSetting.getAttackRate());
+    setDefense(defense*skillSetting.getDefenseRate());
+    setLuck(luck*skillSetting.getLuckRate());
 }
 
 
