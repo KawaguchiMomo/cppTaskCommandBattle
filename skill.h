@@ -2,19 +2,20 @@
 #define _SKILL_H
 #include "skillSetting.h"
 #include <string>
+#include <memory>
 
 using namespace std;
 
 class Skill
 {
     private:
-        SkillSetting& skillSetting;
+        std::shared_ptr<const SkillSetting> skillSetting;
         int canUseNumber;
     public:
         // デフォルトコンストラクタ
         // Skill();
         // コンストラクタ
-        Skill(const SkillSetting& skill, int canUseNumber);
+        Skill(std::shared_ptr<const SkillSetting> skill, int canUseNumber);
         // デストラクタ
         virtual ~Skill() = default;
         // コピーコンストラクタ
@@ -23,7 +24,7 @@ class Skill
         Skill& operator=(const Skill&);
         
         // スキルへの参照取得
-        const SkillSetting& getSkillSetting() const;
+        std::shared_ptr<const SkillSetting> getSkillSetting() const;
         // 残り使用回数セット
         void setCanUseNumber(int a);
         // 残り使用回数取得

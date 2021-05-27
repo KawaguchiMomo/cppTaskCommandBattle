@@ -8,6 +8,7 @@
 #include <string>
 
 enum class Type;
+class SkillSetting;
 
 // コンストラクタ
 SkillList::SkillList()
@@ -18,7 +19,7 @@ SkillList::SkillList()
 }
 
 // リストを取得
-const vector<SkillSetting>& SkillList::getSkillList() const
+std::vector< std::shared_ptr<SkillSetting> > SkillList::getSkillList() const
 {
     return skillList;
 }
@@ -68,20 +69,20 @@ void SkillList::loadCSV(const string& filename)
         int CanUseNumber = std::stoi(v[labelIndexCanUseNumber]);
         std::string desc = v[labelIndexDesc];
 
-        SkillSetting skillSetting(name,HPRate,AttackRate,DefenseRate,luckRate,type,BiAttack,CanUseNumber,desc);
+        std::shared_ptr<SkillSetting> skillSetting = std::make_shared<SkillSetting>(name,HPRate,AttackRate,DefenseRate,luckRate,type,BiAttack,CanUseNumber,desc);
 
         setSkill(skillSetting);
     }
 }
 // リストにセット
-void SkillList::setSkill(const SkillSetting& skillSetting)
+void SkillList::setSkill(std::shared_ptr<SkillSetting> skillSetting)
 {
     // エラーが出る。cppTaskCommandBattle/skillList.cpp:77:37:   required from here
     skillList.push_back(skillSetting);
 }
 
 // リストからスキルを取得
-const SkillSetting& SkillList::getListSkill(int i) const
+std::shared_ptr<const SkillSetting> SkillList::getListSkill(int i) const
 {
     return skillList[i];
 }

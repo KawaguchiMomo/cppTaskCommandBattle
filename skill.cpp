@@ -4,19 +4,19 @@ enum class Type;
 
 
 // コンストラクタ
-Skill::Skill(SkillSetting& skillSetting, int canUseNumber){}
+Skill::Skill(std::shared_ptr<const SkillSetting>, int canUseNumber){}
 
 // コピーコンストラクタ
-Skill::Skill(const Skill& obj):SkillSetting&(obj.skillSetting)canUseNumber(obj.canUseNumber) {}
+Skill::Skill(const Skill& obj):skillSetting(obj.skillSetting), canUseNumber(obj.canUseNumber) {}
 //代入演算子
 Skill& Skill::operator=(const Skill& rhs){
-    this->SkillSetting& = rhs.skillSetting;
+    this->skillSetting = rhs.skillSetting;
     this->canUseNumber = rhs.canUseNumber;
     return *this;
 }
 
 // スキルへの参照取得
-const SkillSetting& Skill::getSkillSetting() const 
+std::shared_ptr<const SkillSetting> Skill::getSkillSetting() const 
 {
     return skillSetting;
 }

@@ -4,26 +4,27 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 using namespace std;
 class SkillSetting;
 class SkillList
 {
     private:
-        vector<SkillSetting> skillList;
+        std::vector< std::shared_ptr<SkillSetting> > skillList;
     public:
         // コンストラクタ
         SkillList();
         // デストラクタ
         virtual ~SkillList();
         // リストを取得
-        const vector<SkillSetting>& getSkillList() const;
+        std::vector< std::shared_ptr<SkillSetting> > getSkillList() const;
         // csv読み込み
         void loadCSV(const string& filename);
         // リストにセット
-        void setSkill(const SkillSetting& skillSetting);
+        void setSkill(std::shared_ptr<SkillSetting>);
         // リストからスキルを取得
-        const SkillSetting& getListSkill(int i) const;
+        std::shared_ptr<const SkillSetting> getListSkill(int i) const;
 };
 
 #endif

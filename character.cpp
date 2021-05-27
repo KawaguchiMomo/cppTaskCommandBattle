@@ -1,6 +1,9 @@
 #include "character.h"
 #include "gameManager.h"
+#include "skill.h"
+#include "skillSetting.h"
 #include <vector>
+#include <memory>
 
 // コンストラクタ
 Character::Character()
@@ -109,12 +112,12 @@ int Character::getScore() const
 // スキル補正
 void Character::revisionStatus(const Skill& skill)
 {
-    const SkillSetting& skillSetting = skill.getSkillSetting();
-    setMaxHp(maxHp*skillSetting.getHPRate());
-    setHp(hp*skillSetting.getHPRate());
-    setAttack(attack*skillSetting.getAttackRate());
-    setDefense(defense*skillSetting.getDefenseRate());
-    setLuck(luck*skillSetting.getLuckRate());
+    std::shared_ptr<const SkillSetting> skillSetting = std::shared_ptr<const SkillSetting>(skill.getSkillSetting());
+    setMaxHp(maxHp*skillSetting->getHPRate());
+    setHp(hp*skillSetting->getHPRate());
+    setAttack(attack*skillSetting->getAttackRate());
+    setDefense(defense*skillSetting->getDefenseRate());
+    setLuck(luck*skillSetting->getLuckRate());
 }
 
 

@@ -15,41 +15,41 @@ PlayerList::~PlayerList(){}
 void PlayerList::loadCSV(const string& filename)
 {
     // 下記はコンストラクタですべて初期化するように変更しなければならない
-    // CsvLoader &csvLoader = CsvLoader::get_instance();
-    // Player player;
+    CsvLoader &csvLoader = CsvLoader::get_instance();
+    Player player;
 
-    // // csv読み込み
-    // auto loadData = csvLoader.loadCSV(filename);
-    // // ラベルと一致する番号を取得
-    // auto& label = loadData[0];
-    // int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
-    // int labelIndexImage = csvLoader.getLabelIndex(label, "IMAGE");
-    // int labelIndexHP = csvLoader.getLabelIndex(label, "HP");
-    // int labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
-    // int labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
-    // int labelIndexLuck = csvLoader.getLabelIndex(label, "LUC");
-    // int labelIndexScore = csvLoader.getLabelIndex(label, "SCORE");
-    // int labelIndexTalk = csvLoader.getLabelIndex(label, "TALK");
+    // csv読み込み
+    auto loadData = csvLoader.loadCSV(filename);
+    // ラベルと一致する番号を取得
+    auto& label = loadData[0];
+    int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
+    int labelIndexImage = csvLoader.getLabelIndex(label, "IMAGE");
+    int labelIndexHP = csvLoader.getLabelIndex(label, "HP");
+    int labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
+    int labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
+    int labelIndexLuck = csvLoader.getLabelIndex(label, "LUC");
+    int labelIndexScore = csvLoader.getLabelIndex(label, "SCORE");
+    int labelIndexTalk = csvLoader.getLabelIndex(label, "TALK");
 
-    // // データ作成
-    // for (auto& v : loadData) 
-    // {
-    //     // 一行目はラベルのためスキップ
-    //     if(v == label){
-    //         continue;
-    //     }
-    //     Player player;
-    //     player.setName(v[labelIndexName]);
-    //     player.setImage(v[labelIndexImage]);
-    //     player.setMaxHp(stoi(v[labelIndexHP]));
-    //     player.setHp(stoi(v[labelIndexHP]));
-    //     player.setAttack(stod(v[labelIndexAttack]));
-    //     player.setDefense(stod(v[labelIndexDefense]));
-    //     player.setLuck(stoi(v[labelIndexLuck]));
-    //     player.setScore(stoi(v[labelIndexScore]));
-    //     player.setTalk(v[labelIndexTalk]);
-    //     setPlayer(player);
-    // }
+    // データ作成
+    for (auto& v : loadData) 
+    {
+        // 一行目はラベルのためスキップ
+        if(v == label){
+            continue;
+        }
+        Player player;
+        player.setName(v[labelIndexName]);
+        player.setImage(v[labelIndexImage]);
+        player.setMaxHp(stoi(v[labelIndexHP]));
+        player.setHp(stoi(v[labelIndexHP]));
+        player.setAttack(stod(v[labelIndexAttack]));
+        player.setDefense(stod(v[labelIndexDefense]));
+        player.setLuck(stoi(v[labelIndexLuck]));
+        player.setScore(stoi(v[labelIndexScore]));
+        player.setTalk(v[labelIndexTalk]);
+        setPlayer(player);
+    }
 }
 // リストを取得
 const vector<Player>& PlayerList::getPlayerList() const
