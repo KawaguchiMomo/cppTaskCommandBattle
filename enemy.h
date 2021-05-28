@@ -7,9 +7,12 @@ class Enemy : public Character
 {
     public:
         // コンストラクタ
-        Enemy();
+        using Character::Character;
+        // Enemy();
         // デストラクタ
         virtual ~Enemy();
+        // エネミーの設定
+        void settingEnemy(const SkillList& skillList);
         // スキルを選択
         int inputSkill();
         // 死亡

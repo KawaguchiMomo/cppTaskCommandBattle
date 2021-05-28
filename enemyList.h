@@ -1,7 +1,7 @@
 #ifndef _ENEMY_LIST_H_
 #define _ENEMY_LIST_H_
 #include <string>
-
+#include <memory>
 #include <vector>
 using namespace std;
 class Enemy;
@@ -9,7 +9,7 @@ class Enemy;
 class EnemyList
 {
     private:
-        vector<Enemy> enemyList;
+        std::vector< std::shared_ptr<Enemy> > enemyList;
     public:
         // コンストラクタ
         EnemyList();
@@ -18,11 +18,13 @@ class EnemyList
         // csv読み込み
         void loadCSV(const string& filename);
         // リストを取得
-        const vector<Enemy>& getEnemyList() const; 
+        std::vector< std::shared_ptr<Enemy> > getEnemyList() const; 
         // リストにキャラをセット
-        void setEnemy(Enemy& enemy);
+        void setEnemy(std::shared_ptr<Enemy>);
         // リストからキャラ取得
-        const Enemy& getEnemy(int i) const;
+        std::shared_ptr<const Enemy> getEnemy(int i) const;
+        // エネミーを選択
+        std::shared_ptr<Enemy> inputUseEnemy();
 };
 
 #endif

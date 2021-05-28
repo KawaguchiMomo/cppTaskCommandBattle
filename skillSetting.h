@@ -19,6 +19,7 @@ class SkillSetting
         const double luckRate;
         const Type type;
         const int biAttack;
+        const int canUseNumber;
         const std::string desc;
 
     public:

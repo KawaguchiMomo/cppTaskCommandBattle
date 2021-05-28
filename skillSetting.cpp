@@ -24,7 +24,7 @@ SkillSetting::SkillSetting(std::string name,double HPRate,double attackRate,doub
 // }
 
 // スキル名取得
-const string& SkillSetting::getSkillName() const
+const std::string& SkillSetting::getSkillName() const
 {
     return name;
 }
@@ -54,7 +54,7 @@ Type SkillSetting::getType() const
     return type;
 }
 // スキル説明取得
-const string& SkillSetting::getDesc() const
+const std::string& SkillSetting::getDesc() const
 {
     return desc;
 }
@@ -64,7 +64,7 @@ int SkillSetting::getBiAttack() const
     return biAttack;
 }
 // 残り使用回数取得
-int Skill::getCanUseNumber() const
+int SkillSetting::getCanUseNumber() const
 {
     return canUseNumber;
 }

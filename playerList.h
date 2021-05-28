@@ -1,7 +1,7 @@
 #ifndef _PLAYER_LIST_H_
 #define _PLAYER_LIST_H_
 #include <string>
-
+#include <memory>
 #include <vector>
 using namespace std;
 class Player;
@@ -9,7 +9,7 @@ class Player;
 class PlayerList
 {
     private:
-        vector<Player> playerList;
+        std::vector< std::shared_ptr<Player> > playerList;
     public:
         // コンストラクタ
         PlayerList();
@@ -18,11 +18,13 @@ class PlayerList
         // csv読み込み
         void loadCSV(const string& filename);
         // リストを取得
-        const vector<Player>& getPlayerList() const; 
+        std::vector< std::shared_ptr<Player> > getPlayerList(); 
         // リストにキャラをセット
-        void setPlayer(Player& player);
+        void setPlayer(std::shared_ptr<Player>);
         // リストからキャラ取得
-        const Player& getPlayer(int i) const;
+        std::shared_ptr<const Player> getPlayer(int i) const;
+        // プレイヤーを選択
+        std::shared_ptr<Player> inputUsePlayer();
 };
 
 #endif

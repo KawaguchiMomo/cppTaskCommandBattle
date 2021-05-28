@@ -16,7 +16,7 @@ class SkillList
         // コンストラクタ
         SkillList();
         // デストラクタ
-        virtual ~SkillList();
+        virtual ~SkillList() = default;
         // リストを取得
         std::vector< std::shared_ptr<SkillSetting> > getSkillList() const;
         // csv読み込み

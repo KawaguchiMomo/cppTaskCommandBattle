@@ -7,11 +7,12 @@
 #include "gameManager.h"
 #include "skillList.h"
 #include "skill.h"
-#include "battle.h"
+#include "battleField.h"
 #include <iostream>
 #include <iomanip>
 #include <stdlib.h>
 #include <vector>
+#include <memory>
 
 
 using namespace std;
@@ -23,7 +24,7 @@ int main(){
     EnemyList enemyList;
     GameManager &gameManager = GameManager::get_instance();
     SkillList skillList;
-    Battle battle;
+    Battle battleField;
 
     // 乱数のシード設定
     gameManager.SetRand();
@@ -32,22 +33,23 @@ int main(){
     playerList.loadCSV("../playerData.csv");
     enemyList.loadCSV("../enemyData.csv");
     skillList.loadCSV("../skillData.csv");
-    
-    Player player = gameManager.settingPlayer(playerList, skillList);
-    Enemy enemy = gameManager.settingEnemy(enemyList, skillList);
+    cout << "oooooooooooooo" << endl;
+    std::shared_ptr<Player> player = playerList.inputUsePlayer();
+    cout << "aaaaaaaaaaaaaaa" << endl;
+    std::shared_ptr<Enemy> enemy = enemyList.inputUseEnemy();
     gameManager.initiativeSetting(player, enemy);
     
     // 戦うキャラクターのデータを表示系にセット
-    gameManager.SetCharacterData(&player, &enemy);
+    gameManager.SetCharacterData(player, enemy);
 
     while(1)
     {
         gameManager.printBattleWindow();
         // セットしたスキルを表示
-        gameManager.printHaveSkill(player);
+        player->printHaveSkill();
         cout << endl;
-        battle.startBattle(player,enemy,skillList);
-        battle.startBattle(enemy,player,skillList);
+        battleField.startBattle(player,enemy);
+        battleField.startBattle(enemy,player);
         
     }
 

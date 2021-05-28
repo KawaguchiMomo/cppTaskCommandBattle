@@ -14,7 +14,6 @@ class SkillSetting;
 SkillList::SkillList()
 {
     SkillSetting skillSetting("ダミー",0,0,0,0,Type::PASSIVE,0,0,"");
-    // エラーがでる。cppTaskCommandBattle/skillList.cpp:14:37:   required from here
     // skillList.push_back(skillSetting);
 }
 
@@ -35,7 +34,7 @@ void SkillList::loadCSV(const string& filename)
     auto label = loadData[0];
     int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
     int labelIndexHPRate = csvLoader.getLabelIndex(label, "HP");
-    int labelIndexAttackRate = csvLoader.getLabelIndex(label, "ATK");
+    int labelIndexAttackRate = csvLoader.getLabelIndex(label, "POW");
     int labelIndexDefenseRate = csvLoader.getLabelIndex(label, "DEF");
     int labelIndexluckRate = csvLoader.getLabelIndex(label, "LUC");
     int labelIndexType = csvLoader.getLabelIndex(label, "TYPE");
@@ -77,7 +76,6 @@ void SkillList::loadCSV(const string& filename)
 // リストにセット
 void SkillList::setSkill(std::shared_ptr<SkillSetting> skillSetting)
 {
-    // エラーが出る。cppTaskCommandBattle/skillList.cpp:77:37:   required from here
     skillList.push_back(skillSetting);
 }
 

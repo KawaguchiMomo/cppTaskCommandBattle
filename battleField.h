@@ -10,8 +10,8 @@ class Battle
         // コンストラクタ
         Battle();
         // デストラクタ
-        virtual ~Battle();
-        void startBattle(Character& attackChara, Character& defenseChara, const SkillList& skillList);
+        virtual ~Battle() = default;
+        void startBattle(std::shared_ptr<Character> attackChara, std::shared_ptr<Character> defenseChara);
 
 };
 

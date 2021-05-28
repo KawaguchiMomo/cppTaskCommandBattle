@@ -31,14 +31,8 @@ class GameManager
         void SetRand();
         // 乱数の作成
         int GetRand(int min, int max);
-        // 取得スキルを選択
-        Skill inputUseSkill(const SkillList& skillList);
-        // プレイヤーを選択
-        const Player& inputUsePlayer(const PlayerList& playerList);
         //
         int inputNumber(const string& message,int min, int max);
-        // エネミーを選択
-        const Enemy& inputUseEnemy(const EnemyList& enemyList);
         // コマンドを選択
         int inputSkill();
         // データを表示
@@ -46,23 +40,19 @@ class GameManager
         // スキルデータを表示
         void printSkillData(const string& skillName,int attackRate, int biAttack) const;
         // 画面表示のためにデータを登録
-        void SetCharacterData(Player* player, Enemy* enemy);
+        void SetCharacterData(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy);
         // 文章表示
         void printMessage(const string& message) const;
         // 戦闘画面表示
         void printBattleWindow() const;
-        // 取得しているスキル表示
-        void printHaveSkill(const Player& player) const;
+        // // 取得しているスキル表示
+        // void printHaveSkill(const Player& player) const;
         // HPバー表示
         void printHPBar(double par) const;
         // ライン表示
         void printLine() const;
-        // プレイヤーの設定
-        Player settingPlayer(const PlayerList& playerList, const SkillList& skillList);
-        // エネミーの設定
-        Enemy settingEnemy(const EnemyList& enemyList, const SkillList& skillList);
         // 最初の設定
-        void initiativeSetting(const Player& player, const Enemy& enemy);
+        void initiativeSetting(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy);
         // ゲームクリア
         void printGameClear() const;
         // ゲームオーバー

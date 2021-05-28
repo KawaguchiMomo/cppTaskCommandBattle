@@ -2,8 +2,13 @@
 #include "player.h"
 #include <vector>
 #include <string>
+#include <memory>
+#include <iostream>
 #include "csvLoader.h"
-// コンストラクタ
+#include "gameManager.h"
+#include "character.h"
+
+
 PlayerList::PlayerList(){
     // Player player;
     // playerList.push_back(player);
@@ -16,7 +21,6 @@ void PlayerList::loadCSV(const string& filename)
 {
     // 下記はコンストラクタですべて初期化するように変更しなければならない
     CsvLoader &csvLoader = CsvLoader::get_instance();
-    Player player;
 
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
@@ -25,7 +29,7 @@ void PlayerList::loadCSV(const string& filename)
     int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
     int labelIndexImage = csvLoader.getLabelIndex(label, "IMAGE");
     int labelIndexHP = csvLoader.getLabelIndex(label, "HP");
-    int labelIndexAttack = csvLoader.getLabelIndex(label, "ATK");
+    int labelIndexPower = csvLoader.getLabelIndex(label, "POW");
     int labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
     int labelIndexLuck = csvLoader.getLabelIndex(label, "LUC");
     int labelIndexScore = csvLoader.getLabelIndex(label, "SCORE");
@@ -38,32 +42,56 @@ void PlayerList::loadCSV(const string& filename)
         if(v == label){
             continue;
         }
-        Player player;
-        player.setName(v[labelIndexName]);
-        player.setImage(v[labelIndexImage]);
-        player.setMaxHp(stoi(v[labelIndexHP]));
-        player.setHp(stoi(v[labelIndexHP]));
-        player.setAttack(stod(v[labelIndexAttack]));
-        player.setDefense(stod(v[labelIndexDefense]));
-        player.setLuck(stoi(v[labelIndexLuck]));
-        player.setScore(stoi(v[labelIndexScore]));
-        player.setTalk(v[labelIndexTalk]);
+        
+        std::shared_ptr<Player> player = std::make_shared<Player>(v[labelIndexName],v[labelIndexImage],stoi(v[labelIndexHP]),stoi(v[labelIndexHP]),stod(v[labelIndexPower]),stod(v[labelIndexDefense]),stoi(v[labelIndexLuck]),stoi(v[labelIndexScore]),v[labelIndexTalk],false);
+        // player.setName(v[labelIndexName]);
+        // player.setImage(v[labelIndexImage]);
+        // player.setMaxHp(stoi(v[labelIndexHP]));
+        // player.setHp(stoi(v[labelIndexHP]));
+        // player.setPower(stod(v[labelIndexPower]));
+        // player.setDefense(stod(v[labelIndexDefense]));
+        // player.setLuck(stoi(v[labelIndexLuck]));
+        // player.setScore(stoi(v[labelIndexScore]));
+        // player.setTalk(v[labelIndexTalk]);
         setPlayer(player);
     }
 }
 // リストを取得
-const vector<Player>& PlayerList::getPlayerList() const
+std::vector< std::shared_ptr<Player> > PlayerList::getPlayerList()
 {
     return playerList;
 } 
 
 // リストにキャラをセット
-void PlayerList::setPlayer(Player& player)
+void PlayerList::setPlayer(std::shared_ptr<Player> player)
 {
-    playerList.push_back(player);
+    playerList.push_back(std::move(player));
 }
 // リストからキャラ取得
-const Player& PlayerList::getPlayer(int i) const
+std::shared_ptr<const Player> PlayerList::getPlayer(int i) const
 {
     return playerList[i];
+}
+
+// プレイヤーを選択
+std::shared_ptr<Player> PlayerList::inputUsePlayer()
+{
+    // シングルトン不採用　最終的に下記コードはやめる
+    GameManager &gameManager = GameManager::get_instance();
+
+    system("clear");
+    gameManager.printLine();
+    int playerListSize = (int)playerList.size();
+    for(int i = 1 ; i < playerListSize ; i++)
+    {
+        std::cout << i << ": " << playerList[i]->getName() << " ";
+        if(i % 4 == 0) { std::cout << endl; }
+    }
+    std::cout << endl; 
+
+    int playerNumber = gameManager.inputNumber("プレイヤーを選んでください", 1, playerListSize);
+    system("clear");
+    std::cout << "oooooooooooooo" << endl;
+    // ここでSegmentation faultが起こっています！！！！！！！！！！！！！！！！！！！！
+    return playerList[playerNumber];
 }
