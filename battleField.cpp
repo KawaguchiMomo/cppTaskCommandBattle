@@ -1,4 +1,4 @@
-#include "battle.h"
+#include "battleField.h"
 #include "gameManager.h"
 #include "skill.h"
 #include "skillList.h"
@@ -19,7 +19,7 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
         getSkillNumber = attackChara.inputSkill();
         //スキル発動
         Skill skill = attackChara.getSkill(getSkillNumber);
-        std::shared_ptr<const SkillSetting> skillSetting = std::shared_ptr<const SkillSetting>(skill.getSkillSetting());
+        std::shared_ptr<const SkillSetting> skillSetting = skill.getSkillSetting();
         // スキル残り使用回数確認
         if(skill.getCanUseNumber() == 0)
         {
@@ -32,7 +32,7 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
         }
     }
     Skill skill = attackChara.getSkill(getSkillNumber);
-    std::shared_ptr<const SkillSetting> skillSetting = std::shared_ptr<const SkillSetting>(skill.getSkillSetting());
+    std::shared_ptr<const SkillSetting> skillSetting = skill.getSkillSetting();
 
     string message = attackChara.getName() + "の" + skillSetting->getSkillName() + "！";
     gameManager.printMessage(message);
@@ -40,21 +40,22 @@ void Battle::startBattle(Character& attackChara, Character& defenseChara, const 
     for(int i = 0 ; i < skillSetting->getBiAttack();i++)
     {
         double random = (double)gameManager.GetRand(50, 150) / 100;
-        double attack = attackChara.getAttack() * skillSetting->getAttackRate() * random;
+        double power = attackChara.getPower() * skillSetting->getAttackRate() * random;
 
         // クリティカル判定
         int critLine = gameManager.GetRand(0, 100);
         if(attackChara.getLuck() >= critLine)
         {
             gameManager.printMessage("クリティカルヒット！");
-            attack = attack * 2;
+            power = power * 2;
         }
 
-        double defense = defenseChara.getDefense();
+        // double defense = defenseChara.getDefense();
         // ダメージがマイナスにならないように
-        double damage = (attack - defense) < 0 ? 0 : (attack - defense);
+        // double damage = (power - defense) < 0 ? 0 : (power - defense);
 
-        defenseChara.receivedDamage(damage);
+        defenseChara.receivedDamage(power);
+
         string message = defenseChara.getName() + "に" + to_string((int)damage) + "のダメージ！";
         gameManager.printMessage(message);
 
