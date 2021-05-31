@@ -19,8 +19,6 @@
 using std::this_thread::sleep_for;
 
 using namespace std;
-// // スキル所持最大数
-// const int MAXHAVESKILL = 4;
 
 // 呼び出し
 GameManager& GameManager::get_instance()
@@ -78,25 +76,9 @@ void GameManager::printMessage(const string& message) const
     cout << message << endl;
     sleep_for(std::chrono::milliseconds(1000));
 }
-// データを表示
-void GameManager::printData(const Character& character) const
-{
-    cout << "名前: " << character.getName() << endl;
-    cout << "HP: " << character.getHp() << endl;
-    cout << "攻撃力: " << character.getPower() << endl;
-    cout << "防御力: " << character.getDefense() << endl;
-    cout << "運: " << character.getLuck() << endl;
-
-}
-void GameManager::printSkillData(const string& skillName,int attackRate, int biAttack) const
-{
-    cout << "名前: " << skillName << endl;
-    cout << "攻撃倍率: " << attackRate << endl;
-    cout << "攻撃回数: " << biAttack << endl;
-}
 
 // 画面表示のためにデータを登録
-void GameManager::SetCharacterData(Player* player, Enemy* enemy)
+void GameManager::SetCharacterData(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy)
 {
     usePlayer = player;
     useEnemy = enemy;
@@ -146,18 +128,18 @@ void GameManager::printLine() const
 
 
 
-// 最初の設定
+// 最初の設定確認
 void GameManager::initiativeSetting(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy)
 {
     system("clear");
     printLine();
     // 戦闘準備確認
-    printData(player);
+    player->printData();
     cout << "スキル: " << endl;
-    printHaveSkill(player);
+    usePlayer->printHaveSkill();
     cout << endl;
     cout << endl;
-    cout << "戦う相手:" << enemy.getName() << endl;
+    cout << "戦う相手:" << useEnemy->getName() << endl;
 
     cout << "この設定で戦闘を開始します。";
     getchar();

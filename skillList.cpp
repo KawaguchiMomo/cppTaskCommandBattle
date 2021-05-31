@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <memory>
 
 enum class Type;
 class SkillSetting;
@@ -27,6 +28,10 @@ std::vector< std::shared_ptr<SkillSetting> > SkillList::getSkillList() const
 void SkillList::loadCSV(const string& filename)
 {
     CsvLoader &csvLoader = CsvLoader::get_instance();
+    
+    // 0番目のスキルを作成
+    std::shared_ptr<SkillSetting> skillSetting = std::make_shared<SkillSetting>("0番目用スキル",0,0,0,0,Type::PASSIVE,0,0,"0番目用");
+    setSkill(skillSetting);
 
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);

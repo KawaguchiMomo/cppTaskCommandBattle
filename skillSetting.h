@@ -33,7 +33,7 @@ class SkillSetting
         // 代入演算子(禁止にする)
         SkillSetting& operator=(const SkillSetting&) = delete;
         // スキル名取得
-        const std::string& getSkillName() const;
+        const std::string& getName() const;
         // HP取得
         double getHPRate() const;
         // 攻撃力取得

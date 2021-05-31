@@ -1,6 +1,6 @@
 #ifndef _BATTLE_H
 #define _BATTLE_H
-
+#include <memory>
 class Character;
 class SkillList;
 

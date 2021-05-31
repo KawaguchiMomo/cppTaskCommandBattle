@@ -15,7 +15,7 @@ class Skill
         // デフォルトコンストラクタ
         // Skill();
         // コンストラクタ
-        Skill(std::shared_ptr<const SkillSetting> skill, int canUseNumber);
+        Skill(std::shared_ptr<const SkillSetting> skill);
         // デストラクタ
         virtual ~Skill() = default;
         // コピーコンストラクタ
@@ -29,6 +29,8 @@ class Skill
         void setCanUseNumber(int a);
         // 残り使用回数取得
         int getCanUseNumber() const;
+        // スキルが使えるかどうか
+        bool isCanUse() const;
         // 残り使用回数減少
         void UsedCanUseNumber();
 };

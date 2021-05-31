@@ -12,9 +12,9 @@ class EnemyList
         std::vector< std::shared_ptr<Enemy> > enemyList;
     public:
         // コンストラクタ
-        EnemyList();
+        EnemyList() = default;
         // デストラクタ
-        virtual ~EnemyList();
+        virtual ~EnemyList() = default;
         // csv読み込み
         void loadCSV(const string& filename);
         // リストを取得

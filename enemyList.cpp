@@ -6,19 +6,15 @@
 #include <iostream>
 #include "csvLoader.h"
 #include "gameManager.h"
-// コンストラクタ
-// EnemyList::EnemyList(){
-//     Enemy enemy;
-//     enemyList.push_back(enemy);
-// }
-// デストラクタ
-EnemyList::~EnemyList(){}
 
 // csv読み込み
 void EnemyList::loadCSV(const string& filename)
 {
+    // 0番目用データ作成
+    std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>("0番目用データ","",0,0,0,0,0,0,0,0,0,0,"",false);
+    setEnemy(enemy);
+    
     CsvLoader &csvLoader = CsvLoader::get_instance();
-    // Enemy enemy;
 
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
@@ -30,10 +26,10 @@ void EnemyList::loadCSV(const string& filename)
     int labelIndexPower = csvLoader.getLabelIndex(label, "POW");
     int labelIndexDefense = csvLoader.getLabelIndex(label, "DEF");
     int labelIndexLuck = csvLoader.getLabelIndex(label, "LUC");
-    // int labelIndexSkill1 = csvLoader.getLabelIndex(label, "SKILL1");
-    // int labelIndexSkill2 = csvLoader.getLabelIndex(label, "SKILL2");
-    // int labelIndexSkill3 = csvLoader.getLabelIndex(label, "SKILL3");
-    // int labelIndexSkill4 = csvLoader.getLabelIndex(label, "SKILL4");
+    int labelIndexSkill1 = csvLoader.getLabelIndex(label, "SKILL1");
+    int labelIndexSkill2 = csvLoader.getLabelIndex(label, "SKILL2");
+    int labelIndexSkill3 = csvLoader.getLabelIndex(label, "SKILL3");
+    int labelIndexSkill4 = csvLoader.getLabelIndex(label, "SKILL4");
     int labelIndexScore = csvLoader.getLabelIndex(label, "SCORE");
     int labelIndexTalk = csvLoader.getLabelIndex(label, "TALK");
 
@@ -44,20 +40,7 @@ void EnemyList::loadCSV(const string& filename)
         if(v == label){
             continue;
         }
-        std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(v[labelIndexName],v[labelIndexImage],stoi(v[labelIndexHP]),stoi(v[labelIndexHP]),stod(v[labelIndexPower]),stod(v[labelIndexDefense]),stoi(v[labelIndexLuck]),stoi(v[labelIndexScore]),v[labelIndexTalk],false);
-        // enemy.setName(v[labelIndexName]);
-        // enemy.setImage(v[labelIndexImage]);
-        // enemy.setMaxHp(stoi(v[labelIndexHP]));
-        // enemy.setHp(stoi(v[labelIndexHP]));
-        // enemy.setPower(stoi(v[labelIndexAttack]));
-        // enemy.setDefense(stoi(v[labelIndexDefense]));
-        // enemy.setLuck(stoi(v[labelIndexLuck]));
-        // enemy.setSkillNumber(stoi(v[labelIndexSkill1]));
-        // enemy.setSkillNumber(stoi(v[labelIndexSkill2]));
-        // enemy.setSkillNumber(stoi(v[labelIndexSkill3]));
-        // enemy.setSkillNumber(stoi(v[labelIndexSkill4]));
-        // enemy.setScore(stoi(v[labelIndexScore]));
-        // enemy.setTalk(v[labelIndexTalk]);
+        std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(v[labelIndexName],v[labelIndexImage],stoi(v[labelIndexHP]),stoi(v[labelIndexHP]),stod(v[labelIndexPower]),stod(v[labelIndexDefense]),stoi(v[labelIndexLuck]),stoi(v[labelIndexSkill1]),stoi(v[labelIndexSkill2]),stoi(v[labelIndexSkill3]),stoi(v[labelIndexSkill4]),stoi(v[labelIndexScore]),v[labelIndexTalk],false);
         setEnemy(enemy);
     }
 }

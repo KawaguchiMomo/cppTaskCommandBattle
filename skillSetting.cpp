@@ -24,7 +24,7 @@ SkillSetting::SkillSetting(std::string name,double HPRate,double attackRate,doub
 // }
 
 // スキル名取得
-const std::string& SkillSetting::getSkillName() const
+const std::string& SkillSetting::getName() const
 {
     return name;
 }

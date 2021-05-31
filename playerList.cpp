@@ -19,7 +19,11 @@ PlayerList::~PlayerList(){}
 // csv読み込み
 void PlayerList::loadCSV(const string& filename)
 {
-    // 下記はコンストラクタですべて初期化するように変更しなければならない
+
+    // 0番目用データ作成
+    std::shared_ptr<Player> player = std::make_shared<Player>("0番目用データ","",0,0,0,0,0,0,"",false);
+    setPlayer(player);
+
     CsvLoader &csvLoader = CsvLoader::get_instance();
 
     // csv読み込み
@@ -38,21 +42,14 @@ void PlayerList::loadCSV(const string& filename)
     // データ作成
     for (auto& v : loadData) 
     {
+
         // 一行目はラベルのためスキップ
         if(v == label){
             continue;
         }
         
-        std::shared_ptr<Player> player = std::make_shared<Player>(v[labelIndexName],v[labelIndexImage],stoi(v[labelIndexHP]),stoi(v[labelIndexHP]),stod(v[labelIndexPower]),stod(v[labelIndexDefense]),stoi(v[labelIndexLuck]),stoi(v[labelIndexScore]),v[labelIndexTalk],false);
-        // player.setName(v[labelIndexName]);
-        // player.setImage(v[labelIndexImage]);
-        // player.setMaxHp(stoi(v[labelIndexHP]));
-        // player.setHp(stoi(v[labelIndexHP]));
-        // player.setPower(stod(v[labelIndexPower]));
-        // player.setDefense(stod(v[labelIndexDefense]));
-        // player.setLuck(stoi(v[labelIndexLuck]));
-        // player.setScore(stoi(v[labelIndexScore]));
-        // player.setTalk(v[labelIndexTalk]);
+        std::shared_ptr<Player> player = std::make_shared<Player>(v[labelIndexName],v[labelIndexImage],stoi(v[labelIndexHP]),stoi(v[labelIndexHP]),stod(v[labelIndexPower]),stod(v[labelIndexDefense]),stoi(v[labelIndexLuck])
+        ,stoi(v[labelIndexScore]),v[labelIndexTalk],false);
         setPlayer(player);
     }
 }
@@ -91,7 +88,6 @@ std::shared_ptr<Player> PlayerList::inputUsePlayer()
 
     int playerNumber = gameManager.inputNumber("プレイヤーを選んでください", 1, playerListSize);
     system("clear");
-    std::cout << "oooooooooooooo" << endl;
-    // ここでSegmentation faultが起こっています！！！！！！！！！！！！！！！！！！！！
+
     return playerList[playerNumber];
 }

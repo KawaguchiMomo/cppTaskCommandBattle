@@ -33,15 +33,20 @@ int main(){
     playerList.loadCSV("../playerData.csv");
     enemyList.loadCSV("../enemyData.csv");
     skillList.loadCSV("../skillData.csv");
-    cout << "oooooooooooooo" << endl;
+
+    // 使用キャラクターの選択
     std::shared_ptr<Player> player = playerList.inputUsePlayer();
-    cout << "aaaaaaaaaaaaaaa" << endl;
+    player->settingPlayer(skillList);
+
+    // 敵エネミーの選択
     std::shared_ptr<Enemy> enemy = enemyList.inputUseEnemy();
-    gameManager.initiativeSetting(player, enemy);
-    
+    enemy->settingEnemy(skillList);
+
     // 戦うキャラクターのデータを表示系にセット
     gameManager.SetCharacterData(player, enemy);
-
+    // 最初の設定確認
+    gameManager.initiativeSetting(player, enemy);
+    
     while(1)
     {
         gameManager.printBattleWindow();

@@ -21,7 +21,7 @@ std::unique_ptr<Skill> Player::inputUseSkill(const SkillList& skillList)
     {
         const std::shared_ptr< SkillSetting > skillSetting = skillList.getSkillList()[i];
         string message;
-        message = to_string(i) + ": " + skillSetting->getSkillName();
+        message = to_string(i) + ": " + skillSetting->getName();
         if(skillSetting->getType() == Type::ACTIVE){
             message = message + "/アクティブ" + ":使用回数 " + to_string(skillSetting->getCanUseNumber()) + "/";
         }else if(skillSetting->getType() == Type::PASSIVE){
@@ -35,16 +35,15 @@ std::unique_ptr<Skill> Player::inputUseSkill(const SkillList& skillList)
     system("clear");
 
     // キャラクター固有のスキルを作成
-    std::unique_ptr<Skill> skill = std::make_unique<Skill>(skillList.getListSkill(skillNumber), skillList.getListSkill(skillNumber)->getCanUseNumber());
+    std::unique_ptr<Skill> skill = std::make_unique<Skill>(skillList.getListSkill(skillNumber));
     
-    return skill;
+    return std::move(skill);
 }
 
 
 // プレイヤーの設定
 void Player::settingPlayer(const SkillList& skillList)
 {
-
     // シングルトン不採用　最終的に下記コードはやめる
     GameManager &gameManager = GameManager::get_instance();
 
@@ -56,12 +55,12 @@ void Player::settingPlayer(const SkillList& skillList)
     // いちいちSkillクラスを作成しなければならないので
     // どこかで共通で呼び出せるようにしておく…？
     // std::shared_ptr<const SkillSetting> skill = std::make_shared<SkillSetting>();
-    std::unique_ptr<Skill> dummySkill = std::make_unique<Skill>(skillList.getListSkill(0), skillList.getListSkill(0)->getCanUseNumber());
+    std::unique_ptr<Skill> dummySkill = std::make_unique<Skill>(skillList.getListSkill(0));
     setSkill(std::move(dummySkill));
 
-    std::unique_ptr<Skill> tatakauSkill = std::make_unique<Skill>(skillList.getListSkill(1), skillList.getListSkill(1)->getCanUseNumber());
+    std::unique_ptr<Skill> tatakauSkill = std::make_unique<Skill>(skillList.getListSkill(1));
     setSkill(std::move(tatakauSkill));
-
+    
     printHaveSkill();
     setSkill(std::move(inputUseSkill(skillList)));
     gameManager.printLine();
@@ -101,9 +100,9 @@ int Player::inputSkill()
         //スキル発動
         std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
         // スキル残り使用回数確認
-        if(haveSkill[skillNumber]->getCanUseNumber() == 0)
+        if(!haveSkill[skillNumber]->isCanUse())
         {
-            string message = skillSetting->getSkillName() + "は残り使用回数がない！";
+            string message = skillSetting->getName() + "は残り使用回数がない！";
             gameManager.printMessage(message);
         }else{
             // 残り使用回数減少
@@ -122,8 +121,7 @@ void Player::printHaveSkill() const
     int skillListSize = haveSkill.size();
     for(int i = 1; i < skillListSize; i++){
         std::shared_ptr<const SkillSetting> skillSetting = haveSkill[i]->getSkillSetting();
-
-        const string& skillName = skillSetting->getSkillName();
+        const string& skillName = skillSetting->getName();
         int skillCanUseNumber = haveSkill[i]->getCanUseNumber();
 
         // 残り使用回数を表示

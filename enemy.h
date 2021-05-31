@@ -7,8 +7,7 @@ class Enemy : public Character
 {
     public:
         // コンストラクタ
-        using Character::Character;
-        // Enemy();
+        Enemy(std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int haveSkillNumber1, int haveSkillNumber2, int haveSkillNumber3, int haveSkillNumber4, int score, std::string talk, bool isDead);
         // デストラクタ
         virtual ~Enemy();
         // エネミーの設定
