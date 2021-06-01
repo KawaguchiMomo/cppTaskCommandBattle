@@ -10,10 +10,7 @@
 // csv読み込み
 void EnemyList::loadCSV(const string& filename)
 {
-    // 0番目用データ作成
-    std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>("0番目用データ","",0,0,0,0,0,0,0,0,0,0,"",false);
-    setEnemy(enemy);
-    
+
     CsvLoader &csvLoader = CsvLoader::get_instance();
 
     // csv読み込み
@@ -69,10 +66,10 @@ std::shared_ptr<Enemy> EnemyList::inputUseEnemy()
     system("clear");
     gameManager.printLine();
     int enemyListSize = (int)enemyList.size();
-    for(int i = 1 ; i < enemyListSize ; i++)
+    for(int i = 0 ; i < enemyListSize ; i++)
     {
-        std::cout << i << ": " << enemyList[i]->getName() << " ";
-        if(i % 4 == 0) { std::cout << endl; }
+        std::cout << i + 1 << ": " << enemyList[i]->getName() << " " << endl;;
+        // if(i % 4 == 0) { std::cout << endl; }
     }
     std::cout << endl; 
 

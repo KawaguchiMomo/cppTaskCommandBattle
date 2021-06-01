@@ -4,16 +4,18 @@
 #include <memory>
 #include <iostream>
 
+// スキル所持最大数
+const int MAXHAVESKILL = 4;
+
 // コンストラクタ
-Enemy::Enemy(std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int haveSkillNumber1, int haveSkillNumber2, int haveSkillNumber3, int haveSkillNumber4, int score, std::string talk, bool isDead)
+Enemy::Enemy(std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int haveSkillNumber0, int haveSkillNumber1, int haveSkillNumber2, int haveSkillNumber3, int score, std::string talk, bool isDead)
                     :Character(name, image,hp, maxHp, power, defense, luck, score, talk, isDead)
     {
         // エネミーのスキルはcsvから読み込み
-        haveSkillNumber.push_back(0);
-        haveSkillNumber.push_back(1);
-        haveSkillNumber.push_back(haveSkillNumber2);
-        haveSkillNumber.push_back(haveSkillNumber3);
-        haveSkillNumber.push_back(haveSkillNumber4);
+        haveSkillIDList.push_back(0);
+        haveSkillIDList.push_back(haveSkillNumber1);
+        haveSkillIDList.push_back(haveSkillNumber2);
+        haveSkillIDList.push_back(haveSkillNumber3);
     }
 
 // デストラクタ
@@ -24,18 +26,31 @@ void Enemy::settingEnemy(const SkillList& skillList)
 {
 
     // エネミーにスキルをセット
-    // settingPlayerと同じ問題
-    std::unique_ptr<Skill> dummySkill = std::make_unique<Skill>(skillList.getListSkill(0));
-    std::unique_ptr<Skill> tatakauSkill = std::make_unique<Skill>(skillList.getListSkill(1));
-    std::unique_ptr<Skill> skill1 = std::make_unique<Skill>(skillList.getListSkill(haveSkillNumber[2]));
-    std::unique_ptr<Skill> skill2 = std::make_unique<Skill>(skillList.getListSkill(haveSkillNumber[3]));
-    std::unique_ptr<Skill> skill3 = std::make_unique<Skill>(skillList.getListSkill(haveSkillNumber[4]));
+    for(int i = 0; i < MAXHAVESKILL; i++)
+    {
+        if(i == 0){
+            // 一番目のスキルはたたかう固定
+            std::unique_ptr<Skill> tatakauSkill = std::make_unique<Skill>(skillList.getListSkill(i));
+            setSkill(std::move(tatakauSkill));
+        } else {
+            int skillNumber = matchID(haveSkillIDList[i], skillList);
+            std::unique_ptr<Skill> skill = std::make_unique<Skill>(skillList.getListSkill(skillNumber));
+            setSkill(std::move(skill));
+        }
+    }
+}
 
-    setSkill(std::move(dummySkill));
-    setSkill(std::move(tatakauSkill));
-    setSkill(std::move(skill1));
-    setSkill(std::move(skill2));
-    setSkill(std::move(skill3));
+// スキルリストのIDとエネミーデータのスキルIDが一致するか走査
+int Enemy::matchID(int id, const SkillList& skillList)
+{
+    for(int i = 0; i < (int)skillList.getSkillList().size() ;i++)
+    {
+        if(skillList.getListSkill(i)->getID() == id){
+            return i;
+        }
+    } 
+    cout << "スキルIDが存在しません。存在しないデータ: " << id << endl;
+    exit(1);
 
 }
 
@@ -43,22 +58,22 @@ void Enemy::settingEnemy(const SkillList& skillList)
 // 攻撃につかうスキルを選択
 int Enemy::inputSkill()
 {
-
+    int  countRimit = 100;
     GameManager &gameManager = GameManager::get_instance();
     int skillNumber;
-    std::cout << haveSkill[0]->getSkillSetting()->getName() << std::endl;
-    // 整数1~9以外はエラー、すでに書き込んである箇所はエラー
-    while(1) {
+
+    for(int i = 0; i <= countRimit; i++)
+    {
         // 乱数を生成する 
-        skillNumber = gameManager.GetRand(1,4);
+        skillNumber = gameManager.GetRand(0,3);
 
         // 発動条件を満たしていない場合再抽選
         if(!haveSkill[skillNumber]->isCanUse()){
             continue;
         }
-        break;
+        return skillNumber;
     }
-    return skillNumber;
+    return 0;
 }
 
 // 死亡

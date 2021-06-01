@@ -3,13 +3,13 @@
 enum class Type;
 
 // デフォルトコンストラクタ
-SkillSetting::SkillSetting():name(""),HPRate(0),attackRate(0),defenseRate(0),
+SkillSetting::SkillSetting():id(0),name(""),HPRate(0),attackRate(0),defenseRate(0),
                 luckRate(0),type(Type::PASSIVE),biAttack(0),canUseNumber(0),desc("") {}
 
 // コンストラクタ
-SkillSetting::SkillSetting(std::string name,double HPRate,double attackRate,double defenseRate,
+SkillSetting::SkillSetting(int id, std::string name,double HPRate,double attackRate,double defenseRate,
                 double luckRate,Type type,int biAttack,int canUseNumber,std::string desc)
-                :name(name),HPRate(HPRate),attackRate(attackRate),defenseRate(defenseRate),
+                :id(id),name(name),HPRate(HPRate),attackRate(attackRate),defenseRate(defenseRate),
                 luckRate(luckRate),type(type),biAttack(biAttack),canUseNumber(canUseNumber),desc(desc) {}
 
 // // コピーコンストラクタ（禁止にする）
@@ -23,6 +23,11 @@ SkillSetting::SkillSetting(std::string name,double HPRate,double attackRate,doub
 //     return *this;
 // }
 
+// スキルID取得
+const int SkillSetting::getID() const
+{
+    return id;
+}
 // スキル名取得
 const std::string& SkillSetting::getName() const
 {

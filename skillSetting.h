@@ -12,6 +12,7 @@ class SkillSetting;
 class SkillSetting
 {   
     private:
+        const int id;
         const std::string name;
         const double HPRate;
         const double attackRate;
@@ -26,12 +27,14 @@ class SkillSetting
         // デフォルトコンストラクタ
         SkillSetting();
         // コンストラクタ
-        SkillSetting(std::string name,double HPRate,double attackRate,double defenseRate,
+        SkillSetting(int id, std::string name,double HPRate,double attackRate,double defenseRate,
                 double luckRate,Type type,int biAttack,int canUseNumber, std::string desc);
         // コピーコンストラクタ(禁止にする)
         SkillSetting(const SkillSetting&) = delete;
         // 代入演算子(禁止にする)
         SkillSetting& operator=(const SkillSetting&) = delete;
+        // スキルID取得
+        const int getID() const;
         // スキル名取得
         const std::string& getName() const;
         // HP取得

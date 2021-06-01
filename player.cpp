@@ -11,17 +11,16 @@ const int MAXHAVESKILL = 4;
 // 取得スキルを選択
 std::unique_ptr<Skill> Player::inputUseSkill(const SkillList& skillList)
 {
-    // シングルトン不採用　最終的に下記コードはやめる
     GameManager &gameManager = GameManager::get_instance();
 
     gameManager.printLine();
     int skillListSize = (int)skillList.getSkillList().size();
     // スキル一覧を表示
-    for(int i = 1 ; i < skillListSize ; i++)
+    for(int i = 0 ; i < skillListSize ; i++)
     {
         const std::shared_ptr< SkillSetting > skillSetting = skillList.getSkillList()[i];
         string message;
-        message = to_string(i) + ": " + skillSetting->getName();
+        message = to_string(i + 1) + ": " + skillSetting->getName();
         if(skillSetting->getType() == Type::ACTIVE){
             message = message + "/アクティブ" + ":使用回数 " + to_string(skillSetting->getCanUseNumber()) + "/";
         }else if(skillSetting->getType() == Type::PASSIVE){
@@ -44,37 +43,25 @@ std::unique_ptr<Skill> Player::inputUseSkill(const SkillList& skillList)
 // プレイヤーの設定
 void Player::settingPlayer(const SkillList& skillList)
 {
-    // シングルトン不採用　最終的に下記コードはやめる
     GameManager &gameManager = GameManager::get_instance();
 
-    // Player player;
-
     // プレイヤーにスキルをセット
-    // player = inputUsePlayer(playerList);
-    // ダミースキルやたたかうスキルはどのキャラクターがもっても同じだが、
-    // いちいちSkillクラスを作成しなければならないので
-    // どこかで共通で呼び出せるようにしておく…？
-    // std::shared_ptr<const SkillSetting> skill = std::make_shared<SkillSetting>();
-    std::unique_ptr<Skill> dummySkill = std::make_unique<Skill>(skillList.getListSkill(0));
-    setSkill(std::move(dummySkill));
 
-    std::unique_ptr<Skill> tatakauSkill = std::make_unique<Skill>(skillList.getListSkill(1));
-    setSkill(std::move(tatakauSkill));
-    
-    printHaveSkill();
-    setSkill(std::move(inputUseSkill(skillList)));
-    gameManager.printLine();
-
-    printHaveSkill();
-    setSkill(std::move(inputUseSkill(skillList)));
-    gameManager.printLine();
-
-    printHaveSkill();
-    setSkill(std::move(inputUseSkill(skillList)));
-    gameManager.printLine();
-    
+    for(int i = 0; i < MAXHAVESKILL ; i++) 
+    {
+        if(i == 0){
+            // 一番目のスキルはたたかう固定
+            std::unique_ptr<Skill> tatakauSkill = std::make_unique<Skill>(skillList.getListSkill(0));
+            setSkill(std::move(tatakauSkill));
+        } else {
+            printHaveSkill();
+            setSkill(std::move(inputUseSkill(skillList)));
+            gameManager.printLine();
+        }
+    }
+        
     // スキルによるステータス補正
-    for(int i=1; i<=4 ; i++)
+    for(int i = 0; i < MAXHAVESKILL ; i++)
     {
         if(haveSkill[i]->getSkillSetting()->getType() == Type::PASSIVE){
             revisionStatus(haveSkill[i]->getSkillSetting());
@@ -95,7 +82,7 @@ int Player::inputSkill()
         cin.clear();
         gameManager.printBattleWindow();
         printHaveSkill();
-        skillNumber = gameManager.inputNumber("コマンドを選んでください", 1, MAXHAVESKILL+1);
+        skillNumber = gameManager.inputNumber("コマンドを選んでください", 1, MAXHAVESKILL);
 
         //スキル発動
         std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
@@ -119,7 +106,7 @@ int Player::inputSkill()
 void Player::printHaveSkill() const
 {
     int skillListSize = haveSkill.size();
-    for(int i = 1; i < skillListSize; i++){
+    for(int i = 0; i < skillListSize; i++){
         std::shared_ptr<const SkillSetting> skillSetting = haveSkill[i]->getSkillSetting();
         const string& skillName = skillSetting->getName();
         int skillCanUseNumber = haveSkill[i]->getCanUseNumber();
@@ -131,7 +118,7 @@ void Player::printHaveSkill() const
         }else{
             canUseNumber = "(" + to_string(skillCanUseNumber) + ")";
         }
-        cout << i << " :" << skillName << canUseNumber << "  ";
+        cout << i + 1 << " :" << skillName << canUseNumber << "  ";
     }
     cout << endl;
 }

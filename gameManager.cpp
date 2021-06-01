@@ -61,11 +61,11 @@ int GameManager::inputNumber(const string& message,int min, int max){
             cout << "入力が間違っています。" << endl;
             continue;
         }
-        if(!(min <= inputNumber && inputNumber < max)){
+        if(!(min <= inputNumber && inputNumber <= max)){
             cout << "入力が間違っています。" << endl;
             continue;
         }
-        return inputNumber;
+        return inputNumber - 1;
     }
 }
 

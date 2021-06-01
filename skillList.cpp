@@ -13,10 +13,7 @@ class SkillSetting;
 
 // コンストラクタ
 SkillList::SkillList()
-{
-    SkillSetting skillSetting("ダミー",0,0,0,0,Type::PASSIVE,0,0,"");
-    // skillList.push_back(skillSetting);
-}
+{}
 
 // リストを取得
 std::vector< std::shared_ptr<SkillSetting> > SkillList::getSkillList() const
@@ -29,14 +26,11 @@ void SkillList::loadCSV(const string& filename)
 {
     CsvLoader &csvLoader = CsvLoader::get_instance();
     
-    // 0番目のスキルを作成
-    std::shared_ptr<SkillSetting> skillSetting = std::make_shared<SkillSetting>("0番目用スキル",0,0,0,0,Type::PASSIVE,0,0,"0番目用");
-    setSkill(skillSetting);
-
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
     // ラベルと一致する番号を取得
     auto label = loadData[0];
+    int labelIndexId = csvLoader.getLabelIndex(label, "ID");
     int labelIndexName = csvLoader.getLabelIndex(label, "NAME");
     int labelIndexHPRate = csvLoader.getLabelIndex(label, "HP");
     int labelIndexAttackRate = csvLoader.getLabelIndex(label, "POW");
@@ -55,6 +49,7 @@ void SkillList::loadCSV(const string& filename)
         if(v == label){
             continue;
         }
+        int id = std::stoi(v[labelIndexId]);
         std::string name = v[labelIndexName];
         double HPRate = std::stod(v[labelIndexHPRate]);
         double AttackRate = std::stod(v[labelIndexAttackRate]);
@@ -73,7 +68,7 @@ void SkillList::loadCSV(const string& filename)
         int CanUseNumber = std::stoi(v[labelIndexCanUseNumber]);
         std::string desc = v[labelIndexDesc];
 
-        std::shared_ptr<SkillSetting> skillSetting = std::make_shared<SkillSetting>(name,HPRate,AttackRate,DefenseRate,luckRate,type,BiAttack,CanUseNumber,desc);
+        std::shared_ptr<SkillSetting> skillSetting = std::make_shared<SkillSetting>(id,name,HPRate,AttackRate,DefenseRate,luckRate,type,BiAttack,CanUseNumber,desc);
 
         setSkill(skillSetting);
     }

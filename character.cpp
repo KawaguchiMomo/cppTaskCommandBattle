@@ -98,7 +98,7 @@ void Character::revisionStatus(std::shared_ptr<const SkillSetting> skillSetting)
 // 持っているスキル番号を取得
 int Character::getSkillNumber(int skillNumber) const
 {
-    return haveSkillNumber[skillNumber];
+    return haveSkillIDList[skillNumber];
 }
 // スキルをセット
 void Character::setSkill(std::unique_ptr<Skill> skill)
