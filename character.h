@@ -15,12 +15,11 @@ class Skill;
 class SkillList;
 class Character
 {
-    private:
     public:
         // コンストラクタ
         Character(std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int score, std::string talk, bool isDead);
         // デストラクタ
-        virtual ~Character();
+        virtual ~Character() = default;
         // 名前取得
         const string& getName() const;
         // 見た目取得
@@ -37,6 +36,21 @@ class Character
         int getLuck() const;
         // スコア取得
         int getScore() const;
+        // セリフ取得
+        const string& getTalk() const;
+        // 持っているスキル番号を取得
+        int getSkillNumber(int skillNumber) const;
+        // スキルを決定する
+        int useSkill();
+        // 決定したスキルを使って攻撃する
+        double attack(int skillNumber);
+        // ダメージを受ける
+        virtual void receivedDamage(double receivedPower);
+        // 現在HP/最大HPの割合を算出
+        double getHPPer() const;
+        // データを表示
+        void printData() const;
+    private:
         // HP補正
         void revisionMaxHp(int rate);
         // HP補正
@@ -47,34 +61,19 @@ class Character
         void revisionDefense(double rate);
         // 運補正
         void revisionLuck(int rate);
-        // セリフ取得
-        const string& getTalk() const;
-        // スキル補正
-        void revisionStatus(std::shared_ptr<const SkillSetting> skillSetting);
-        // 持っているスキル番号を取得
-        int getSkillNumber(int skillNumber) const;
+        // 死亡判定
+        void judgeDead();
+    protected:
         // スキルをセット
         void setSkill(std::unique_ptr<Skill> skill);
         // スキル回数を減少
         void UsedCanUseNumber(int skillNumber);
         // スキルを選択
         virtual int inputSkill() = 0;
-        // スキルを決定する
-        int useSkill();
-        // 決定したスキルを使って攻撃する
-        double attack(int skillNumber);
-        // ダメージを受ける
-        virtual void receivedDamage(double receivedPower);
-        // 死亡判定
-        void judgeDead();
-        // 現在HP/最大HPの割合を算出
-        double getHPPer() const;
+        // スキル補正
+        void revisionStatus(std::shared_ptr<const SkillSetting> skillSetting);
         // 死亡
         virtual void onDead() = 0;
-        // データを表示
-        void printData() const;
-
-    protected:
         string name;
         string image;
         int hp;
@@ -82,7 +81,7 @@ class Character
         double power;
         double defense;
         int luck;
-        vector<int> haveSkillNumber;
+        vector<int> haveSkillIDList;
         std::vector< std::unique_ptr<Skill> > haveSkill;
         int score;
         string talk;

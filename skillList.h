@@ -12,19 +12,21 @@ class SkillList
 {
     private:
         std::vector< std::shared_ptr<SkillSetting> > skillList;
+        // リストにセット
+        void setSkill(std::shared_ptr<SkillSetting>);
     public:
         // コンストラクタ
-        SkillList();
+        SkillList() = default;
         // デストラクタ
         virtual ~SkillList() = default;
         // リストを取得
-        std::vector< std::shared_ptr<SkillSetting> > getSkillList() const;
+        const std::vector< std::shared_ptr<SkillSetting> >& getSkillList() const;
         // csv読み込み
         void loadCSV(const string& filename);
-        // リストにセット
-        void setSkill(std::shared_ptr<SkillSetting>);
         // リストからスキルを取得
         std::shared_ptr<const SkillSetting> getListSkill(int i) const;
+        // スキルリストのIDとエネミーデータのスキルIDが一致するか走査
+        std::shared_ptr<const SkillSetting> matchID(int id) const;
 };
 
 #endif

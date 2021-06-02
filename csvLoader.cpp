@@ -9,6 +9,8 @@
 #include <algorithm>
 using namespace std;
 
+const std::string CsvLoader::csvFolderPath  = "./";
+
 // 呼び出し
 CsvLoader& CsvLoader::get_instance()
 {
@@ -17,18 +19,14 @@ CsvLoader& CsvLoader::get_instance()
 }
 
 // コンストラクタ
-CsvLoader::CsvLoader(){
-    csvFilePath = "./";
-}
-// デストラクタ
-CsvLoader::~CsvLoader(){}
+CsvLoader::CsvLoader(){}
 // csv読み込み
 vector<vector<string> > CsvLoader::loadCSV(const string& name)
 {
     vector<vector<string> > data;
     string str_buf;
     string str_comma_buf;
-    string inputFilePath = csvFilePath + name;
+    string inputFilePath = csvFolderPath + name;
 
     // 読み込むcsvファイルを開く
     ifstream file;
@@ -49,7 +47,6 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
         // データ読み込み
         while (getline(i_stream, str_comma_buf, ',')) {
             data[data.size()-1].push_back(str_comma_buf);
-            // cout << str_comma_buf << endl;
         }
     }
     // // 読み込んだデータの表示（テスト用）

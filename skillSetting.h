@@ -7,7 +7,6 @@ enum class Type
     PASSIVE,
     ACTIVE,
 };
-class SkillSetting;
 
 class SkillSetting
 {   
@@ -29,9 +28,9 @@ class SkillSetting
         // コンストラクタ
         SkillSetting(int id, std::string name,double HPRate,double attackRate,double defenseRate,
                 double luckRate,Type type,int biAttack,int canUseNumber, std::string desc);
-        // コピーコンストラクタ(禁止にする)
+        // コピーコンストラクタ
         SkillSetting(const SkillSetting&) = delete;
-        // 代入演算子(禁止にする)
+        // 代入演算子
         SkillSetting& operator=(const SkillSetting&) = delete;
         // スキルID取得
         const int getID() const;

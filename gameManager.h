@@ -18,6 +18,10 @@ class GameManager
         string victoryMessage;
         std::shared_ptr<Player> usePlayer;
         std::shared_ptr<Enemy> useEnemy;
+        // スコア表示
+        void printScore() const;
+        // セリフ表示
+        void printTalk() const;
     public:
         // コンストラクタ
         GameManager();
@@ -49,10 +53,6 @@ class GameManager
         void printGameClear() const;
         // ゲームオーバー
         void printGameOver() const;
-        // スコア表示
-        void printScore() const;
-        // セリフ表示
-        void printTalk() const;
 };
 
 #endif

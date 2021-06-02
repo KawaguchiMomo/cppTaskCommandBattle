@@ -11,12 +11,8 @@
 enum class Type;
 class SkillSetting;
 
-// コンストラクタ
-SkillList::SkillList()
-{}
-
 // リストを取得
-std::vector< std::shared_ptr<SkillSetting> > SkillList::getSkillList() const
+const std::vector< std::shared_ptr<SkillSetting> >& SkillList::getSkillList() const
 {
     return skillList;
 }
@@ -83,4 +79,18 @@ void SkillList::setSkill(std::shared_ptr<SkillSetting> skillSetting)
 std::shared_ptr<const SkillSetting> SkillList::getListSkill(int i) const
 {
     return skillList[i];
+}
+
+// スキルリストのIDとエネミーデータのスキルIDが一致するか走査
+std::shared_ptr<const SkillSetting> SkillList::matchID(int id) const
+{
+    for(int i = 0; i < (int)skillList.size() ;i++)
+    {
+        if(skillList[i]->getID() == id){
+            return skillList[i];
+        }
+    } 
+    cout << "スキルIDが存在しません。存在しないデータ: " << id << endl;
+    exit(1);
+
 }

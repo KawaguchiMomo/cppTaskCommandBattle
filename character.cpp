@@ -11,8 +11,6 @@
 Character::Character(std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int score, std::string talk, bool isDead)
                     :name(name),image(image),hp(hp),maxHp(maxHp),power(power),defense(defense),luck(luck),score(score),talk(talk),isDead(isDead) {}
 
-// デストラクタ
-Character::~Character(){}
 // 名前取得
 const string& Character::getName() const
 {

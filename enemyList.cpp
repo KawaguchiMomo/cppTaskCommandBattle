@@ -42,7 +42,7 @@ void EnemyList::loadCSV(const string& filename)
     }
 }
 // リストを取得
-std::vector< std::shared_ptr<Enemy> > EnemyList::getEnemyList() const
+const std::vector< std::shared_ptr<Enemy> >& EnemyList::getEnemyList() const
 {
     return enemyList;
 } 
@@ -60,7 +60,6 @@ std::shared_ptr<const Enemy> EnemyList::getEnemy(int i) const
 // エネミーを選択
 std::shared_ptr<Enemy> EnemyList::inputUseEnemy()
 {
-    // シングルトン不採用　最終的に下記コードはやめる
     GameManager &gameManager = GameManager::get_instance();
 
     system("clear");

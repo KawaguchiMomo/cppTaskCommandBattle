@@ -8,11 +8,6 @@
 #include "gameManager.h"
 #include "character.h"
 
-
-PlayerList::PlayerList(){}
-// デストラクタ
-PlayerList::~PlayerList(){}
-
 // csv読み込み
 void PlayerList::loadCSV(const string& filename)
 {
@@ -47,7 +42,7 @@ void PlayerList::loadCSV(const string& filename)
     }
 }
 // リストを取得
-std::vector< std::shared_ptr<Player> > PlayerList::getPlayerList()
+const std::vector< std::shared_ptr<Player> >& PlayerList::getPlayerList() const
 {
     return playerList;
 } 
@@ -66,7 +61,6 @@ std::shared_ptr<const Player> PlayerList::getPlayer(int i) const
 // プレイヤーを選択
 std::shared_ptr<Player> PlayerList::inputUsePlayer()
 {
-    // シングルトン不採用　最終的に下記コードはやめる
     GameManager &gameManager = GameManager::get_instance();
 
     system("clear");

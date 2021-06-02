@@ -12,21 +12,16 @@ class Skill
         std::shared_ptr<const SkillSetting> skillSetting;
         int canUseNumber;
     public:
-        // デフォルトコンストラクタ
-        // Skill();
         // コンストラクタ
         Skill(std::shared_ptr<const SkillSetting> skill);
         // デストラクタ
         virtual ~Skill() = default;
         // コピーコンストラクタ
-        Skill(const Skill&);
+        Skill(const Skill&) = delete;
         // 代入演算子
-        Skill& operator=(const Skill&);
-        
+        Skill& operator=(const Skill&) = delete;
         // スキルへの参照取得
         std::shared_ptr<const SkillSetting> getSkillSetting() const;
-        // 残り使用回数セット
-        void setCanUseNumber(int a);
         // 残り使用回数取得
         int getCanUseNumber() const;
         // スキルが使えるかどうか

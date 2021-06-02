@@ -7,22 +7,23 @@ using namespace std;
 
 class CsvLoader
 {
+    static const std::string csvFolderPath;
     private:
-        string csvFilePath;
         // コンストラクタ
         CsvLoader();
         // デストラクタ
-        virtual ~CsvLoader();
+        virtual ~CsvLoader() = default;
         CsvLoader(const CsvLoader&);
         CsvLoader& operator = (const CsvLoader&);
+        // UTF-8 with BOMをUTF-8に変換
+        static void skip_utf8_bom(ifstream& fs);
     public:
         // 呼び出し
         static CsvLoader& get_instance();
         // csv読み込み
-        vector<vector<string> > loadCSV(const string& name);
+        static vector<vector<string> > loadCSV(const string& name);
         // csvラベルの取得
         int getLabelIndex(const vector<string>& label, const string& labelName);
-        void skip_utf8_bom(ifstream& fs);
 };
 
 #endif

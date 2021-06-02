@@ -10,6 +10,8 @@ class EnemyList
 {
     private:
         std::vector< std::shared_ptr<Enemy> > enemyList;
+        // リストを取得
+        const std::vector< std::shared_ptr<Enemy> >& getEnemyList() const; 
     public:
         // コンストラクタ
         EnemyList() = default;
@@ -17,8 +19,6 @@ class EnemyList
         virtual ~EnemyList() = default;
         // csv読み込み
         void loadCSV(const string& filename);
-        // リストを取得
-        std::vector< std::shared_ptr<Enemy> > getEnemyList() const; 
         // リストにキャラをセット
         void setEnemy(std::shared_ptr<Enemy>);
         // リストからキャラ取得

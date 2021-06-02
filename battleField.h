@@ -11,6 +11,7 @@ class Battle
         Battle();
         // デストラクタ
         virtual ~Battle() = default;
+        // 戦闘処理
         void startBattle(std::shared_ptr<Character> attackChara, std::shared_ptr<Character> defenseChara);
 
 };

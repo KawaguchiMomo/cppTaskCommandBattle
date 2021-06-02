@@ -12,17 +12,6 @@ SkillSetting::SkillSetting(int id, std::string name,double HPRate,double attackR
                 :id(id),name(name),HPRate(HPRate),attackRate(attackRate),defenseRate(defenseRate),
                 luckRate(luckRate),type(type),biAttack(biAttack),canUseNumber(canUseNumber),desc(desc) {}
 
-// // コピーコンストラクタ（禁止にする）
-// SkillSetting::SkillSetting(const SkillSetting& obj):name(obj.name),HPRate(obj.HPRate),attackRate(obj.attackRate),defenseRate(obj.defenseRate),
-//                 luckRate(obj.luckRate),type(obj.type),biAttack(obj.biAttack),canUseNumber(obj.canUseNumber),desc(obj.desc) {
-    
-// }
-
-// //代入演算子（禁止にする）
-// SkillSetting& SkillSetting::operator=(const SkillSetting& rhs){
-//     return *this;
-// }
-
 // スキルID取得
 const int SkillSetting::getID() const
 {

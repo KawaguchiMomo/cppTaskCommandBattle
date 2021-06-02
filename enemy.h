@@ -17,8 +17,6 @@ class Enemy : public Character
     private:
         // 死亡
         void onDead();
-        // スキルリストのIDとエネミーデータのスキルIDが一致するか走査
-        int matchID(int id, const SkillList& skillList);
 };
 
 #endif

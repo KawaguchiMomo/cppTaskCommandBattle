@@ -33,36 +33,22 @@ void Enemy::settingEnemy(const SkillList& skillList)
             std::unique_ptr<Skill> tatakauSkill = std::make_unique<Skill>(skillList.getListSkill(i));
             setSkill(std::move(tatakauSkill));
         } else {
-            int skillNumber = matchID(haveSkillIDList[i], skillList);
-            std::unique_ptr<Skill> skill = std::make_unique<Skill>(skillList.getListSkill(skillNumber));
+            std::unique_ptr<Skill> skill = std::make_unique<Skill>(skillList.matchID(haveSkillIDList[i]));
             setSkill(std::move(skill));
         }
     }
 }
 
-// スキルリストのIDとエネミーデータのスキルIDが一致するか走査
-int Enemy::matchID(int id, const SkillList& skillList)
-{
-    for(int i = 0; i < (int)skillList.getSkillList().size() ;i++)
-    {
-        if(skillList.getListSkill(i)->getID() == id){
-            return i;
-        }
-    } 
-    cout << "スキルIDが存在しません。存在しないデータ: " << id << endl;
-    exit(1);
-
-}
 
 
 // 攻撃につかうスキルを選択
 int Enemy::inputSkill()
 {
-    int  countRimit = 100;
+    int  countLimit = 100;
     GameManager &gameManager = GameManager::get_instance();
     int skillNumber;
 
-    for(int i = 0; i <= countRimit; i++)
+    for(int i = 0; i <= countLimit; i++)
     {
         // 乱数を生成する 
         skillNumber = gameManager.GetRand(0,3);

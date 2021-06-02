@@ -10,17 +10,17 @@ class PlayerList
 {
     private:
         std::vector< std::shared_ptr<Player> > playerList;
+        // リストにキャラをセット
+        void setPlayer(std::shared_ptr<Player>);
     public:
         // コンストラクタ
-        PlayerList();
+        PlayerList() = default;
         // デストラクタ
-        virtual ~PlayerList();
+        virtual ~PlayerList() = default;
         // csv読み込み
         void loadCSV(const string& filename);
         // リストを取得
-        std::vector< std::shared_ptr<Player> > getPlayerList(); 
-        // リストにキャラをセット
-        void setPlayer(std::shared_ptr<Player>);
+        const std::vector< std::shared_ptr<Player> >& getPlayerList() const;
         // リストからキャラ取得
         std::shared_ptr<const Player> getPlayer(int i) const;
         // プレイヤーを選択
