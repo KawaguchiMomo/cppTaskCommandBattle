@@ -8,18 +8,19 @@
 const int MAX_HAVE_SKILL = 4;
 
 // コンストラクタ
-Enemy::Enemy(std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int haveSkillNumber0, int haveSkillNumber1, int haveSkillNumber2, int haveSkillNumber3, int score, std::string talk, bool isDead)
-                    :Character(name, image,hp, maxHp, power, defense, luck, score, talk, isDead)
-    {
-        // エネミーのスキルはcsvから読み込み
-        haveSkillIDList.push_back(0);
-        haveSkillIDList.push_back(haveSkillNumber1);
-        haveSkillIDList.push_back(haveSkillNumber2);
-        haveSkillIDList.push_back(haveSkillNumber3);
-    }
+Enemy::Enemy(
+    std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, 
+    int haveSkillNumber0, int haveSkillNumber1, int haveSkillNumber2, int haveSkillNumber3, int score, std::string talk, bool isDead
+)
+:Character(name, image,hp, maxHp, power, defense, luck, score, talk, isDead)
+{
+    // エネミーのスキルはcsvから読み込み
+    haveSkillIDList.push_back(0);
+    haveSkillIDList.push_back(haveSkillNumber1);
+    haveSkillIDList.push_back(haveSkillNumber2);
+    haveSkillIDList.push_back(haveSkillNumber3);
+}
 
-// デストラクタ
-Enemy::~Enemy(){}
 
 // エネミーの設定
 void Enemy::settingEnemy(const SkillList& skillList)
@@ -46,12 +47,10 @@ int Enemy::inputSkill()
 {
     int  countLimit = 100;
     GameManager &gameManager = GameManager::get_instance();
-    int skillNumber;
-
     for(int i = 0; i <= countLimit; i++)
     {
         // 乱数を生成する 
-        skillNumber = gameManager.getRand(0,3);
+        int skillNumber = gameManager.getRand(0,3);
 
         // 発動条件を満たしていない場合再抽選
         if(!haveSkill[skillNumber]->isCanUse()){

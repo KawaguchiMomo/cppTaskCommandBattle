@@ -75,9 +75,9 @@ std::shared_ptr<const Enemy> EnemyList::getEnemy(int i) const
 // エネミーを選択
 std::shared_ptr<Enemy> EnemyList::inputUseEnemy()
 {
-    GameManager &gameManager = GameManager::get_instance();
-
     system("clear");
+    
+    GameManager &gameManager = GameManager::get_instance();
     gameManager.printLine();
     int enemyListSize = (int)enemyList.size();
     for(int i = 0 ; i < enemyListSize ; i++)

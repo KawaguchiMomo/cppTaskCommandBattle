@@ -19,8 +19,7 @@ std::unique_ptr<Skill> Player::inputUseSkill(const SkillList& skillList)
     for(int i = 0 ; i < skillListSize ; i++)
     {
         const std::shared_ptr< SkillSetting > skillSetting = skillList.getSkillList()[i];
-        std::string message;
-        message = std::to_string(i + 1) + ": " + skillSetting->getName();
+        std::string message = std::to_string(i + 1) + ": " + skillSetting->getName();
         if(skillSetting->getType() == Type::ACTIVE){
             message = message + "/アクティブ" + ":使用回数 " + std::to_string(skillSetting->getCanUseNumber()) + "/";
         }else if(skillSetting->getType() == Type::PASSIVE){

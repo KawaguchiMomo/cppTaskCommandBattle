@@ -14,9 +14,6 @@ CsvLoader::CsvLoader(const std::string& basePath = "./") :basePath(basePath) {}
 // csv読み込み
 std::vector<std::vector<std::string> > CsvLoader::loadCSV(const std::string& name)
 {
-    std::vector<std::vector<std::string> > data;
-    std::string str_buf;
-    std::string str_comma_buf;
     std::string inputFilePath = basePath + name;
 
     // 読み込むcsvファイルを開く
@@ -30,11 +27,15 @@ std::vector<std::vector<std::string> > CsvLoader::loadCSV(const std::string& nam
     file.imbue(std::locale());
     skip_utf8_bom(file);
 
+
+    std::vector<std::vector<std::string> > data;
+    std::string str_buf;
     // getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)
     while (getline(file, str_buf)) {    
         std::istringstream i_stream(str_buf);
         data.push_back(std::vector<std::string>());
 
+        std::string str_comma_buf;
         // データ読み込み
         while (getline(i_stream, str_comma_buf, ',')) {
             data[data.size()-1].push_back(str_comma_buf);

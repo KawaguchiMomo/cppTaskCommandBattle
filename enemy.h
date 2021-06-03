@@ -23,7 +23,7 @@ class Enemy : public Character
             bool isDead
         );
         // デストラクタ
-        virtual ~Enemy();
+        virtual ~Enemy() = default;
         // エネミーの設定
         void settingEnemy(const SkillList& skillList);
         // スキルを選択

@@ -71,10 +71,11 @@ std::shared_ptr<const Player> PlayerList::getPlayer(int i) const
 // プレイヤーを選択
 std::shared_ptr<Player> PlayerList::inputUsePlayer()
 {
-    GameManager &gameManager = GameManager::get_instance();
-
     system("clear");
+    
+    GameManager &gameManager = GameManager::get_instance();
     gameManager.printLine();
+
     int playerListSize = (int)playerList.size();
     for(int i = 0 ; i < playerListSize ; i++)
     {

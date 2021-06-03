@@ -40,11 +40,11 @@ int GameManager::getRand(int min, int max)
 
 // 入力とチェック
 int GameManager::inputNumber(const std::string& message,int min, int max){
-    int inputNumber;
     while(1)
     {
         std::cout << message << ": ";
         // 入力させる
+        int inputNumber;
         std::cin >> inputNumber;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -157,12 +157,14 @@ void GameManager::printGameOver() const
 // スコア表示
 void GameManager::printScore() const
 {
-    int playerScore = 1 + usePlayer->getHPPer()/100 * usePlayer->getScore();
-    int enemyScore = (100 - useEnemy->getHPPer())/100 * useEnemy->getScore();
-    int score = playerScore * enemyScore;
     
+    int enemyScore = (100 - useEnemy->getHPPer())/100 * useEnemy->getScore();
     std::cout << "　エネミースコア: " << enemyScore << std::endl;
+
+    int playerScore = 1 + usePlayer->getHPPer()/100 * usePlayer->getScore();
     std::cout << "プレイヤースコア: ×" << playerScore << std::endl;
+    
+    int score = playerScore * enemyScore;
     std::cout << "　　　合計スコア: " << score << std::endl;
 }
 

@@ -8,8 +8,11 @@
 #include <iostream>
 
 // コンストラクタ
-Character::Character(std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int score, std::string talk, bool isDead)
-                    :name(name),image(image),hp(hp),maxHp(maxHp),power(power),defense(defense),luck(luck),score(score),talk(talk),isDead(isDead) {}
+Character::Character(
+    std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int score, std::string talk, bool isDead
+)
+:name(name),image(image),hp(hp),maxHp(maxHp),power(power),defense(defense),luck(luck),score(score),talk(talk),isDead(isDead) 
+{}
 
 // 名前取得
 const std::string& Character::getName() const
@@ -120,13 +123,13 @@ void Character::usedCanUseNumber(int skillNumber)
 // スキルを決定する
 int Character::useSkill()
 {
-    GameManager &gameManager = GameManager::get_instance();
-    
     // 入力
     int skillNumber = inputSkill();
 
+    // スキル取得
     std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
 
+    GameManager &gameManager = GameManager::get_instance();
     std::string message = name + "の" + skillSetting->getName() + "！";
     gameManager.printMessage(message);
 
@@ -136,10 +139,10 @@ int Character::useSkill()
 // 決定したスキルを使って攻撃する
 double Character::attack(int skillNumber)
 {
-    GameManager &gameManager = GameManager::get_instance();
     
     std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
 
+    GameManager &gameManager = GameManager::get_instance();
     double random = (double)gameManager.getRand(50, 150) / 100;
     double attackPower = power * skillSetting->getAttackRate() * random;
     // クリティカル判定
@@ -156,12 +159,13 @@ double Character::attack(int skillNumber)
 // ダメージを受ける
 void Character::receivedDamage(double receivedPower)
 {
-    GameManager &gameManager = GameManager::get_instance();
 
+    // ダメージはマイナスにならない
     double damage = (receivedPower - defense) < 0 ? 0 : (receivedPower - defense);
     hp-=damage;
 
     std::string message = name + "に" + std::to_string((int)damage) + "のダメージ！";
+    GameManager &gameManager = GameManager::get_instance();
     gameManager.printMessage(message);
 
     judgeDead();
