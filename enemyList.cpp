@@ -37,7 +37,22 @@ void EnemyList::loadCSV(const std::string& filename)
         if(v == label){
             continue;
         }
-        std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(v[labelIndexName],v[labelIndexImage],stoi(v[labelIndexHP]),stoi(v[labelIndexHP]),stod(v[labelIndexPower]),stod(v[labelIndexDefense]),stoi(v[labelIndexLuck]),stoi(v[labelIndexSkill1]),stoi(v[labelIndexSkill2]),stoi(v[labelIndexSkill3]),stoi(v[labelIndexSkill4]),stoi(v[labelIndexScore]),v[labelIndexTalk],false);
+        std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
+            v[labelIndexName],
+            v[labelIndexImage],
+            stoi(v[labelIndexHP]),
+            stoi(v[labelIndexHP]),
+            stod(v[labelIndexPower]),
+            stod(v[labelIndexDefense]),
+            stoi(v[labelIndexLuck]),
+            stoi(v[labelIndexSkill1]),
+            stoi(v[labelIndexSkill2]),
+            stoi(v[labelIndexSkill3]),
+            stoi(v[labelIndexSkill4]),
+            stoi(v[labelIndexScore]),
+            v[labelIndexTalk],
+            false
+        );
         setEnemy(enemy);
     }
 }

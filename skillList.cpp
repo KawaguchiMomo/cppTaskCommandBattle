@@ -64,7 +64,18 @@ void SkillList::loadCSV(const std::string& filename)
         int CanUseNumber = std::stoi(v[labelIndexCanUseNumber]);
         std::string desc = v[labelIndexDesc];
 
-        std::shared_ptr<SkillSetting> skillSetting = std::make_shared<SkillSetting>(id,name,HPRate,AttackRate,DefenseRate,luckRate,type,BiAttack,CanUseNumber,desc);
+        std::shared_ptr<SkillSetting> skillSetting = std::make_shared<SkillSetting>(
+            id,
+            name,
+            HPRate,
+            AttackRate,
+            DefenseRate,
+            luckRate,
+            type,
+            BiAttack,
+            CanUseNumber,
+            desc
+        );
 
         setSkill(skillSetting);
     }

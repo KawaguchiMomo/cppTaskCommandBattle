@@ -36,8 +36,18 @@ void PlayerList::loadCSV(const std::string& filename)
             continue;
         }
         
-        std::shared_ptr<Player> player = std::make_shared<Player>(v[labelIndexName],v[labelIndexImage],stoi(v[labelIndexHP]),stoi(v[labelIndexHP]),stod(v[labelIndexPower]),stod(v[labelIndexDefense]),stoi(v[labelIndexLuck])
-        ,stoi(v[labelIndexScore]),v[labelIndexTalk],false);
+        std::shared_ptr<Player> player = std::make_shared<Player> (
+            v[labelIndexName],
+            v[labelIndexImage],
+            stoi(v[labelIndexHP]),
+            stoi(v[labelIndexHP]),
+            stod(v[labelIndexPower]),
+            stod(v[labelIndexDefense]),
+            stoi(v[labelIndexLuck]),
+            stoi(v[labelIndexScore]),
+            v[labelIndexTalk],
+            false
+        );
         setPlayer(player);
     }
 }
