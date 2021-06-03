@@ -24,9 +24,13 @@ class GameManager
         void printTalk() const;
     public:
         // コンストラクタ
-        GameManager();
+        GameManager() = default;
         // デストラクタ
-        virtual ~GameManager();
+        virtual ~GameManager() = default;
+        // コピーコンストラクタ
+        GameManager(const GameManager&) = delete;
+        // 代入演算子
+        GameManager& operator=(const GameManager&) = delete;
         // 呼び出し
         static GameManager& get_instance();
         // 乱数のシード設定

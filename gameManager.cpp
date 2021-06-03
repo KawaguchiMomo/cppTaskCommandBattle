@@ -25,10 +25,6 @@ GameManager& GameManager::get_instance()
     return instance;
 }
 
-// コンストラクタ
-GameManager::GameManager(){}
-// デストラクタ
-GameManager::~GameManager(){}
 // 乱数のシード設定
 void GameManager::SetRand()
 {
@@ -41,9 +37,6 @@ int GameManager::GetRand(int min, int max)
     std::uniform_int_distribution<> dist(min, max);
     return dist(engine);
 }
-
-
-
 
 // 入力とチェック
 int GameManager::inputNumber(const std::string& message,int min, int max){
