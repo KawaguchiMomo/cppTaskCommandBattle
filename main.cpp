@@ -15,7 +15,7 @@
 #include <memory>
 
 
-using namespace std;
+
 class SkillList;
 
 int main(){
@@ -52,7 +52,7 @@ int main(){
         gameManager.printBattleWindow();
         // セットしたスキルを表示
         player->printHaveSkill();
-        cout << endl;
+        std::cout << std::endl;
         battleField.startBattle(player,enemy);
         battleField.startBattle(enemy,player);
         

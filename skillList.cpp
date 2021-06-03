@@ -18,9 +18,9 @@ const std::vector< std::shared_ptr<SkillSetting> >& SkillList::getSkillList() co
 }
 
 // csv読み込み
-void SkillList::loadCSV(const string& filename)
+void SkillList::loadCSV(const std::string& filename)
 {
-    CsvLoader &csvLoader = CsvLoader::get_instance();
+    CsvLoader csvLoader("./");
     
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
@@ -57,7 +57,7 @@ void SkillList::loadCSV(const string& filename)
         }else if(v[labelIndexType] == "ACTIVE"){
             type = Type::ACTIVE;
         }else{
-            cout << "タイプが間違っています。間違っているデータ: " << v[labelIndexType] << endl;
+            std::cout << "タイプが間違っています。間違っているデータ: " << v[labelIndexType] << std::endl;
             exit(1);
         }
         int BiAttack = std::stoi(v[labelIndexBiAttack]);
@@ -90,7 +90,7 @@ std::shared_ptr<const SkillSetting> SkillList::matchID(int id) const
             return skillList[i];
         }
     } 
-    cout << "スキルIDが存在しません。存在しないデータ: " << id << endl;
+    std::cout << "スキルIDが存在しません。存在しないデータ: " << id << std::endl;
     exit(1);
 
 }

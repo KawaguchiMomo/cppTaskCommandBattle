@@ -5,7 +5,7 @@
 #include "enemy.h"
 #include <string>
 
-using namespace std;
+
 class Character;
 class Player;
 class PlayerList;
@@ -15,7 +15,7 @@ class SkillList;
 class GameManager
 {
     private:
-        string victoryMessage;
+        std::string victoryMessage;
         std::shared_ptr<Player> usePlayer;
         std::shared_ptr<Enemy> useEnemy;
         // スコア表示
@@ -34,13 +34,13 @@ class GameManager
         // 乱数の作成
         int GetRand(int min, int max);
         // 入力とチェック
-        int inputNumber(const string& message,int min, int max);
+        int inputNumber(const std::string& message,int min, int max);
         // コマンドを選択
         int inputSkill();
         // 画面表示のためにデータを登録
         void SetCharacterData(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy);
         // 文章表示
-        void printMessage(const string& message) const;
+        void printMessage(const std::string& message) const;
         // 戦闘画面表示
         void printBattleWindow() const;
         // HPバー表示

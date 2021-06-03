@@ -7,33 +7,24 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
-using namespace std;
-
-const std::string CsvLoader::csvFolderPath  = "./";
-
-// 呼び出し
-CsvLoader& CsvLoader::get_instance()
-{
-    static CsvLoader instance;
-    return instance;
-}
 
 // コンストラクタ
-CsvLoader::CsvLoader(){}
+CsvLoader::CsvLoader(const std::string basePath = "./") :basePath(basePath) {}
+
 // csv読み込み
-vector<vector<string> > CsvLoader::loadCSV(const string& name)
+std::vector<std::vector<std::string> > CsvLoader::loadCSV(const std::string& name)
 {
-    vector<vector<string> > data;
-    string str_buf;
-    string str_comma_buf;
-    string inputFilePath = csvFolderPath + name;
+    std::vector<std::vector<std::string> > data;
+    std::string str_buf;
+    std::string str_comma_buf;
+    std::string inputFilePath = basePath + name;
 
     // 読み込むcsvファイルを開く
-    ifstream file;
+    std::ifstream file;
     file.open(inputFilePath);
     if(!file){
         // 読み込み失敗処理
-        cout << "ファイルが存在しません" << endl;
+        std::cout << "ファイルが存在しません" << std::endl;
         exit(1);
     }
     file.imbue(std::locale());
@@ -41,8 +32,8 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
 
     // getline関数で1行ずつ読み込む(読み込んだ内容はstr_bufに格納)
     while (getline(file, str_buf)) {    
-        istringstream i_stream(str_buf);
-        data.push_back(vector<string>());
+        std::istringstream i_stream(str_buf);
+        data.push_back(std::vector<std::string>());
 
         // データ読み込み
         while (getline(i_stream, str_comma_buf, ',')) {
@@ -59,12 +50,12 @@ vector<vector<string> > CsvLoader::loadCSV(const string& name)
 }
 
 // csvラベルの取得
-int CsvLoader::getLabelIndex(const vector<string>& label, const string& labelName)
+int CsvLoader::getLabelIndex(const std::vector<std::string>& label, const std::string& labelName)
 {
     auto itr = find(label.begin(), label.end(), labelName);
     int labelIndex = 0;
     if(itr == label.end()){
-        cout << "ラベルが形式と異なっています。見つからない値: " << labelName << endl;
+        std::cout << "ラベルが形式と異なっています。見つからない値: " << labelName << std::endl;
         exit(1);
     }else{
         // ラベルの番号を取得
@@ -74,9 +65,9 @@ int CsvLoader::getLabelIndex(const vector<string>& label, const string& labelNam
 }
 
 // UTF-8 with BOMをUTF-8に変換
-void CsvLoader::skip_utf8_bom(ifstream& fs) {
+void CsvLoader::skip_utf8_bom(std::ifstream& fs) {
     int dst[3];
     for (auto& i : dst) i = fs.get();
     constexpr int utf8[] = { 0xEF, 0xBB, 0xBF };
-    if (!equal(begin(dst), end(dst), utf8)) fs.seekg(0);
+    if (!std::equal(std::begin(dst), std::end(dst), utf8)) fs.seekg(0);
 }

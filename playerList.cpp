@@ -9,10 +9,10 @@
 #include "character.h"
 
 // csv読み込み
-void PlayerList::loadCSV(const string& filename)
+void PlayerList::loadCSV(const std::string& filename)
 {
 
-    CsvLoader &csvLoader = CsvLoader::get_instance();
+    CsvLoader csvLoader("./");
 
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
@@ -68,10 +68,10 @@ std::shared_ptr<Player> PlayerList::inputUsePlayer()
     int playerListSize = (int)playerList.size();
     for(int i = 0 ; i < playerListSize ; i++)
     {
-        std::cout << i + 1 << ": " << playerList[i]->getName() << " " << endl;;
-        // if(i % 4 == 0) { std::cout << endl; }
+        std::cout << i + 1 << ": " << playerList[i]->getName() << " " << std::endl;;
+        // if(i % 4 == 0) { std::cout << std::endl; }
     }
-    std::cout << endl; 
+    std::cout << std::endl; 
 
     int playerNumber = gameManager.inputNumber("プレイヤーを選んでください", 1, playerListSize);
     system("clear");

@@ -5,7 +5,7 @@
 #include <iostream>
 
 // スキル所持最大数
-const int MAXHAVESKILL = 4;
+const int MAX_HAVE_SKILL = 4;
 
 // コンストラクタ
 Enemy::Enemy(std::string name, std::string image, int hp, int maxHp, double power, double defense, int luck, int haveSkillNumber0, int haveSkillNumber1, int haveSkillNumber2, int haveSkillNumber3, int score, std::string talk, bool isDead)
@@ -26,7 +26,7 @@ void Enemy::settingEnemy(const SkillList& skillList)
 {
 
     // エネミーにスキルをセット
-    for(int i = 0; i < MAXHAVESKILL; i++)
+    for(int i = 0; i < MAX_HAVE_SKILL; i++)
     {
         if(i == 0){
             // 一番目のスキルはたたかう固定

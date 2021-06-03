@@ -18,8 +18,6 @@
 
 using std::this_thread::sleep_for;
 
-using namespace std;
-
 // 呼び出し
 GameManager& GameManager::get_instance()
 {
@@ -38,9 +36,9 @@ void GameManager::SetRand()
 // 乱数の作成
 int GameManager::GetRand(int min, int max)
 {
-    random_device seed_gen;
-    default_random_engine engine(seed_gen());
-    uniform_int_distribution<> dist(min, max);
+    std::random_device seed_gen;
+    std::default_random_engine engine(seed_gen());
+    std::uniform_int_distribution<> dist(min, max);
     return dist(engine);
 }
 
@@ -48,21 +46,21 @@ int GameManager::GetRand(int min, int max)
 
 
 // 入力とチェック
-int GameManager::inputNumber(const string& message,int min, int max){
+int GameManager::inputNumber(const std::string& message,int min, int max){
     int inputNumber;
     while(1)
     {
-        cout << message << ": ";
+        std::cout << message << ": ";
         // 入力させる
-        cin >> inputNumber;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        std::cin >> inputNumber;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         if(!inputNumber){
-            cout << "入力が間違っています。" << endl;
+            std::cout << "入力が間違っています。" << std::endl;
             continue;
         }
         if(!(min <= inputNumber && inputNumber <= max)){
-            cout << "入力が間違っています。" << endl;
+            std::cout << "入力が間違っています。" << std::endl;
             continue;
         }
         return inputNumber - 1;
@@ -70,10 +68,10 @@ int GameManager::inputNumber(const string& message,int min, int max){
 }
 
 // 文章表示
-void GameManager::printMessage(const string& message) const
+void GameManager::printMessage(const std::string& message) const
 {
     printBattleWindow();
-    cout << message << endl;
+    std::cout << message << std::endl;
     sleep_for(std::chrono::milliseconds(1000));
 }
 
@@ -88,13 +86,13 @@ void GameManager::printBattleWindow() const
 {
     system("clear");
     printLine();
-    cout << endl;
-    cout << useEnemy->getName() << "のHP " << useEnemy->getImage() << endl;
+    std::cout << std::endl;
+    std::cout << useEnemy->getName() << "のHP " << useEnemy->getImage() << std::endl;
     printHPBar(useEnemy->getHPPer());
 
-    cout << endl;
-    cout << endl;
-    cout << usePlayer->getName() << "のHP "<< usePlayer->getImage() << endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << usePlayer->getName() << "のHP "<< usePlayer->getImage() << std::endl;
     printHPBar(usePlayer->getHPPer());
 
     printLine();
@@ -104,7 +102,7 @@ void GameManager::printBattleWindow() const
 // HPバー表示
 void GameManager::printHPBar(double par) const
 {
-    string bar;
+    std::string bar;
     bar += "[";
     for(int i = 0 ; i < 10; i++)
     {
@@ -116,13 +114,13 @@ void GameManager::printHPBar(double par) const
     }
     bar += "]";
 
-    cout << setw(40) << bar << endl;
+    std::cout << bar << std::endl;
 }
 
 // ライン表示
 void GameManager::printLine() const
 {
-    cout << "---------------------------------------------------------------" << endl;
+    std::cout << "---------------------------------------------------------------" << std::endl;
 
 }
 
@@ -135,20 +133,20 @@ void GameManager::initiativeSetting(std::shared_ptr<Player> player, std::shared_
     printLine();
     // 戦闘準備確認
     player->printData();
-    cout << "スキル: " << endl;
+    std::cout << "スキル: " << std::endl;
     usePlayer->printHaveSkill();
-    cout << endl;
-    cout << endl;
-    cout << "戦う相手:" << useEnemy->getName() << endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "戦う相手:" << useEnemy->getName() << std::endl;
 
-    cout << "この設定で戦闘を開始します。";
+    std::cout << "この設定で戦闘を開始します。";
     getchar();
 }
 
 // ゲームクリア
 void GameManager::printGameClear() const 
 {
-    string message = "ゲームクリア！";
+    std::string message = "ゲームクリア！";
     printMessage(message);
     printScore();
     printTalk();
@@ -157,7 +155,7 @@ void GameManager::printGameClear() const
 // ゲームオーバー
 void GameManager::printGameOver() const 
 {
-    string message = "ゲームオーバー…";
+    std::string message = "ゲームオーバー…";
     printMessage(message);
     printScore();
     printTalk();
@@ -170,14 +168,14 @@ void GameManager::printScore() const
     int enemyScore = (100 - useEnemy->getHPPer())/100 * useEnemy->getScore();
     int score = playerScore * enemyScore;
     
-    cout << "　エネミースコア: " << enemyScore << endl;
-    cout << "プレイヤースコア: ×" << playerScore << endl;
-    cout << "　　　合計スコア: " << score << endl;
+    std::cout << "　エネミースコア: " << enemyScore << std::endl;
+    std::cout << "プレイヤースコア: ×" << playerScore << std::endl;
+    std::cout << "　　　合計スコア: " << score << std::endl;
 }
 
 // 会話表示
 void GameManager::printTalk() const
 {
-    cout << usePlayer->getImage() << "「" << usePlayer->getTalk() << "」" << endl;
-    cout << useEnemy->getImage() << "「" << useEnemy->getTalk() << "」" << endl;
+    std::cout << usePlayer->getImage() << "「" << usePlayer->getTalk() << "」" << std::endl;
+    std::cout << useEnemy->getImage() << "「" << useEnemy->getTalk() << "」" << std::endl;
 }

@@ -6,7 +6,7 @@
 #include <iostream>
 
 // スキル所持最大数
-const int MAXHAVESKILL = 4;
+const int MAX_HAVE_SKILL = 4;
 
 // 取得スキルを選択
 std::unique_ptr<Skill> Player::inputUseSkill(const SkillList& skillList)
@@ -19,17 +19,17 @@ std::unique_ptr<Skill> Player::inputUseSkill(const SkillList& skillList)
     for(int i = 0 ; i < skillListSize ; i++)
     {
         const std::shared_ptr< SkillSetting > skillSetting = skillList.getSkillList()[i];
-        string message;
-        message = to_string(i + 1) + ": " + skillSetting->getName();
+        std::string message;
+        message = std::to_string(i + 1) + ": " + skillSetting->getName();
         if(skillSetting->getType() == Type::ACTIVE){
-            message = message + "/アクティブ" + ":使用回数 " + to_string(skillSetting->getCanUseNumber()) + "/";
+            message = message + "/アクティブ" + ":使用回数 " + std::to_string(skillSetting->getCanUseNumber()) + "/";
         }else if(skillSetting->getType() == Type::PASSIVE){
             message = message + "/パッシブ" + "/";
         }
         message = message + skillSetting->getDesc();
-        cout << message << endl;
+        std::cout << message << std::endl;
     }
-    cout << endl; 
+    std::cout << std::endl; 
     int skillNumber = gameManager.inputNumber("スキルを選んでください", 1, skillListSize);
     system("clear");
 
@@ -47,7 +47,7 @@ void Player::settingPlayer(const SkillList& skillList)
 
     // プレイヤーにスキルをセット
 
-    for(int i = 0; i < MAXHAVESKILL ; i++) 
+    for(int i = 0; i < MAX_HAVE_SKILL ; i++) 
     {
         if(i == 0){
             // 一番目のスキルはたたかう固定
@@ -61,7 +61,7 @@ void Player::settingPlayer(const SkillList& skillList)
     }
         
     // スキルによるステータス補正
-    for(int i = 0; i < MAXHAVESKILL ; i++)
+    for(int i = 0; i < MAX_HAVE_SKILL ; i++)
     {
         if(haveSkill[i]->getSkillSetting()->getType() == Type::PASSIVE){
             revisionStatus(haveSkill[i]->getSkillSetting());
@@ -79,17 +79,17 @@ int Player::inputSkill()
     while(1)
     {
         //スキル入力
-        cin.clear();
+        std::cin.clear();
         gameManager.printBattleWindow();
         printHaveSkill();
-        skillNumber = gameManager.inputNumber("コマンドを選んでください", 1, MAXHAVESKILL);
+        skillNumber = gameManager.inputNumber("コマンドを選んでください", 1, MAX_HAVE_SKILL);
 
         //スキル発動
         std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
         // スキル残り使用回数確認
         if(!haveSkill[skillNumber]->isCanUse())
         {
-            string message = skillSetting->getName() + "は残り使用回数がない！";
+            std::string message = skillSetting->getName() + "は残り使用回数がない！";
             gameManager.printMessage(message);
         }else{
             // 残り使用回数減少
@@ -108,19 +108,19 @@ void Player::printHaveSkill() const
     int skillListSize = haveSkill.size();
     for(int i = 0; i < skillListSize; i++){
         std::shared_ptr<const SkillSetting> skillSetting = haveSkill[i]->getSkillSetting();
-        const string& skillName = skillSetting->getName();
+        const std::string& skillName = skillSetting->getName();
         int skillCanUseNumber = haveSkill[i]->getCanUseNumber();
 
         // 残り使用回数を表示
-        string canUseNumber;
+        std::string canUseNumber;
         if(skillCanUseNumber == -1){
             canUseNumber = "";
         }else{
-            canUseNumber = "(" + to_string(skillCanUseNumber) + ")";
+            canUseNumber = "(" + std::to_string(skillCanUseNumber) + ")";
         }
-        cout << i + 1 << " :" << skillName << canUseNumber << "  ";
+        std::cout << i + 1 << " :" << skillName << canUseNumber << "  ";
     }
-    cout << endl;
+    std::cout << std::endl;
 }
 
 

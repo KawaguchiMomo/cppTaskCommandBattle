@@ -8,10 +8,10 @@
 #include "gameManager.h"
 
 // csv読み込み
-void EnemyList::loadCSV(const string& filename)
+void EnemyList::loadCSV(const std::string& filename)
 {
 
-    CsvLoader &csvLoader = CsvLoader::get_instance();
+    CsvLoader csvLoader("./");
 
     // csv読み込み
     auto loadData = csvLoader.loadCSV(filename);
@@ -67,10 +67,10 @@ std::shared_ptr<Enemy> EnemyList::inputUseEnemy()
     int enemyListSize = (int)enemyList.size();
     for(int i = 0 ; i < enemyListSize ; i++)
     {
-        std::cout << i + 1 << ": " << enemyList[i]->getName() << " " << endl;;
-        // if(i % 4 == 0) { std::cout << endl; }
+        std::cout << i + 1 << ": " << enemyList[i]->getName() << " " << std::endl;;
+        // if(i % 4 == 0) { std::cout << std::endl; }
     }
-    std::cout << endl; 
+    std::cout << std::endl; 
 
     int enemyNumber = gameManager.inputNumber("エネミーを選んでください", 1, enemyListSize);
     gameManager.printLine();

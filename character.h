@@ -9,7 +9,7 @@
 #include <vector>
 #include <memory>
 
-using namespace std;
+
 
 class Skill;
 class SkillList;
@@ -21,9 +21,9 @@ class Character
         // デストラクタ
         virtual ~Character() = default;
         // 名前取得
-        const string& getName() const;
+        const std::string& getName() const;
         // 見た目取得
-        const string& getImage() const;
+        const std::string& getImage() const;
         // HP取得
         int getMaxHp() const;
         // HP取得
@@ -37,7 +37,7 @@ class Character
         // スコア取得
         int getScore() const;
         // セリフ取得
-        const string& getTalk() const;
+        const std::string& getTalk() const;
         // 持っているスキル番号を取得
         int getSkillNumber(int skillNumber) const;
         // スキルを決定する
@@ -74,17 +74,17 @@ class Character
         void revisionStatus(std::shared_ptr<const SkillSetting> skillSetting);
         // 死亡
         virtual void onDead() = 0;
-        string name;
-        string image;
+        std::string name;
+        std::string image;
         int hp;
         int maxHp;
         double power;
         double defense;
         int luck;
-        vector<int> haveSkillIDList;
+        std::vector<int> haveSkillIDList;
         std::vector< std::unique_ptr<Skill> > haveSkill;
         int score;
-        string talk;
+        std::string talk;
         bool isDead;
 
 

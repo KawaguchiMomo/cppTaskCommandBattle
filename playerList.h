@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include <vector>
-using namespace std;
+
 class Player;
 
 class PlayerList
@@ -17,8 +17,12 @@ class PlayerList
         PlayerList() = default;
         // デストラクタ
         virtual ~PlayerList() = default;
+        // コピーコンストラクタ
+        PlayerList(const PlayerList&) = delete;
+        // 代入演算子
+        PlayerList& operator=(const PlayerList&) = delete;
         // csv読み込み
-        void loadCSV(const string& filename);
+        void loadCSV(const std::string& filename);
         // リストを取得
         const std::vector< std::shared_ptr<Player> >& getPlayerList() const;
         // リストからキャラ取得

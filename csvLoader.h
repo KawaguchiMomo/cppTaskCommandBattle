@@ -3,27 +3,27 @@
 #include <fstream>
 #include <vector>
 #include <string>
-using namespace std;
+
 
 class CsvLoader
 {
-    static const std::string csvFolderPath;
     private:
+        const std::string basePath;
+        // UTF-8 with BOMをUTF-8に変換
+        void skip_utf8_bom(std::ifstream& fs);
+    public:
         // コンストラクタ
-        CsvLoader();
+        CsvLoader(const std::string basePath);
         // デストラクタ
         virtual ~CsvLoader() = default;
-        CsvLoader(const CsvLoader&);
-        CsvLoader& operator = (const CsvLoader&);
-        // UTF-8 with BOMをUTF-8に変換
-        static void skip_utf8_bom(ifstream& fs);
-    public:
-        // 呼び出し
-        static CsvLoader& get_instance();
+        // コピーコンストラクタ
+        CsvLoader(const CsvLoader&) = delete;
+        // 代入演算子
+        CsvLoader& operator=(const CsvLoader&) = delete;
         // csv読み込み
-        static vector<vector<string> > loadCSV(const string& name);
+        std::vector<std::vector<std::string> > loadCSV(const std::string& name);
         // csvラベルの取得
-        int getLabelIndex(const vector<string>& label, const string& labelName);
+        int getLabelIndex(const std::vector<std::string>& label, const std::string& labelName);
 };
 
 #endif

@@ -12,12 +12,12 @@ Character::Character(std::string name, std::string image, int hp, int maxHp, dou
                     :name(name),image(image),hp(hp),maxHp(maxHp),power(power),defense(defense),luck(luck),score(score),talk(talk),isDead(isDead) {}
 
 // 名前取得
-const string& Character::getName() const
+const std::string& Character::getName() const
 {
     return name;
 }
 // 見た目取得
-const string& Character::getImage() const
+const std::string& Character::getImage() const
 {
     return image;
 }
@@ -47,7 +47,7 @@ int Character::getLuck() const
     return luck;
 }
 // セリフ取得
-const string& Character::getTalk() const
+const std::string& Character::getTalk() const
 {
     return talk;
 }
@@ -120,14 +120,14 @@ void Character::UsedCanUseNumber(int skillNumber)
 // スキルを決定する
 int Character::useSkill()
 {
-    GameManager &gameManager = GameManager::get_instance();
+    GameManager gameManager = GameManager::get_instance();
     
     // 入力
     int skillNumber = inputSkill();
 
     std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
 
-    string message = name + "の" + skillSetting->getName() + "！";
+    std::string message = name + "の" + skillSetting->getName() + "！";
     gameManager.printMessage(message);
 
     return skillNumber;
@@ -161,7 +161,7 @@ void Character::receivedDamage(double receivedPower)
     double damage = (receivedPower - defense) < 0 ? 0 : (receivedPower - defense);
     hp-=damage;
 
-    string message = name + "に" + to_string((int)damage) + "のダメージ！";
+    std::string message = name + "に" + std::to_string((int)damage) + "のダメージ！";
     gameManager.printMessage(message);
 
     judgeDead();
@@ -185,9 +185,9 @@ double Character::getHPPer() const
 // データを表示
 void Character::printData() const
 {
-    cout << "名前: " << name << endl;
-    cout << "HP: " << hp << endl;
-    cout << "攻撃力: " << power << endl;
-    cout << "防御力: " << defense << endl;
-    cout << "運: " << luck << endl;
+    std::cout << "名前: " << name << std::endl;
+    std::cout << "HP: " << hp << std::endl;
+    std::cout << "攻撃力: " << power << std::endl;
+    std::cout << "防御力: " << defense << std::endl;
+    std::cout << "運: " << luck << std::endl;
 }

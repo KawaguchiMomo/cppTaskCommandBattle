@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 
-using namespace std;
+
 class SkillSetting;
 class SkillList
 {
@@ -19,10 +19,14 @@ class SkillList
         SkillList() = default;
         // デストラクタ
         virtual ~SkillList() = default;
+        // コピーコンストラクタ
+        SkillList(const SkillList&) = delete;
+        // 代入演算子
+        SkillList& operator=(const SkillList&) = delete;
         // リストを取得
         const std::vector< std::shared_ptr<SkillSetting> >& getSkillList() const;
         // csv読み込み
-        void loadCSV(const string& filename);
+        void loadCSV(const std::string& filename);
         // リストからスキルを取得
         std::shared_ptr<const SkillSetting> getListSkill(int i) const;
         // スキルリストのIDとエネミーデータのスキルIDが一致するか走査

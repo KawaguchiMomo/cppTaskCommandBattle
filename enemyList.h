@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include <vector>
-using namespace std;
+
 class Enemy;
 
 class EnemyList
@@ -17,8 +17,12 @@ class EnemyList
         EnemyList() = default;
         // デストラクタ
         virtual ~EnemyList() = default;
+        // コピーコンストラクタ
+        EnemyList(const EnemyList&) = delete;
+        // 代入演算子
+        EnemyList& operator=(const EnemyList&) = delete;
         // csv読み込み
-        void loadCSV(const string& filename);
+        void loadCSV(const std::string& filename);
         // リストにキャラをセット
         void setEnemy(std::shared_ptr<Enemy>);
         // リストからキャラ取得
