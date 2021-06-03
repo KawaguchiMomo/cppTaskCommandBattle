@@ -1,13 +1,13 @@
-#include "csvLoader.h"
+#include "csv_loader.h"
 #include "character.h"
 #include "player.h"
-#include "playerList.h"
+#include "player_list.h"
 #include "enemy.h"
-#include "enemyList.h"
-#include "gameManager.h"
-#include "skillList.h"
+#include "enemy_list.h"
+#include "game_manager.h"
+#include "skill_list.h"
 #include "skill.h"
-#include "battleField.h"
+#include "battle_field.h"
 #include <iostream>
 #include <iomanip>
 #include <stdlib.h>
@@ -30,9 +30,9 @@ int main(){
     gameManager.setRand();
 
     // データの読み込み
-    playerList.loadCSV("../playerData.csv");
-    enemyList.loadCSV("../enemyData.csv");
-    skillList.loadCSV("../skillData.csv");
+    playerList.loadCSV("../player_data.csv");
+    enemyList.loadCSV("../enemy_data.csv");
+    skillList.loadCSV("../skill_data.csv");
 
     // 使用キャラクターの選択
     std::shared_ptr<Player> player = playerList.inputUsePlayer();

@@ -1,11 +1,11 @@
-#include "playerList.h"
+#include "player_list.h"
 #include "player.h"
 #include <vector>
 #include <string>
 #include <memory>
 #include <iostream>
-#include "csvLoader.h"
-#include "gameManager.h"
+#include "csv_loader.h"
+#include "game_manager.h"
 #include "character.h"
 
 // csv読み込み

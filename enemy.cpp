@@ -1,6 +1,6 @@
 #include "enemy.h"
-#include "gameManager.h"
-#include "skillList.h"
+#include "game_manager.h"
+#include "skill_list.h"
 #include <memory>
 #include <iostream>
 

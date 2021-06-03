@@ -1,7 +1,7 @@
 #include "character.h"
-#include "gameManager.h"
+#include "game_manager.h"
 #include "skill.h"
-#include "skillSetting.h"
+#include "skill_setting.h"
 #include <vector>
 #include <memory>
 #include <string>

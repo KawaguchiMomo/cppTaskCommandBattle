@@ -1,8 +1,8 @@
 // SkillListはSkillSettingを格納している。
 
-#include "skillList.h"
-#include "skillSetting.h"
-#include "csvLoader.h"
+#include "skill_list.h"
+#include "skill_setting.h"
+#include "csv_loader.h"
 #include <vector>
 #include <iostream>
 #include <string>

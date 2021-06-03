@@ -1,11 +1,11 @@
-#include "enemyList.h"
+#include "enemy_list.h"
 #include "enemy.h"
 #include <vector>
 #include <string>
 #include <memory>
 #include <iostream>
-#include "csvLoader.h"
-#include "gameManager.h"
+#include "csv_loader.h"
+#include "game_manager.h"
 
 // csv読み込み
 void EnemyList::loadCSV(const std::string& filename)

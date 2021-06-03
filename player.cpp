@@ -1,6 +1,6 @@
 #include "player.h"
-#include "gameManager.h"
-#include "skillList.h"
+#include "game_manager.h"
+#include "skill_list.h"
 #include <limits>
 #include <memory>
 #include <iostream>

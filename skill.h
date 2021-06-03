@@ -1,6 +1,6 @@
 #ifndef _SKILL_H
 #define _SKILL_H
-#include "skillSetting.h"
+#include "skill_setting.h"
 #include <string>
 #include <memory>
 

@@ -1,7 +1,7 @@
-#include "battleField.h"
-#include "gameManager.h"
+#include "battle_field.h"
+#include "game_manager.h"
 #include "skill.h"
-#include "skillList.h"
+#include "skill_list.h"
 #include <memory>
 
 // コンストラクタ

@@ -1,4 +1,4 @@
-#include "skillSetting.h"
+#include "skill_setting.h"
 
 enum class Type;
 
