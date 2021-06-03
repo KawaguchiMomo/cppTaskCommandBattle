@@ -93,7 +93,7 @@ int Player::inputSkill()
             gameManager.printMessage(message);
         }else{
             // 残り使用回数減少
-            UsedCanUseNumber(skillNumber);
+            usedCanUseNumber(skillNumber);
             break;
         }
     }

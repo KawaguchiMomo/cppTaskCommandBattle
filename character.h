@@ -67,7 +67,7 @@ class Character
         // スキルをセット
         void setSkill(std::unique_ptr<Skill> skill);
         // スキル回数を減少
-        void UsedCanUseNumber(int skillNumber);
+        void usedCanUseNumber(int skillNumber);
         // スキルを選択
         virtual int inputSkill() = 0;
         // スキル補正

@@ -5,7 +5,8 @@ enum class Type;
 
 
 // コンストラクタ
-Skill::Skill(std::shared_ptr<const SkillSetting> skillSetting):skillSetting(skillSetting),canUseNumber(skillSetting->getCanUseNumber()) {    
+Skill::Skill(std::shared_ptr<const SkillSetting> skillSetting)
+            :skillSetting(skillSetting),canUseNumber(skillSetting->getCanUseNumber()) {    
 }
 
 
@@ -32,7 +33,7 @@ bool Skill::isCanUse() const
 }
 
 // 残り使用回数減少
-void Skill::UsedCanUseNumber()
+void Skill::usedCanUseNumber()
 {
     canUseNumber-=1;
 }

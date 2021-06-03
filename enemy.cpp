@@ -51,7 +51,7 @@ int Enemy::inputSkill()
     for(int i = 0; i <= countLimit; i++)
     {
         // 乱数を生成する 
-        skillNumber = gameManager.GetRand(0,3);
+        skillNumber = gameManager.getRand(0,3);
 
         // 発動条件を満たしていない場合再抽選
         if(!haveSkill[skillNumber]->isCanUse()){

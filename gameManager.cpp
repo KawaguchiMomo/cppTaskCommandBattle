@@ -26,11 +26,11 @@ GameManager& GameManager::get_instance()
 }
 
 // 乱数のシード設定
-void GameManager::SetRand()
+void GameManager::setRand()
 {
 }
 // 乱数の作成
-int GameManager::GetRand(int min, int max)
+int GameManager::getRand(int min, int max)
 {
     std::random_device seed_gen;
     std::default_random_engine engine(seed_gen());
@@ -69,7 +69,7 @@ void GameManager::printMessage(const std::string& message) const
 }
 
 // 画面表示のためにデータを登録
-void GameManager::SetCharacterData(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy)
+void GameManager::setCharacterData(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy)
 {
     usePlayer = player;
     useEnemy = enemy;

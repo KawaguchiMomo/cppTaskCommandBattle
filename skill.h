@@ -27,7 +27,7 @@ class Skill
         // スキルが使えるかどうか
         bool isCanUse() const;
         // 残り使用回数減少
-        void UsedCanUseNumber();
+        void usedCanUseNumber();
 };
 
 #endif

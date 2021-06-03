@@ -27,7 +27,7 @@ int main(){
     Battle battleField;
 
     // 乱数のシード設定
-    gameManager.SetRand();
+    gameManager.setRand();
 
     // データの読み込み
     playerList.loadCSV("../playerData.csv");
@@ -43,7 +43,7 @@ int main(){
     enemy->settingEnemy(skillList);
 
     // 戦うキャラクターのデータを表示系にセット
-    gameManager.SetCharacterData(player, enemy);
+    gameManager.setCharacterData(player, enemy);
     // 最初の設定確認
     gameManager.initiativeSetting(player, enemy);
     

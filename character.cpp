@@ -109,11 +109,11 @@ int Character::inputSkill(){
     return 1;
 }
 // スキル回数を減少
-void Character::UsedCanUseNumber(int skillNumber)
+void Character::usedCanUseNumber(int skillNumber)
 {
     if(haveSkill[skillNumber]->getCanUseNumber() >= 1){
         // 残り使用回数減少
-        haveSkill[skillNumber]->UsedCanUseNumber();
+        haveSkill[skillNumber]->usedCanUseNumber();
     }
 }
 
@@ -140,10 +140,10 @@ double Character::attack(int skillNumber)
     
     std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
 
-    double random = (double)gameManager.GetRand(50, 150) / 100;
+    double random = (double)gameManager.getRand(50, 150) / 100;
     double attackPower = power * skillSetting->getAttackRate() * random;
     // クリティカル判定
-    int critLine = gameManager.GetRand(0, 100);
+    int critLine = gameManager.getRand(0, 100);
     if(luck >= critLine)
     {
         gameManager.printMessage("クリティカルヒット！");

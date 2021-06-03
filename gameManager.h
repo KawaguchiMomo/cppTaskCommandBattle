@@ -34,15 +34,15 @@ class GameManager
         // 呼び出し
         static GameManager& get_instance();
         // 乱数のシード設定
-        void SetRand();
+        void setRand();
         // 乱数の作成
-        int GetRand(int min, int max);
+        int getRand(int min, int max);
         // 入力とチェック
         int inputNumber(const std::string& message,int min, int max);
         // コマンドを選択
         int inputSkill();
         // 画面表示のためにデータを登録
-        void SetCharacterData(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy);
+        void setCharacterData(std::shared_ptr<Player> player, std::shared_ptr<Enemy> enemy);
         // 文章表示
         void printMessage(const std::string& message) const;
         // 戦闘画面表示
