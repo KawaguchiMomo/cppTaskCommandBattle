@@ -13,7 +13,7 @@ class CsvLoader
         void skip_utf8_bom(std::ifstream& fs);
     public:
         // コンストラクタ
-        CsvLoader(const std::string basePath);
+        CsvLoader(const std::string& basePath);
         // デストラクタ
         virtual ~CsvLoader() = default;
         // コピーコンストラクタ

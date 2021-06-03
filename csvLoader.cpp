@@ -9,7 +9,7 @@
 #include <algorithm>
 
 // コンストラクタ
-CsvLoader::CsvLoader(const std::string basePath = "./") :basePath(basePath) {}
+CsvLoader::CsvLoader(const std::string& basePath = "./") :basePath(basePath) {}
 
 // csv読み込み
 std::vector<std::vector<std::string> > CsvLoader::loadCSV(const std::string& name)

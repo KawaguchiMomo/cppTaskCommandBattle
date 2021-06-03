@@ -120,7 +120,7 @@ void Character::UsedCanUseNumber(int skillNumber)
 // スキルを決定する
 int Character::useSkill()
 {
-    GameManager gameManager = GameManager::get_instance();
+    GameManager &gameManager = GameManager::get_instance();
     
     // 入力
     int skillNumber = inputSkill();
