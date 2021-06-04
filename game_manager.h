@@ -4,7 +4,7 @@
 #include "player.h"
 #include "enemy.h"
 #include <string>
-
+#include <random>
 
 class Character;
 class Player;
@@ -18,6 +18,9 @@ class GameManager
         std::string victoryMessage;
         std::shared_ptr<Player> usePlayer;
         std::shared_ptr<Enemy> useEnemy;
+
+        std::default_random_engine randomEngine;
+
         // スコア表示
         void printScore() const;
         // セリフ表示

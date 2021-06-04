@@ -37,6 +37,7 @@ int main(){
 
     // 乱数のシード設定
     GameManager &gameManager = GameManager::get_instance();
+    gameManager.setRand();
     // 戦うキャラクターのデータを表示系にセット
     gameManager.setCharacterData(player, enemy);
     // 最初の設定確認

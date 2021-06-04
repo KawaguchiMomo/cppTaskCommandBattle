@@ -28,14 +28,15 @@ GameManager& GameManager::get_instance()
 // 乱数のシード設定
 void GameManager::setRand()
 {
+    std::random_device seed_gen;
+    std::default_random_engine engine(seed_gen());
+    randomEngine = engine;
 }
 // 乱数の作成
 int GameManager::getRand(int min, int max)
 {
-    std::random_device seed_gen;
-    std::default_random_engine engine(seed_gen());
     std::uniform_int_distribution<> dist(min, max);
-    return dist(engine);
+    return dist(randomEngine);
 }
 
 // 入力とチェック
