@@ -40,10 +40,12 @@ class Character
         const std::string& getTalk() const;
         // 持っているスキル番号を取得
         int getSkillNumber(int skillNumber) const;
+        // 戦闘処理
+        void attack(std::shared_ptr<Character> defenseChara);
         // スキルを決定する
         int useSkill();
         // 決定したスキルを使って攻撃する
-        double attack(int skillNumber);
+        double attack(int skillNumber, std::shared_ptr<Character> defenseChara);
         // ダメージを受ける
         virtual void receivedDamage(double receivedPower);
         // 現在HP/最大HPの割合を算出

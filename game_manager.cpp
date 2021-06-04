@@ -7,7 +7,6 @@
 #include "game_manager.h"
 #include "skill_list.h"
 #include "skill.h"
-#include "battle_field.h"
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>

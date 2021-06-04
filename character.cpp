@@ -137,22 +137,27 @@ int Character::useSkill()
 }
 
 // 決定したスキルを使って攻撃する
-double Character::attack(int skillNumber)
+void Character::attack(std::shared_ptr<Character> defenseChara)
 {
-    
-    std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
+    int skillNumber = useSkill();
 
     GameManager &gameManager = GameManager::get_instance();
-    double random = (double)gameManager.getRand(50, 150) / 100;
-    double attackPower = power * skillSetting->getAttackRate() * random;
-    // クリティカル判定
-    int critLine = gameManager.getRand(0, 100);
-    if(luck >= critLine)
+
+    // 使用スキル取得
+    std::shared_ptr<const SkillSetting> skillSetting = haveSkill[skillNumber]->getSkillSetting();
+    for(int i = 0; i < skillSetting->getBiAttack(); i++)
     {
-        gameManager.printMessage("クリティカルヒット！");
-        attackPower *= 2;
+        double random = (double)gameManager.getRand(50, 150) / 100;
+        double attackPower = power * skillSetting->getAttackRate() * random;
+        // クリティカル判定
+        int critLine = gameManager.getRand(0, 100);
+        if(luck >= critLine)
+        {
+            gameManager.printMessage("クリティカルヒット！");
+            attackPower *= 2;
+        }
+        defenseChara->receivedDamage(attackPower);
     }
-    return attackPower;
 }
 
 

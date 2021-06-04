@@ -7,7 +7,6 @@
 #include "game_manager.h"
 #include "skill_list.h"
 #include "skill.h"
-#include "battle_field.h"
 #include <iostream>
 #include <iomanip>
 #include <stdlib.h>
@@ -43,7 +42,6 @@ int main(){
     // 最初の設定確認
     gameManager.initiativeSetting(player, enemy);
     
-    Battle battleField;
     while(1)
     {
         // 戦闘画面の表示
@@ -52,9 +50,8 @@ int main(){
         player->printHaveSkill();
 
         // 戦闘処理
-        battleField.startBattle(player,enemy);
-        battleField.startBattle(enemy,player);
-        
+        player->attack(enemy);
+        enemy->attack(player);
     }
 
 }
